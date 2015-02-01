@@ -1,0 +1,2 @@
+/home/nilxwam/workspace/gwam-simulator/CMakeFiles/constants.dir
+/home/nilxwam/workspace/gwam-simulator/CMakeFiles/samlibs.dir
