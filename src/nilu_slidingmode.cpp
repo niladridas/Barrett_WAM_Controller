@@ -32,46 +32,49 @@ class J_ref: public System {
 
 	// IO
 public:
-	Input<const double> timef;
-public:
+	Input<double> timef;
 	Output<jp_type> referencejpTrack;
-public:
 	Output<jv_type> referencejvTrack;
-public:
 	Output<ja_type> referencejaTrack;
+
+protected:
+	typename System::Output<jp_type>::Value* referencejpOpValue;
+	typename System::Output<jv_type>::Value* referencejvOpValue;
+	typename System::Output<ja_type>::Value* referencejaOpValue;
 
 public:
 	J_ref(double amplitude, double omega, double offset,
 			const std::string& sysName = "J_ref") :
-			System(sysName), amp(amplitude), omega(omega), offset(offset) {
+			 amp(amplitude), omg(omega), off(offset), System(sysName),timef(
+					this), referencejpTrack(this, &referencejpOpValue), referencejvTrack(
+					this, &referencejvOpValue), referencejaTrack(this,
+					&referencejaOpValue) {
 	}
-	virtual ~J2control() {
+	virtual ~J_ref() {
 		this->mandatoryCleanUp();
 	}
 
 protected:
+	double amp, omg, off;
+	double theta, phi;
 	jp_type jp;
 	jv_type jv;
 	ja_type ja;
-
-	double amp, omega, offset;
-	double theta, phi;
-
 	virtual void operate() {
 		jp(0.0);
 		jv(0.0);
 		ja(0.0);
 
-		theta = omega * timef.getValue();
-		phi = std::asin(3.14 * offset / 180);
+		theta = omg * timef.getValue();
+		phi = std::asin(3.14 * off / 180);
 
 		jp[1] = amp * std::sin(theta + phi);
-		jv[1] = amp * omega * std::sin(theta + phi);
-		ja[1] = amp * omega * omega * std::sin(theta + phi);
+		jv[1] = amp * omg * std::sin(theta + phi);
+		ja[1] = amp * omg * omg * std::sin(theta + phi);
 
-		referencejpTrack->setData(&jp);
-		referencejvTrack->setData(&jv);
-		referencejaTrack->setData(&ja);
+		referencejpOpValue->setData(&jp);
+		referencejvOpValue->setData(&jv);
+		referencejaOpValue->setData(&ja);
 	}
 
 private:
@@ -86,17 +89,14 @@ int wam_main(int argc, char** argv, ProductManager& pm,
 	wam.gravityCompensate();
 
 	const double TRANSITION_DURATION = 0.5; // seconds
-	const double JT_AMPLITUDE, OMEGA, OFFSET;
-	double amplitude, omega, offset;
-	const Eigen::Matrix4d lamda;
-	const double coeff;
-	const double delta;
-	const double gravity;
 
-	lamda << 20, 0, 0, 0, 0, 20, 0, 0, 0, 0, 20, 0, 0, 0, 0, 20;
-	coeff = 0.1;
-	delta = 0.01;
-	gravity = 0;
+	double amplitude1, omega1, offset1;
+	Eigen::Matrix4d tmp_lamda;
+	tmp_lamda << 20, 0, 0, 0, 0, 20, 0, 0, 0, 0, 20, 0, 0, 0, 0, 20;
+	const Eigen::Matrix4d lamda = tmp_lamda;
+	const double coeff = 0.1;
+	const double delta = 0.01;
+	const double gravity = 0;
 
 	jp_type startpos(0.0);
 	startpos[3] = +3.14;
@@ -104,50 +104,51 @@ int wam_main(int argc, char** argv, ProductManager& pm,
 	std::cout
 			<< "Enter the amplitude of the sinusoid for the joint position of J2: "
 			<< std::endl;
-	std::cin >> amplitude;
+	std::cin >> amplitude1;
 
 	std::cout
 			<< "Enter the omega of the sinusoid for the joint position of J2: "
 			<< std::endl;
-	std::cin >> omega;
+	std::cin >> omega1;
 
 	std::cout
 			<< "Enter the offset of the sinusoid for the joint position of J2 in degrees: "
 			<< std::endl;
-	std::cin >> offset;
+	std::cin >> offset1;
 
-	JT_AMPLITUDE = amplitude;
-	OMEGA = omega;
-	OFFSET = offset;
+	const double JT_AMPLITUDE = amplitude1;
+	const double OMEGA = omega1;
+	const double OFFSET = offset1;
 
 	printf("Press [Enter] to turn on torque control to go to zero position");
 	wam.moveTo(startpos);
 
+	std::string Key1;
 	printf("Press [Enter] to turn on torque control to joint 2.");
-	waitForEnter();
+	std::cin >> Key1;
+//	waitForEnter();
 
 	systems::Ramp time(pm.getExecutionManager(), 1.0);
 
-	const size_t PERIOD_MULTIPLIER = 1;
+//	const size_t PERIOD_MULTIPLIER = 1;
 
 	J_ref<DOF> joint_ref(JT_AMPLITUDE, OMEGA, OFFSET); /*Offset is in degrees*/
 	Slidingmode_Controller<DOF> slide(lamda, coeff, delta, gravity);
 
-	systems::connect(time.output, joint_ref.timef);
-	systems::connect(joint_ref.referencejpTrack,
-			slide.referencejpInput);
-	systems::connect(joint_ref.referencejvTrack,
-			slide.referencejvInput);
-	systems::connect(joint_ref.referencejaTrack,
-			slide.referencejaInput);
-	systems::connect(wam.jpOutput, slide.feedbackjpInput);
-	systems::connect(wam.jvOutput, slide.feedbackjvInput);
-
-	wam.trackReferenceSignal(slide.controlOutput);
+//	systems::connect(time.output, joint_ref.timef);
+//	systems::connect(joint_ref.referencejpTrack, slide.referencejpInput);
+//	systems::connect(joint_ref.referencejvTrack, slide.referencejvInput);
+//	systems::connect(joint_ref.referencejaTrack, slide.referencejaInput);
+//	systems::connect(wam.jpOutput, slide.feedbackjpInput);
+//	systems::connect(wam.jvOutput, slide.feedbackjvInput);
+//
+//	wam.trackReferenceSignal(slide.controlOutput);
 	time.smoothStart(TRANSITION_DURATION);
 
+	std::string Key2;
 	printf("Press [Enter] to stop.");
-	waitForEnter();
+//	waitForEnter();
+	std::cin >> Key2;
 
 	time.smoothStop(TRANSITION_DURATION);
 	wam.idle();

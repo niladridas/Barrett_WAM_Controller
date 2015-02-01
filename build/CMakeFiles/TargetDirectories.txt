@@ -1,0 +1,3 @@
+/home/nilxwam/workspace/gwam-simulator/build/CMakeFiles/constants.dir
+/home/nilxwam/workspace/gwam-simulator/build/CMakeFiles/nilu_slidingmode.dir
+/home/nilxwam/workspace/gwam-simulator/build/CMakeFiles/samlibs.dir

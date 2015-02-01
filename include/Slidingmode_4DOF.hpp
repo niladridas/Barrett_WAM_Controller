@@ -51,7 +51,7 @@ public:
 
 			controlOutput(this, &controlOutputValue) {
 	}
-	virtual ~Controller() {
+	virtual ~Slidingmode_Controller() {
 		mandatoryCleanUp();
 	}
 
@@ -87,10 +87,13 @@ protected:
 
 		S = tmp_ev + Lamda * tmp_ep;
 
-		C = Dynamics::makeCvec(tmp_p,
+		Dynamics::makeCvec(tmp_p,
 				tmp_v);
-		G = Gravity*Dynamics::makeGx(tmp_p);
-		M = Dynamics::makemassMat(tmp_p);
+		C = Dynamics::getCvec();
+		Dynamics::makeGx(tmp_p);
+		G = Gravity*Dynamics::getGx();
+		Dynamics::makemassMat(tmp_p);
+		M = Dynamics::getmassMat();
 
 
 		tmp_control[0] = S[0]/(fabs(S[0])+ Delta);
@@ -101,7 +104,7 @@ protected:
 		jt_out = C + G + M*(tmp_aref - Lamda*(tmp_v - tmp_pref) - K*tmp_control);
 
 
-		this->controlOutput->setData(&jt_out);
+		this->controlOutputValue->setData(&jt_out);
 	}
 
 private:

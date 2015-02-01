@@ -31,7 +31,7 @@ function(add_programs)
 endfunction()
 
 add_programs(
-
+nilu_slidingmode
 )
 
 #target_link_libraries(test_ex04 ${CURSES_LIBRARIES})
