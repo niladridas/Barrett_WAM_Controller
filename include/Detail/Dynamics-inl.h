@@ -14,7 +14,6 @@
 #include <C_4D.hpp>
 #include <G_4D.hpp>
 
-namespace Nilu {
 
 Dynamics::Dynamics() :
 		massMatrix(Eigen::Matrix4d()), Cvec(Eigen::Vector4d()), Gx(
@@ -57,5 +56,5 @@ void Dynamics::computeModel(const Eigen::Vector4d theta,
 	return;
 }
 
-} /* namespace Sam */
+ /* namespace Sam */
 

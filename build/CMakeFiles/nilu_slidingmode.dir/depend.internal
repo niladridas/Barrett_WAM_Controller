@@ -7,7 +7,6 @@ CMakeFiles/nilu_slidingmode.dir/src/nilu_slidingmode.cpp.o
  ../include/Dynamics.h
  ../include/G_4D.hpp
  ../include/M_4D.hpp
- ../include/Slidingmode_4DOF.hpp
  /home/nilxwam/workspace/gwam-simulator/src/nilu_slidingmode.cpp
  /usr/include/eigen2/Eigen/Array
  /usr/include/eigen2/Eigen/Core

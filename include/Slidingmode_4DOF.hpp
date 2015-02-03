@@ -19,7 +19,7 @@ namespace barrett {
 namespace systems {
 
 template<size_t DOF>
-class Slidingmode_Controller: public System , Nilu::Dynamics {
+class Slidingmode_Controller: public System , Dynamics {
 
 	BARRETT_UNITS_TEMPLATE_TYPEDEFS(DOF);
 
@@ -43,7 +43,7 @@ protected:
 	typename Output<jt_type>::Value* controlOutputValue;
 
 public:
-	explicit Slidingmode_Controller(const Eigen::Matrix4d lamda,
+	Slidingmode_Controller(const Eigen::Matrix4d lamda,
 			const double coeff, const double delta, const double gravity,const std::string& sysName =
 					"Slidingmode_Controller") :
 			System(sysName), referencejpInput(this), referencejvInput(this), referencejaInput(this), feedbackjpInput(
@@ -62,7 +62,7 @@ protected:
 	jv_type jv_sys, jv_ref, ev;
 	ja_type ja_ref;
 	Eigen::Matrix4d K, Lamda, M;
-	Eigen::Vector4d S, tmp_p, tmp_v, tmp_ev, tmp_ep, C, G, tmp_control, tmp_aref, tmp_pref;
+	Eigen::Vector4d S, tmp_p, tmp_v, tmp_ev, tmp_ep, C, G, tmp_control, tmp_aref, tmp_vref, tmp_pref;
 
 
 	virtual void operate() {
@@ -79,6 +79,7 @@ protected:
 		tmp_p << jp_sys[0], jp_sys[1], jp_sys[2], jp_sys[3];
 		tmp_v << jv_sys[0], jv_sys[1], jv_sys[2], jv_sys[3];
 		tmp_aref << ja_ref[0], ja_ref[1], ja_ref[2], ja_ref[3];
+		tmp_vref << jv_ref[0], jv_ref[1], jv_ref[2], jv_ref[3];
 		tmp_pref << jp_ref[0], jp_ref[1], jp_ref[2], jp_ref[3];
 		tmp_ev << ev[0], ev[1], ev[2], ev[3];
 		tmp_ep << ep[0], ep[1], ep[2], ep[3];

@@ -50,20 +50,6 @@ eigen2/Eigen/Core
 math.h
 -
 
-../include/Slidingmode_4DOF.hpp
-barrett/math/traits.h
--
-list
--
-barrett/units.h
--
-barrett/detail/ca_macro.h
--
-barrett/systems/abstract/system.h
--
-Dynamics.h
--
-
 /home/nilxwam/workspace/gwam-simulator/src/nilu_slidingmode.cpp
 iostream
 -
@@ -81,15 +67,19 @@ barrett/log.h
 -
 barrett/standard_main_function.h
 -
-Slidingmode_4DOF.hpp
--
 barrett/systems/summer.h
 -
 cmath
 -
 barrett/systems/abstract/system.h
 -
-Slidingmode_4DOF.hpp
+barrett/math/traits.h
+-
+list
+-
+barrett/detail/ca_macro.h
+-
+Dynamics.h
 -
 
 /usr/include/eigen2/Eigen/Array

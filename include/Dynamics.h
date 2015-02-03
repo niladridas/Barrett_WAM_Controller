@@ -7,7 +7,6 @@
 
 #include <math.h>
 
-namespace Nilu {
 
 class Dynamics {
 public:
@@ -36,7 +35,7 @@ public:
 		return Gx;
 	}
 
-protected:
+public:
 	Eigen::Matrix4d massMatrix;
 	Eigen::Vector4d Cvec;
 	Eigen::Vector4d Gx;
@@ -44,7 +43,6 @@ protected:
 
 
 };
-
-} /* namespace Sam */
+/* namespace Sam */
 #include<Detail/Dynamics-inl.h>
 #endif /* DYNAMICS_H_ */
