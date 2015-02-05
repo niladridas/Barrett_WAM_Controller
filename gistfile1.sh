@@ -2,6 +2,7 @@
 git add *
 echo ADDED
 git commit -m "$1"
-echo committed
+echo COMMITTED
 git push -u github master
 git push -u bitbucket master
+FINISHED
