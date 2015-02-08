@@ -14,8 +14,6 @@
 #include <barrett/detail/ca_macro.h>
 #include <barrett/systems/abstract/system.h>
 
-
-
 #include <eigen3/Eigen/Core>
 #include <libconfig.h++>
 
@@ -54,6 +52,7 @@ class Slidingmode_Controller: public System {
 	/*Output of this system is
 	 * Torque*/
 public:
+//	Input<bool> Status;
 	Input<jp_type> referencejpInput;
 	Input<jv_type> referencejvInput;
 	Input<ja_type> referencejaInput;
@@ -70,19 +69,25 @@ protected:
 	typename Output<jt_type>::Value* controlOutputValue;
 
 public:
-	Slidingmode_Controller(const Eigen::Matrix4d lamda, const double coeff,
+	Slidingmode_Controller(/*systems::ExecutionManager* em*/bool status,const Eigen::Matrix4d lamda, const double coeff,
 			const double delta, const std::string& sysName =
-					"Slidingmode_Controller") : System(sysName), referencejpInput(
-					this), referencejvInput(this), referencejaInput(this), feedbackjpInput(
-					this), feedbackjvInput(this), M(this), C(this),
+					"Slidingmode_Controller") :
+			System(sysName), referencejpInput(this), referencejvInput(this), referencejaInput(
+					this), feedbackjpInput(this), feedbackjvInput(this), M(
+					this), C(this),
 
-			controlOutput(this, &controlOutputValue) {
+			controlOutput(this, &controlOutputValue), STATUS(status),Lamda(lamda), Coeff(
+					coeff), Delta(delta) {
+//		if (em != NULL){
+//		      em->startManaging(*this);
+//		    }
 	}
 	virtual ~Slidingmode_Controller() {
-		mandatoryCleanUp();
+		this->mandatoryCleanUp();
 	}
 
 protected:
+	bool STATUS;
 	Eigen::Matrix4d Lamda;
 	double Coeff;
 	double Delta;
@@ -93,8 +98,8 @@ protected:
 	jv_type jv_sys, jv_ref, ev;
 	ja_type ja_ref;
 
-	Eigen::Vector4d S, tmp_p, tmp_v, tmp_ev, tmp_ep, tmp_control,
-			tmp_aref, tmp_pref, tmp_vref, jt_out_tmp;
+	Eigen::Vector4d S, tmp_p, tmp_v, tmp_ev, tmp_ep, tmp_control, tmp_aref,
+			tmp_pref, tmp_vref, jt_out_tmp;
 
 	virtual void operate() {
 		/*Taking reference values from the input terminal of this system*/
@@ -126,16 +131,22 @@ protected:
 		tmp_control[2] = S[2] / (fabs(S[2]) + Delta);
 		tmp_control[3] = S[3] / (fabs(S[3]) + Delta);
 
+		if(STATUS == true)
+		{
 		jt_out_tmp = C_inside
 				+ M_inside
 						* (tmp_aref - Lamda * (tmp_v - tmp_vref)
 								- Coeff * Lamda * tmp_control);
+		}
+		else
+			jt_out_tmp = Eigen::Vector4d::Zero();
+
 		jt_out[0] = jt_out_tmp[0];
 		jt_out[1] = jt_out_tmp[1];
 		jt_out[2] = jt_out_tmp[2];
 		jt_out[3] = jt_out_tmp[3];
 
-		this->controlOutputValue->setData(&jt_out);
+		controlOutputValue->setData(&jt_out);
 	}
 
 private:

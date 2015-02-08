@@ -46,15 +46,17 @@ protected:
 	typename Output<Eigen::Vector4d>::Value* CVectorOutputValue;
 
 public:
-	Dynamics() :
+	Dynamics(/*systems::ExecutionManager* em*/) :
 			jpInputDynamics(this), jvInputDynamics(this), MassMAtrixOutput(this,
 					&MassMAtrixOutputValue), CVectorOutput(this,
 					&CVectorOutputValue) {
-
+//		if (em != NULL){
+//		      em->startManaging(*this);
+//		    }
 	}
 
 	virtual ~Dynamics() {
-		mandatoryCleanUp();
+		this->mandatoryCleanUp();
 	}
 
 protected:
@@ -73,6 +75,7 @@ protected:
 		tmp_theta_vel = this->jvInputDynamics.getValue();
 		ThetadotInput << tmp_theta_vel[0], tmp_theta_vel[1], tmp_theta_vel[2], tmp_theta_vel[3];
 		Cvec = C_4D(ThetaInput, ThetadotInput);
+//		Cvec = Eigen::Vector4d::Zero(4);
 
 		this->MassMAtrixOutputValue->setData(&massMatrix);
 		this->CVectorOutputValue->setData(&Cvec);

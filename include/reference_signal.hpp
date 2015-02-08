@@ -8,7 +8,6 @@
 #ifndef REFERENCE_SIGNAL_HPP_
 #define REFERENCE_SIGNAL_HPP_
 
-
 #include <iostream>
 #include <string>
 #include <barrett/units.h>
@@ -57,11 +56,14 @@ protected:
 	typename System::Output<ja_type>::Value* referencejaOpValue;
 
 public:
-	J_ref(double amplitude, double omega, const std::string& sysName = "J_ref") :
+	J_ref(/*systems::ExecutionManager* em,*/double amplitude, double omega, const std::string& sysName = "J_ref") :
 			System(sysName), timef(this), referencejpTrack(this,
 					&referencejpOpValue), referencejvTrack(this,
 					&referencejvOpValue), referencejaTrack(this,
 					&referencejaOpValue), amplitude(amplitude), omega(omega) {
+//		if (em != NULL){
+//		      em->startManaging(*this);
+//		    }
 	}
 	virtual ~J_ref() {
 		this->mandatoryCleanUp();
@@ -86,9 +88,9 @@ protected:
 		jv[1] = amplitude * omega * std::sin(theta);
 		ja[1] = amplitude * omega * omega * std::sin(theta);
 
-		referencejpOpValue->setData(&jp);
-		referencejvOpValue->setData(&jv);
-		referencejaOpValue->setData(&ja);
+		this->referencejpOpValue->setData(&jp);
+		this->referencejvOpValue->setData(&jv);
+		this->referencejaOpValue->setData(&ja);
 	}
 
 private:
