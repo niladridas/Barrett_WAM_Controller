@@ -21,28 +21,35 @@
 using namespace barrett;
 
 template<size_t DOF>
-class Dummy: public systems::SingleIO<typename units::JointTorques<DOF>::type,
-		typename units::JointTorques<DOF>::type> {
+class Dummy: public System {
 	BARRETT_UNITS_TEMPLATE_TYPEDEFS(DOF);
 
 public:
-	Dummy(systems::ExecutionManager* em,const std::string& sysName = "Dummy") :
-			systems::SingleIO<jt_type, jt_type>(sysName){
-		if (em != NULL){
-				      em->startManaging(*this);
-				    }
+	Input<jt_type> ControllerInput;
+	Input<jt_type> CompensatorInput;
+public:
+	Output<jt_type> Total_torque;
+
+protected:
+	typename Output<jt_type>::Value* Total_torqueOutputValue;
+
+public:
+	Dummy(const std::string& sysName = "Dummy") :
+			System(sysName), ControllerInput(this), CompensatorInput(this),Total_torque(this, &Total_torqueOutputValue) {
+
 	}
 	virtual ~Dummy() {
 		this->mandatoryCleanUp();
 	}
 
 protected:
-	jt_type ipT;
+	jt_type ipT1, ipT2 ,TipT;
 
 	virtual void operate() {
-		ipT = this->input.getValue();
-
-		this->outputValue->setData(&ipT);
+		ipT1 = this->ControllerInput.getValue();
+		ipT2 = this->CompensatorInput.getValue();
+		TipT = ipT1 + ipT2;
+		this->Total_torqueOutputValue->setData(&TipT);
 	}
 
 private:
