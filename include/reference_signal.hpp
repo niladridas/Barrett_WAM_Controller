@@ -85,8 +85,9 @@ protected:
 		theta = omega * this->timef.getValue();
 
 		jp[1] = amplitude * std::sin(theta);
-		jv[1] = amplitude * omega * std::sin(theta);
-		ja[1] = amplitude * omega * omega * std::sin(theta);
+		jp[3] = +3.14;
+		jv[1] = amplitude * omega * std::cos(theta);
+		ja[1] = -amplitude * omega * omega * std::sin(theta);
 
 		this->referencejpOpValue->setData(&jp);
 		this->referencejvOpValue->setData(&jv);

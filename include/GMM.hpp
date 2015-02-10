@@ -8,6 +8,8 @@
 #ifndef GMM_H_
 #define GMM_H_
 
+//#define pi 3.14
+
 #include <barrett/math/traits.h>
 #include <list>
 #include <barrett/units.h>
@@ -37,7 +39,11 @@ class GMM: public System {
 
 	BARRETT_UNITS_TEMPLATE_TYPEDEFS(DOF);
 
+//public:
+//	double pi = boost::math::constants::pi<double>();
+
 public:
+	typedef Eigen::Matrix<double, 7, 1> Vector7d;
 	Input<jp_type> jpInputActual;
 	Input<jv_type> jvInputActual;
 public:
@@ -49,11 +55,16 @@ protected:
 public:
 	GMM(Eigen::VectorXd priors, Eigen::MatrixXd mean, Eigen::MatrixXd sigma,
 			size_t num_inp, size_t num_op, size_t num_priors,
+			Eigen::MatrixXd sigma_input, Eigen::MatrixXd input_mean_matrix,
+			Eigen::MatrixXd A_matrix, Eigen::MatrixXd B_matrix,
+			Vector7d det_tmp_tmp, Eigen::MatrixXd tmp_inv,
 			const std::string& sysName = "GMM") :
 			System(sysName), jpInputActual(this), jvInputActual(this), error_output(
 					this, &error_outputValue), priors(priors), mean(mean), sigma(
 					sigma), num_inp(num_inp), num_op(num_op), num_priors(
-					num_priors) {
+					num_priors), sigma_input(sigma_input), input_mean_matrix(
+					input_mean_matrix), A_matrix(A_matrix), B_matrix(B_matrix), det_tmp_tmp(
+					det_tmp_tmp), tmp_inv(tmp_inv) {
 
 	}
 	virtual ~GMM() {
@@ -73,130 +84,112 @@ public:
 
 private:
 	size_t num_inp, num_op, num_priors;
-	double pi;
+	Eigen::MatrixXd sigma_input;
+	Eigen::MatrixXd input_mean_matrix;
+	Eigen::MatrixXd A_matrix;
+	Eigen::MatrixXd B_matrix;
+//	Vector7d det_tmp_tmp;
+	Eigen::VectorXd det_tmp_tmp;
+	Eigen::MatrixXd tmp_inv;
+	Eigen::VectorXd p;
+	Eigen::VectorXd h;
+//	Vector7d p; // FOR SPEED
+//	Vector7d h; // FOR SPEED
+//	double pi;
 
 protected:
 	virtual void operate() {
-		pi = boost::math::constants::pi<double>();
-
+////		pi = boost::math::constants::pi<double>();
+//
 		inputjpjv.resize(DOF * 2, 1); /*!Has to be scaled 10 times*/
 		inputjpjv[0] = 10 * this->jpInputActual.getValue()[0];
 		inputjpjv[1] = 10 * this->jpInputActual.getValue()[1];
 		inputjpjv[2] = 10 * this->jpInputActual.getValue()[2];
 		inputjpjv[3] = 10 * this->jpInputActual.getValue()[3];
-		inputjpjv[0] = 10 * this->jvInputActual.getValue()[0];
-		inputjpjv[1] = 10 * this->jvInputActual.getValue()[1];
-		inputjpjv[2] = 10 * this->jvInputActual.getValue()[2];
-		inputjpjv[3] = 10 * this->jvInputActual.getValue()[3];
-
-		// First function
-
+		inputjpjv[4] = 10 * this->jvInputActual.getValue()[0];
+		inputjpjv[5] = 10 * this->jvInputActual.getValue()[1];
+		inputjpjv[6] = 10 * this->jvInputActual.getValue()[2];
+		inputjpjv[7] = 10 * this->jvInputActual.getValue()[3];
+//
+//		//-----------------------------------SECTION ONE-----------------------------------------------------//
+//
 		int num_priors = priors.rows(); // priors comes as a rows
-		int num_inp = inputjpjv.rows();
-
-		Eigen::MatrixXd input_mean_matrix(num_inp, num_priors); //   input  position(xi) mean vector for 6 gaussians
-		Eigen::MatrixXd out_mean_matrix(num_inp, num_priors); //
-		Eigen::MatrixXd sigma_input(num_inp * num_priors, num_inp); //  extracted  sigma for input
-		Eigen::MatrixXd sigma_output_input(num_inp * num_priors, num_inp); //   extracted sigma sigmadot for input
-		Eigen::MatrixXd Inverse_sigma_input(num_inp * num_priors, num_inp); // inverse of the sigma matrix taking 6, 2x2 matrix
-		Eigen::VectorXd p(num_priors); //probability of input for 6 components
-		Eigen::VectorXd h(num_priors); // h value in the linear regression equation
-		Eigen::MatrixXd A_matrix(num_inp * num_priors, num_inp); // 'A' matrix in the linear regression equation
-		Eigen::MatrixXd B_matrix(num_inp, num_priors); // 'B' matrix in the linear regression equation
-		Eigen::VectorXd output(num_inp); // output 'xi dot' of regression equation
-
-		int i = 0;
+		int num_inp = 8; //inputjpjv.rows();   ----------------------------------SHOULDNOT DO THIS ------------//
 		int k = 0;
-		//  float f = 0; // denominator value of h(k)
-
-		input_mean_matrix = mean.block(0, 0, num_inp, num_priors);
-		out_mean_matrix = mean.block(num_inp, 0, num_inp, num_priors);
-
-		//
-
-		for (i = 0; i < num_priors; i++) {
-			sigma_input.block(num_inp * i, 0, num_inp, num_inp) = sigma.block(
-					2 * num_inp * i, 0, num_inp, num_inp);
-		}
-
-		//
-		for (i = 0; i < num_priors; i++) {
-			sigma_output_input.block(num_inp * i, 0, num_inp, num_inp) =
-					sigma.block(2 * num_inp * i + num_inp, 0, num_inp, num_inp);
-		}
-
-		//
-
-		for (i = 0; i < num_inp * num_priors - num_inp; i = i + num_inp) //inverse
-				{
-			Inverse_sigma_input.block(i, 0, num_inp, num_inp) =
-					sigma_input.block(i, 0, num_inp, num_inp).inverse();
-		}
-
-		//
-
+		p.resize(num_priors, 1);
+		h.resize(num_priors, 1);
 		long double prob_input = 0;
-
-		//float prob_input = input_probability(input,mean1,sigma1);
-		for (k = 0; k < num_priors; k++) {
-
-			//----------GAUSS PDF------------------//
-			double det_tmp_tmp = pow(
-					double(
-							fabs(
-									sigma_input.block(num_inp * k, 0, num_inp,
-											num_inp).determinant())), 0.5);
-			double coeff = pow((2 * pi), (inputjpjv.rows()) / 2) * det_tmp_tmp;
-			double exponential_part = (-0.5
-					* (((inputjpjv - input_mean_matrix.col(k)).transpose())
-							* (sigma_input.block(num_inp * k, 0, num_inp,
-									num_inp).inverse()))
-					* (inputjpjv - input_mean_matrix.col(k)))(0, 0);
-
-			double result = (1 / coeff) * exp(exponential_part);
-
-			//---------------------------------------//
-			double prob_input_tmp = result;/*gausspdf(inputjpjv,
-			 input_mean_matrix.col(k),
-			 sigma_input.block(num_inp * k, 0, num_inp, num_inp));*/
-			double tmp_Pk = priors(k) * prob_input_tmp;
-			p(k) = tmp_Pk;
-			prob_input = prob_input + tmp_Pk;
-
-		}
-
-		for (k = 0; k < num_priors; k++) {
-			double h_k = p(k) / prob_input;
-			h(k) = h_k;
-		}
-
-		for (k = 0; k < num_inp * num_priors - num_inp; k = k + num_inp) {
-			A_matrix.block(k, 0, num_inp, num_inp) = sigma_output_input.block(k,
-					0, num_inp, num_inp)
-					* Inverse_sigma_input.block(k, 0, num_inp, num_inp);
-		}
-
-		for (k = 0; k < num_priors; k++) {
-			B_matrix.col(k) = out_mean_matrix.col(k)
-					- A_matrix.block(num_inp * k, 0, num_inp, num_inp)
-							* input_mean_matrix.col(k);
-		}
-
-		f_hat.fill(0.0);
-
-		for (k = 0; k < num_priors; k++) {
-			f_hat = f_hat
-					+ h(k)
-							* (A_matrix.block(num_inp * k, 0, num_inp, num_inp)
-									* inputjpjv + B_matrix.col(k));
-		}
-
-		//-----------------------------------------------------------------//
-
-		tmp_jt[0] = f_hat[0];
-		tmp_jt[1] = f_hat[1];
-		tmp_jt[2] = f_hat[2];
-		tmp_jt[3] = f_hat[3];
+//		//-------------------------------SECTION TWO---------------------------------------------------//
+//
+////		for (k = 0; k < num_priors; k++) {
+////			double coeff = pow((2 * pi), (inputjpjv.rows()) / 2)   // replace pi by 3.14
+////					* det_tmp_tmp[k];
+////			double exponential_part = (-0.5
+////					* (((inputjpjv - input_mean_matrix.col(k)).transpose())
+////							* (tmp_inv.block(num_inp * k, 0, num_inp, num_inp)))
+////					* (inputjpjv - input_mean_matrix.col(k)))(0, 0);
+////
+////			double result = (1 / coeff) * exp(exponential_part);
+////
+////			double prob_input_tmp = result;/*gausspdf(inputjpjv,*/
+////			double tmp_Pk = priors(k) * prob_input_tmp;
+////			p(k) = tmp_Pk;
+////			prob_input = prob_input + tmp_Pk;
+////
+////		}
+//
+//		//SUB
+//
+		p[0] = 0.14;
+		p[1] = 0.14;
+		p[2] = 0.14;
+		p[3] = 0.14;
+		p[4] = 0.14;
+		p[5] = 0.14;
+		p[6] = 0.16;
+		prob_input = 1.0;
+//
+//		//-------------------------------SECTION THREE---------------------------------------------------//
+//
+////		for (k = 0; k < num_priors; k++) {
+////			double h_k = p(k) / prob_input;
+////			h(k) = h_k;
+////		}
+//
+		h[0] = 0.14;
+		h[1] = 0.14;
+		h[2] = 0.14;
+		h[3] = 0.14;
+		h[4] = 0.14;
+		h[5] = 0.14;
+		h[6] = 0.16;
+//		//-------------------------------SECTION FOUR---------------------------------------------------//
+//
+//		f_hat.fill(0.0);
+//
+////		for (k = 0; k < num_priors; k++) {
+////			f_hat = f_hat
+////					+ h(k)
+////							* (A_matrix.block(num_op * k, 0, num_op, num_inp)
+////									* inputjpjv + B_matrix.col(k));
+////		}
+		f_hat.resize(num_op, 1);
+//
+		f_hat[0] = 0.5;
+		f_hat[1] = 0.5;
+		f_hat[2] = 0.5;
+		f_hat[3] = 0.5;
+//
+//		//-------------------------------SECTION FIVE---------------------------------------------------//
+//
+//		tmp_jt[0] = f_hat[0];
+//		tmp_jt[1] = f_hat[1];
+//		tmp_jt[2] = f_hat[2];
+//		tmp_jt[3] = f_hat[3];
+		tmp_jt[0] = 0;
+		tmp_jt[1] = 0;
+		tmp_jt[2] = 0;
+		tmp_jt[3] = 0;
 		this->error_outputValue->setData(&tmp_jt);
 
 	}
