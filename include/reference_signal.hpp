@@ -56,11 +56,13 @@ protected:
 	typename System::Output<ja_type>::Value* referencejaOpValue;
 
 public:
-	J_ref(/*systems::ExecutionManager* em,*/double amplitude, double omega, const std::string& sysName = "J_ref") :
+	J_ref(/*systems::ExecutionManager* em,*/const double amplitude, const double omega,
+			const jp_type startpos, const std::string& sysName = "J_ref") :
 			System(sysName), timef(this), referencejpTrack(this,
 					&referencejpOpValue), referencejvTrack(this,
 					&referencejvOpValue), referencejaTrack(this,
-					&referencejaOpValue), amplitude(amplitude), omega(omega) {
+					&referencejaOpValue), amplitude(amplitude), omega(omega), startpos(
+					startpos) {
 //		if (em != NULL){
 //		      em->startManaging(*this);
 //		    }
@@ -73,6 +75,7 @@ protected:
 	double amplitude;
 	double omega;
 	double theta;
+	jp_type startpos;
 	jp_type jp;
 	jv_type jv;
 	ja_type ja;
@@ -83,6 +86,17 @@ protected:
 		ja(0.0);
 
 		theta = omega * this->timef.getValue();
+
+//		jp[0] = startpos[0];
+//		jp[1] = startpos[1];
+//		jp[2] = amplitude * std::sin(theta) + startpos[2];
+//		jp[3] = amplitude * std::cos(theta) + startpos[3] ;//- 1.0) + startpos[3];
+//
+//		jv[2] = amplitude * omega * std::cos(theta);
+//		jv[3] = - amplitude * omega * std::sin(theta);
+//
+//		ja[2] = - amplitude * omega *omega * std::sin(theta);
+//		ja[3] = - amplitude * omega *omega * std::cos(theta);
 
 		jp[1] = amplitude * std::sin(theta);
 		jp[3] = +3.14;

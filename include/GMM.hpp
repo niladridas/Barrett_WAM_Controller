@@ -121,65 +121,69 @@ protected:
 		long double prob_input = 0;
 //		//-------------------------------SECTION TWO---------------------------------------------------//
 //
-////		for (k = 0; k < num_priors; k++) {
-////			double coeff = pow((2 * pi), (inputjpjv.rows()) / 2)   // replace pi by 3.14
-////					* det_tmp_tmp[k];
-////			double exponential_part = (-0.5
-////					* (((inputjpjv - input_mean_matrix.col(k)).transpose())
-////							* (tmp_inv.block(num_inp * k, 0, num_inp, num_inp)))
-////					* (inputjpjv - input_mean_matrix.col(k)))(0, 0);
-////
-////			double result = (1 / coeff) * exp(exponential_part);
-////
-////			double prob_input_tmp = result;/*gausspdf(inputjpjv,*/
-////			double tmp_Pk = priors(k) * prob_input_tmp;
-////			p(k) = tmp_Pk;
-////			prob_input = prob_input + tmp_Pk;
-////
-////		}
+		for (k = 0; k < num_priors; k++) {
+			double coeff = pow((2 * 3.14), (inputjpjv.rows()) / 2)   // replace pi by 3.14
+					* det_tmp_tmp[k];
+			double exponential_part = (-0.5
+					* (((inputjpjv - input_mean_matrix.col(k)).transpose())
+							* (tmp_inv.block(num_inp * k, 0, num_inp, num_inp)))
+					* (inputjpjv - input_mean_matrix.col(k)))(0, 0);
+
+			double result = (1 / coeff) * exp(exponential_part);
+
+			double prob_input_tmp = result;/*gausspdf(inputjpjv,*/
+			double tmp_Pk = priors(k) * prob_input_tmp;
+			p(k) = tmp_Pk;
+			prob_input = prob_input + tmp_Pk;
+
+		}
 //
 //		//SUB
 //
-		p[0] = 0.14;
-		p[1] = 0.14;
-		p[2] = 0.14;
-		p[3] = 0.14;
-		p[4] = 0.14;
-		p[5] = 0.14;
-		p[6] = 0.16;
-		prob_input = 1.0;
+//		p[0] = 0.14;
+//		p[1] = 0.14;
+//		p[2] = 0.14;
+//		p[3] = 0.14;
+//		p[4] = 0.14;
+//		p[5] = 0.14;
+//		p[6] = 0.16;
+//		prob_input = 1.0;
 //
 //		//-------------------------------SECTION THREE---------------------------------------------------//
 //
-////		for (k = 0; k < num_priors; k++) {
-////			double h_k = p(k) / prob_input;
-////			h(k) = h_k;
-////		}
+		for (k = 0; k < num_priors; k++) {
+			double h_k = p(k) / prob_input;
+			h(k) = h_k;
+		}
 //
-		h[0] = 0.14;
-		h[1] = 0.14;
-		h[2] = 0.14;
-		h[3] = 0.14;
-		h[4] = 0.14;
-		h[5] = 0.14;
-		h[6] = 0.16;
+//		h[0] = 0.14;
+//		h[1] = 0.14;
+//		h[2] = 0.14;
+//		h[3] = 0.14;
+//		h[4] = 0.14;
+//		h[5] = 0.14;
+//		h[6] = 0.16;
 //		//-------------------------------SECTION FOUR---------------------------------------------------//
 //
-//		f_hat.fill(0.0);
-//
-////		for (k = 0; k < num_priors; k++) {
-////			f_hat = f_hat
-////					+ h(k)
-////							* (A_matrix.block(num_op * k, 0, num_op, num_inp)
-////									* inputjpjv + B_matrix.col(k));
-////		}
+
 		f_hat.resize(num_op, 1);
-//
-		f_hat[0] = 0.5;
-		f_hat[1] = 0.5;
-		f_hat[2] = 0.5;
-		f_hat[3] = 0.5;
-//
+		f_hat.fill(0.0);
+
+
+		for (k = 0; k < num_priors; k++) {
+			f_hat = f_hat
+					+ h(k)
+							* (A_matrix.block(num_op * k, 0, num_op, num_inp)
+									* inputjpjv + B_matrix.col(k));
+		}
+
+//		f_hat.resize(num_op, 1);
+////
+//		f_hat[0] = 0.5;
+//		f_hat[1] = 0.5;
+//		f_hat[2] = 0.5;
+//		f_hat[3] = 0.5;
+////
 //		//-------------------------------SECTION FIVE---------------------------------------------------//
 //
 //		tmp_jt[0] = f_hat[0];

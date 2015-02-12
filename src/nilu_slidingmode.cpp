@@ -151,23 +151,45 @@ int wam_main(int argc, char** argv, ProductManager& pm,
 	Eigen::Matrix4d tmp_lamda;
 	tmp_lamda << 20, 0, 0, 0, 0, 20, 0, 0, 0, 0, 20, 0, 0, 0, 0, 20;
 	const Eigen::Matrix4d lamda = tmp_lamda;
-	const double coeff = 0.5;
-	const double delta = 0.01;
+
+	double COEFF;
+	std::cout << "Enter Coeff: " << std::endl;
+	std::cin >> COEFF;
+	const double coeff = COEFF;
+//	const double coeff = 0.5;
+	double DELTA;
+	std::cout << "Enter delta: " << std::endl;
+	std::cin >> DELTA;
+	const double delta = DELTA;
+//	const double delta = 0.01;
 	jp_type startpos(0.0);
+
+//	const double JP_AMPLITUDE = 0.4; // radians
+//	const double FREQUENCY = 1.0; // rad/s
+	std::cout << "Enter amplitude of ref sinusoid: " << std::endl;
+	std::cin >> amplitude1;
+	std::cout << "Enter omega of ref sinusoid: " << std::endl;
+	std::cin >> omega1;
 	startpos[3] = +3.14;
-	amplitude1 = 1;
-	omega1 = 0.6;
-	const double JT_AMPLITUDE = amplitude1;
+//	amplitude1 = 1;
+//	omega1 = 2;
+//	amplitude1 = 0.4;
+//	omega1 = 1.0;
+
+	const double JP_AMPLITUDE = amplitude1;
 	const double OMEGA = omega1;
 	bool status = true;
 
-	J_ref<DOF> joint_ref(JT_AMPLITUDE, OMEGA);
+//	startpos[1] = -M_PI_2;
+//	startpos[3] = M_PI_2; //+ JP_AMPLITUDE;
+
+	J_ref<DOF> joint_ref(JP_AMPLITUDE, OMEGA, startpos);
 	Slidingmode_Controller<DOF> slide(status, lamda, coeff, delta);
 	Dynamics<DOF> nilu_dynamics;
-	Dummy<DOF> nilu_dummy;
-	GMM<DOF> gmm_error(priors, mean, sigma, num_inp, num_op, num_priors,
-			sigma_input, input_mean_matrix, A_matrix, B_matrix, det_tmp_tmp,
-			tmp_inv);
+	//Dummy<DOF> nilu_dummy;
+	//GMM<DOF> gmm_error(priors, mean, sigma, num_inp, num_op, num_priors,
+	//		sigma_input, input_mean_matrix, A_matrix, B_matrix, det_tmp_tmp,
+	//		tmp_inv);
 
 	wam.gravityCompensate();
 	printf("Press [Enter] to turn on torque control to go to zero position");
@@ -194,18 +216,20 @@ int wam_main(int argc, char** argv, ProductManager& pm,
 	systems::connect(joint_ref.referencejpTrack, slide.referencejpInput);
 	systems::connect(joint_ref.referencejvTrack, slide.referencejvInput);
 	systems::connect(joint_ref.referencejaTrack, slide.referencejaInput);
-	systems::connect(slide.controlOutput, nilu_dummy.ControllerInput);
-	systems::connect(wam.jpOutput, gmm_error.jpInputActual);
-	systems::connect(wam.jvOutput, gmm_error.jvInputActual);
-	systems::connect(gmm_error.error_output, nilu_dummy.CompensatorInput);
-	wam.trackReferenceSignal(nilu_dummy.Total_torque);
+	//systems::connect(slide.controlOutput, nilu_dummy.ControllerInput);
+	//systems::connect(wam.jpOutput, gmm_error.jpInputActual);
+	//systems::connect(wam.jvOutput, gmm_error.jvInputActual);
+	//systems::connect(gmm_error.error_output, nilu_dummy.CompensatorInput);
+
+	wam.trackReferenceSignal(slide.controlOutput);
 
 	systems::connect(time.output, tg.template getInput<0>());
 	systems::connect(joint_ref.referencejpTrack, tg.template getInput<1>());
 	systems::connect(joint_ref.referencejvTrack, tg.template getInput<2>());
 	systems::connect(wam.jpOutput, tg.template getInput<3>());
 	systems::connect(wam.jvOutput, tg.template getInput<4>());
-	systems::connect(gmm_error.error_output, tg.template getInput<5>());
+	//systems::connect(nilu_dummy.Total_torque, tg.template getInput<5>());
+	systems::connect(slide.controlOutput, tg.template getInput<5>());
 
 //	systems::connect(wam.supervisoryController.output,
 //			tg.template getInput<5>());
@@ -223,6 +247,13 @@ int wam_main(int argc, char** argv, ProductManager& pm,
 	lr.exportCSV(argv[1]);
 	printf("Output written to %s.\n", argv[1]);
 	std::remove(tmpFile);
+	std::ofstream log(argv[1], std::ios_base::app | std::ios_base::out);
+	log << COEFF << "," << DELTA << "," << amplitude1 << "," << omega1 << ","
+			<< "0" << "," << "0" << "," << "0" << "," << "0" << "," << "0"
+			<< "," << "0" << "," << "0" << "," << "0" << "," << "0" << ","
+			<< "0" << "," << "0" << "," << "0" << "," << "0" << "," << "0"
+			<< "," << "0" << "," << "0" << "," << "0";
+	log.close();
 	return 0;
 }
 
