@@ -1,0 +1,14 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/nilxwam/workspace/gwam-simulator/src/eigen_test.cpp
+eigen3/Eigen/Core
+-
+eigen3/Eigen/Dense
+-
+

@@ -109,6 +109,32 @@ constants/fast:
 .PHONY : constants/fast
 
 #=============================================================================
+# Target rules for targets named eigen_test
+
+# Build rule for target.
+eigen_test: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 eigen_test
+.PHONY : eigen_test
+
+# fast build rule for target.
+eigen_test/fast:
+	$(MAKE) -f CMakeFiles/eigen_test.dir/build.make CMakeFiles/eigen_test.dir/build
+.PHONY : eigen_test/fast
+
+#=============================================================================
+# Target rules for targets named nilu_optimal_sliding_mode
+
+# Build rule for target.
+nilu_optimal_sliding_mode: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 nilu_optimal_sliding_mode
+.PHONY : nilu_optimal_sliding_mode
+
+# fast build rule for target.
+nilu_optimal_sliding_mode/fast:
+	$(MAKE) -f CMakeFiles/nilu_optimal_sliding_mode.dir/build.make CMakeFiles/nilu_optimal_sliding_mode.dir/build
+.PHONY : nilu_optimal_sliding_mode/fast
+
+#=============================================================================
 # Target rules for targets named nilu_slidingmode
 
 # Build rule for target.
@@ -182,6 +208,54 @@ samLibs/samlibs.cpp.s:
 	$(MAKE) -f CMakeFiles/samlibs.dir/build.make CMakeFiles/samlibs.dir/samLibs/samlibs.cpp.s
 .PHONY : samLibs/samlibs.cpp.s
 
+src/eigen_test.o: src/eigen_test.cpp.o
+.PHONY : src/eigen_test.o
+
+# target to build an object file
+src/eigen_test.cpp.o:
+	$(MAKE) -f CMakeFiles/eigen_test.dir/build.make CMakeFiles/eigen_test.dir/src/eigen_test.cpp.o
+.PHONY : src/eigen_test.cpp.o
+
+src/eigen_test.i: src/eigen_test.cpp.i
+.PHONY : src/eigen_test.i
+
+# target to preprocess a source file
+src/eigen_test.cpp.i:
+	$(MAKE) -f CMakeFiles/eigen_test.dir/build.make CMakeFiles/eigen_test.dir/src/eigen_test.cpp.i
+.PHONY : src/eigen_test.cpp.i
+
+src/eigen_test.s: src/eigen_test.cpp.s
+.PHONY : src/eigen_test.s
+
+# target to generate assembly for a file
+src/eigen_test.cpp.s:
+	$(MAKE) -f CMakeFiles/eigen_test.dir/build.make CMakeFiles/eigen_test.dir/src/eigen_test.cpp.s
+.PHONY : src/eigen_test.cpp.s
+
+src/nilu_optimal_sliding_mode.o: src/nilu_optimal_sliding_mode.cpp.o
+.PHONY : src/nilu_optimal_sliding_mode.o
+
+# target to build an object file
+src/nilu_optimal_sliding_mode.cpp.o:
+	$(MAKE) -f CMakeFiles/nilu_optimal_sliding_mode.dir/build.make CMakeFiles/nilu_optimal_sliding_mode.dir/src/nilu_optimal_sliding_mode.cpp.o
+.PHONY : src/nilu_optimal_sliding_mode.cpp.o
+
+src/nilu_optimal_sliding_mode.i: src/nilu_optimal_sliding_mode.cpp.i
+.PHONY : src/nilu_optimal_sliding_mode.i
+
+# target to preprocess a source file
+src/nilu_optimal_sliding_mode.cpp.i:
+	$(MAKE) -f CMakeFiles/nilu_optimal_sliding_mode.dir/build.make CMakeFiles/nilu_optimal_sliding_mode.dir/src/nilu_optimal_sliding_mode.cpp.i
+.PHONY : src/nilu_optimal_sliding_mode.cpp.i
+
+src/nilu_optimal_sliding_mode.s: src/nilu_optimal_sliding_mode.cpp.s
+.PHONY : src/nilu_optimal_sliding_mode.s
+
+# target to generate assembly for a file
+src/nilu_optimal_sliding_mode.cpp.s:
+	$(MAKE) -f CMakeFiles/nilu_optimal_sliding_mode.dir/build.make CMakeFiles/nilu_optimal_sliding_mode.dir/src/nilu_optimal_sliding_mode.cpp.s
+.PHONY : src/nilu_optimal_sliding_mode.cpp.s
+
 src/nilu_slidingmode.o: src/nilu_slidingmode.cpp.o
 .PHONY : src/nilu_slidingmode.o
 
@@ -214,6 +288,8 @@ help:
 	@echo "... depend"
 	@echo "... constants"
 	@echo "... edit_cache"
+	@echo "... eigen_test"
+	@echo "... nilu_optimal_sliding_mode"
 	@echo "... nilu_slidingmode"
 	@echo "... rebuild_cache"
 	@echo "... samlibs"
@@ -223,6 +299,12 @@ help:
 	@echo "... samLibs/samlibs.o"
 	@echo "... samLibs/samlibs.i"
 	@echo "... samLibs/samlibs.s"
+	@echo "... src/eigen_test.o"
+	@echo "... src/eigen_test.i"
+	@echo "... src/eigen_test.s"
+	@echo "... src/nilu_optimal_sliding_mode.o"
+	@echo "... src/nilu_optimal_sliding_mode.i"
+	@echo "... src/nilu_optimal_sliding_mode.s"
 	@echo "... src/nilu_slidingmode.o"
 	@echo "... src/nilu_slidingmode.i"
 	@echo "... src/nilu_slidingmode.s"

@@ -1,3 +1,5 @@
 /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles/constants.dir
+/home/nilxwam/workspace/gwam-simulator/build/CMakeFiles/eigen_test.dir
+/home/nilxwam/workspace/gwam-simulator/build/CMakeFiles/nilu_optimal_sliding_mode.dir
 /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles/nilu_slidingmode.dir
 /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles/samlibs.dir
