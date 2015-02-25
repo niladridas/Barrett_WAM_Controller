@@ -132,6 +132,8 @@ public:
 	Eigen::Vector4d L;
 	Eigen::Vector4d Lbar;
 	jt_type torque_tmp;
+	Eigen::MatrixXd M_tmpinverse;
+	Eigen::MatrixXd Md_tmpinverse;
 
 	virtual void operate() {
 		tmp_theta_pos = this->feedbackjpInput.getValue();
@@ -168,8 +170,13 @@ public:
 		//The error matrix
 		Xtilde.resize(8, 1);
 		Xtilde << e, ed;
-		F = M_tmp.inverse() * (C_tmp);
-		Fd = -Md_tmp.inverse() * (Cd_tmp);
+
+		Md_tmpinverse = Md_tmp.inverse();
+		M_tmpinverse = M_tmp.inverse();
+
+
+		F = M_tmpinverse * (C_tmp);
+		Fd = -Md_tmpinverse * (Cd_tmp);
 
 		rho = F - Fd;
 
@@ -245,7 +252,7 @@ public:
 				+ W4[1] * Xtilde[7] + W4[2] * phi[3]) * Xtilde[7] + W4[1], (W4[0]
 				* Xtilde[3] + W4[1] * Xtilde[7] + W4[2] * phi[3]) * phi[3]
 				+ W4[2];
-//
+////
 		s1 = DVDW1.transpose();
 		s2 = DVDW2.transpose();
 		s3 = DVDW3.transpose();
@@ -266,18 +273,11 @@ public:
 				- DVDX3.dot(Ftilde3);
 		r4 = -Lbar[3] + 0.25 * DVDX4.dot(tmp_Gtilde * DVDX4)
 				- DVDX4.dot(Ftilde4);
-////
-//
-//
-//
-//		W1dot = s1.transpose() / (s1 * s1.transpose()) * r1;
-//		W2dot = s2.transpose() / (s2 * s2.transpose()) * r2;
-//		W3dot = s3.transpose() / (s3 * s3.transpose()) * r3;
-//		W4dot = s4.transpose() / (s4 * s4.transpose()) * r4;
-		W1dot = s1.transpose() / (s1.dot(s1)) * 1;
-		W2dot = s2.transpose() / (s2.dot(s2)) * 1;
-		W3dot = s3.transpose() / (s3.dot(s3)) * 1;
-		W4dot = s4.transpose() / (s4.dot(s4)) * 1;
+
+		W1dot = s1.transpose() / (s1.dot(s1)) * r1;
+		W2dot = s2.transpose() / (s2.dot(s2)) * r2;
+		W3dot = s3.transpose() / (s3.dot(s3)) * r3;
+		W4dot = s4.transpose() / (s4.dot(s4)) * r4;
 ////
 		ueq1 = 1 / 2
 				* (W1[0] * (W1[2] - W1[1]) * Xtilde[0]
@@ -299,9 +299,21 @@ public:
 // Final torque computations
 		Ueq << ueq1, ueq2, ueq3, ueq4;
 
-		Ud = qddd + Md_tmp.inverse() * Cd_tmp;
+		Ud = qddd + Md_tmpinverse * Cd_tmp;
 
-		Tau = M_tmp * (Ud + Ueq); // Final torque to system.
+		Tau = Md_tmp * (Ud); // + Ueq); // Final torque to system.
+//
+
+		phidot[0] = -fbar[0] - ueq1;
+		phidot[1] = -fbar[1] - ueq2;
+		phidot[2] = -fbar[2] - ueq3;
+		phidot[3] = -fbar[3] - ueq4;
+
+		phi = phi + phidot * del;
+		W1 = W1 + W1dot * del;
+		W2 = W2 + W2dot * del;
+		W3 = W3 + W3dot * del;
+		W4 = W4 + W4dot * del;
 
 		torque_tmp[0] = Tau[0];
 		torque_tmp[1] = Tau[1];
@@ -315,34 +327,7 @@ public:
 
 		optslidecontrolOutputValue->setData(&torque_tmp);
 
-		phidot[0] = -fbar[0] - ueq1;
-		phidot[1] = -fbar[1] - ueq2;
-		phidot[2] = -fbar[2] - ueq3;
-		phidot[3] = -fbar[3] - ueq4;
 
-		for (i = 0; i < 5; i = i + 1) {
-			phi[i] = phi[i] + phidot[i] * del;
-		}
-
-//Weight update for subsystem-1
-		for (i = 0; i < 5; i = i + 1) {
-			W1[i] = W1[i] + W1dot[i] * del;
-		}
-
-//Weight update for subsystem-2
-		for (i = 0; i < 5; i = i + 1) {
-			W2[i] = W2[i] + W2dot[i] * del;
-		}
-
-//Weight update for subsystem-3
-		for (i = 0; i < 5; i = i + 1) {
-			W3[i] = W3[i] + W3dot[i] * del;
-		}
-
-//Weight update for subsystem-4
-		for (i = 0; i < 5; i = i + 1) {
-			W4[i] = W4[i] + W4dot[i] * del;
-		}
 
 	}
 private:

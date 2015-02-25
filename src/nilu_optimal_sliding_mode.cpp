@@ -78,39 +78,79 @@ int wam_main(int argc, char** argv, ProductManager& pm,
 	Eigen::Vector3d W3;
 	Eigen::Vector3d W4;
 
-
-	ifstream myReadFile;
-	myReadFile.open("/home/niladri-64/module_heisenberg/data/end_effector_cartesian.txt");
-	float output[9];
-	for(int i =0 ; i<9; i++)
-	{
-	myReadFile >> output[i];
+	ifstream myReadFile1;
+	myReadFile1.open("data/W_optimal_sliding.txt");
+	double W[12];
+	for (int i = 0; i < 12; i++) {
+		myReadFile1 >> W[i];
 	}
-	myReadFile.close();
+	myReadFile1.close();
 
+	W1 << W[0], W[1], W[2];
+	W2 << W[3], W[4], W[5];
+	W3 << W[6], W[7], W[8];
+	W4 << W[9], W[10], W[11];
 
-	W1 << 15, 20, 25;
-	W2 << 15, 20, 25;
-	W3 << 15, 20, 25;
-	W4 << 15, 20, 25;
+	ifstream myReadFile2;
+	myReadFile2.open("data/Phi_optimal_sliding.txt");
+	double Phi[4];
+	for (int i = 0; i < 4; i++) {
+		myReadFile2 >> Phi[i];
+	}
+	myReadFile2.close();
 //
 	Eigen::Vector4d phi;
-	phi << 0, 0.6, 0, 0;
+	phi << Phi[0], Phi[1], Phi[2], Phi[3];
+
+	ifstream myReadFile3;
+	myReadFile3.open("data/c_optimal_sliding.txt");
+	double C[4];
+	for (int i = 0; i < 4; i++) {
+		myReadFile3 >> C[i];
+	}
+	myReadFile3.close();
+
 //
 	Eigen::Vector4d c;
-	c << 20, 20, 20, 20;
+	c << C[0], C[1], C[2], C[3];
 //
+
+	ifstream myReadFile4;
+	myReadFile4.open("data/K_optimal_sliding.txt");
+	double K_optimal[4];
+	for (int i = 0; i < 4; i++) {
+		myReadFile4 >> K_optimal[i];
+	}
+	myReadFile4.close();
 	Eigen::Vector4d K;
-	K << 5, 5, 5, 5;
+	K << K_optimal[0], K_optimal[1], K_optimal[2], K_optimal[3];
 //
+
+
+
+	ifstream myReadFile5;
+	myReadFile5.open("data/b_del.txt");
+	double b_del[2];
+	for (int i = 0; i < 2; i++) {
+		myReadFile5 >> b_del[i];
+	}
+	myReadFile5.close();
 	double b;
-	b = 0.1;
+	b = b_del[0];
 //
 	double del;
-	del = 0.002;
+	del = b_del[1];
 //
+
+	ifstream myReadFile6;
+	myReadFile6.open("data/Gtilde.txt");
+	double Gtilde_tmp[3];
+	for (int i = 0; i < 3; i++) {
+		myReadFile6 >> Gtilde_tmp[i];
+	}
+	myReadFile6.close();
 	Eigen::Vector3f Gtilde;
-	Gtilde << 0, -1, 1;
+	Gtilde << Gtilde_tmp[0], Gtilde_tmp[1], Gtilde_tmp[2];
 
 	Optimal_Sliding_Mode<DOF> optslide(W1, W2, W3, W4, phi, c, K, b, del,
 			Gtilde);
@@ -132,8 +172,8 @@ int wam_main(int argc, char** argv, ProductManager& pm,
 
 	systems::connect(tg.output, logger.input);
 	systems::connect(time.output, joint_ref.timef);
-//	systems::connect(wam.jpOutput, optslide.feedbackjpInput);
-//	systems::connect(wam.jvOutput, optslide.feedbackjvInput);
+	systems::connect(wam.jpOutput, optslide.feedbackjpInput);
+	systems::connect(wam.jvOutput, optslide.feedbackjvInput);
 
 	systems::connect(joint_ref.referencejpTrack,
 			nilu_dynamics.referencejpInput);
@@ -142,23 +182,23 @@ int wam_main(int argc, char** argv, ProductManager& pm,
 	systems::connect(wam.jpOutput, nilu_dynamics.feedbackjpInput);
 	systems::connect(wam.jvOutput, nilu_dynamics.feedbackjvInput);
 
-//	systems::connect(nilu_dynamics.MassMAtrixOutput, optslide.M);
-//	systems::connect(nilu_dynamics.CVectorOutput, optslide.C);
-//	systems::connect(nilu_dynamics.MassMAtrixOutputref, optslide.Md);
-//	systems::connect(nilu_dynamics.CVectorOutputref, optslide.Cd);
+	systems::connect(nilu_dynamics.MassMAtrixOutput, optslide.M);
+	systems::connect(nilu_dynamics.CVectorOutput, optslide.C);
+	systems::connect(nilu_dynamics.MassMAtrixOutputref, optslide.Md);
+	systems::connect(nilu_dynamics.CVectorOutputref, optslide.Cd);
 
-//	systems::connect(joint_ref.referencejpTrack, optslide.referencejpInput);
-//	systems::connect(joint_ref.referencejvTrack, optslide.referencejvInput);
-//	systems::connect(joint_ref.referencejaTrack, optslide.referencejaInput);
+	systems::connect(joint_ref.referencejpTrack, optslide.referencejpInput);
+	systems::connect(joint_ref.referencejvTrack, optslide.referencejvInput);
+	systems::connect(joint_ref.referencejaTrack, optslide.referencejaInput);
 
-//	wam.trackReferenceSignal(optslide.controlOutput);
+	wam.trackReferenceSignal(optslide.optslidecontrolOutput);
 
 	systems::connect(time.output, tg.template getInput<0>());
 	systems::connect(joint_ref.referencejpTrack, tg.template getInput<1>());
 	systems::connect(joint_ref.referencejvTrack, tg.template getInput<2>());
 	systems::connect(wam.jpOutput, tg.template getInput<3>());
 	systems::connect(wam.jvOutput, tg.template getInput<4>());
-//	systems::connect(optslide.controlOutput, tg.template getInput<5>());
+	systems::connect(optslide.optslidecontrolOutput, tg.template getInput<5>());
 
 	time.smoothStart(TRANSITION_DURATION);
 	printf("Press [Enter] to stop.");
