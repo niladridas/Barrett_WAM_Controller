@@ -21,6 +21,9 @@
 #include <barrett/log.h>
 #include <barrett/standard_main_function.h>
 #include<fstream>
+
+#include <unistd.h>                  /*  for sleep()  */
+#include <curses.h>
 //#include <boost/thread.hpp>
 //#include <barrett/thread/null_mutex.h>
 

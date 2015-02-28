@@ -1,5 +1,8 @@
 /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles/constants.dir
 /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles/eigen_test.dir
+/home/nilxwam/workspace/gwam-simulator/build/CMakeFiles/ncurses_example.dir
 /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles/nilu_optimal_sliding_mode.dir
 /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles/nilu_slidingmode.dir
 /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles/samlibs.dir
+/home/nilxwam/workspace/gwam-simulator/build/CMakeFiles/test_differentiator.dir
+/home/nilxwam/workspace/gwam-simulator/build/CMakeFiles/test_optimal_sliding.dir

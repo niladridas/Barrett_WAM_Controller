@@ -7,9 +7,12 @@ CMakeFiles/nilu_slidingmode.dir/src/nilu_slidingmode.cpp.o: ../include/Dynamics.
 CMakeFiles/nilu_slidingmode.dir/src/nilu_slidingmode.cpp.o: ../include/GMM.hpp
 CMakeFiles/nilu_slidingmode.dir/src/nilu_slidingmode.cpp.o: ../include/M_4D.hpp
 CMakeFiles/nilu_slidingmode.dir/src/nilu_slidingmode.cpp.o: ../include/Sliding_mode_4dof.hpp
+CMakeFiles/nilu_slidingmode.dir/src/nilu_slidingmode.cpp.o: ../include/differentiator.hpp
 CMakeFiles/nilu_slidingmode.dir/src/nilu_slidingmode.cpp.o: ../include/dummy_system.hpp
 CMakeFiles/nilu_slidingmode.dir/src/nilu_slidingmode.cpp.o: ../include/reference_signal.hpp
 CMakeFiles/nilu_slidingmode.dir/src/nilu_slidingmode.cpp.o: ../include/samlibs.h
+CMakeFiles/nilu_slidingmode.dir/src/nilu_slidingmode.cpp.o: ../include/second_differentiator.hpp
+CMakeFiles/nilu_slidingmode.dir/src/nilu_slidingmode.cpp.o: ../include/torque_observer.hpp
 CMakeFiles/nilu_slidingmode.dir/src/nilu_slidingmode.cpp.o: ../src/nilu_slidingmode.cpp
 CMakeFiles/nilu_slidingmode.dir/src/nilu_slidingmode.cpp.o: /usr/include/eigen2/Eigen/Array
 CMakeFiles/nilu_slidingmode.dir/src/nilu_slidingmode.cpp.o: /usr/include/eigen2/Eigen/Core

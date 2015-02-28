@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/C_4D.hpp
+eigen2/Eigen/Core
+-
+math.h
+-
+
+../include/M_4D.hpp
+eigen2/Eigen/Core
+-
+math.h
+-
+
+/home/nilxwam/workspace/gwam-simulator/src/test_optimal_sliding.cpp
+eigen3/Eigen/Dense
+-
+M_4D.hpp
+-
+C_4D.hpp
+-
+fstream
+-
+iostream
+-
+

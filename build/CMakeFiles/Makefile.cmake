@@ -46,7 +46,10 @@ SET(CMAKE_MAKEFILE_PRODUCTS
 SET(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/constants.dir/DependInfo.cmake"
   "CMakeFiles/eigen_test.dir/DependInfo.cmake"
+  "CMakeFiles/ncurses_example.dir/DependInfo.cmake"
   "CMakeFiles/nilu_optimal_sliding_mode.dir/DependInfo.cmake"
   "CMakeFiles/nilu_slidingmode.dir/DependInfo.cmake"
   "CMakeFiles/samlibs.dir/DependInfo.cmake"
+  "CMakeFiles/test_differentiator.dir/DependInfo.cmake"
+  "CMakeFiles/test_optimal_sliding.dir/DependInfo.cmake"
   )

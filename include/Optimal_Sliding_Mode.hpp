@@ -175,7 +175,7 @@ public:
 		M_tmpinverse = M_tmp.inverse();
 
 
-		F = M_tmpinverse * (C_tmp);
+		F = -M_tmpinverse * (C_tmp);
 		Fd = -Md_tmpinverse * (Cd_tmp);
 
 		rho = F - Fd;
@@ -279,19 +279,19 @@ public:
 		W3dot = s3.transpose() / (s3.dot(s3)) * r3;
 		W4dot = s4.transpose() / (s4.dot(s4)) * r4;
 ////
-		ueq1 = 1 / 2
+		ueq1 = 0.5
 				* (W1[0] * (W1[2] - W1[1]) * Xtilde[0]
 						+ W1[1] * (W1[2] - W1[1]) * Xtilde[4]
 						+ W1[2] * (W1[2] - W1[1]) * phi[0]);
-		ueq2 = 1 / 2
+		ueq2 = 0.5
 				* (W2[0] * (W2[2] - W2[1]) * Xtilde[1]
 						+ W2[1] * (W2[2] - W2[1]) * Xtilde[5]
 						+ W2[2] * (W2[2] - W2[1]) * phi[1]);
-		ueq3 = 1 / 2
+		ueq3 = 0.5
 				* (W3[0] * (W3[2] - W3[1]) * Xtilde[2]
 						+ W3[1] * (W3[2] - W3[1]) * Xtilde[6]
 						+ W3[2] * (W3[2] - W3[1]) * phi[2]);
-		ueq4 = 1 / 2
+		ueq4 = 0.5
 				* (W4[0] * (W4[2] - W4[1]) * Xtilde[3]
 						+ W4[1] * (W4[2] - W4[1]) * Xtilde[7]
 						+ W4[2] * (W4[2] - W4[1]) * phi[3]);
@@ -301,7 +301,7 @@ public:
 
 		Ud = qddd + Md_tmpinverse * Cd_tmp;
 
-		Tau = Md_tmp * (Ud); // + Ueq); // Final torque to system.
+		Tau = M_tmp * (Ud + Ueq); // Final torque to system.
 //
 
 		phidot[0] = -fbar[0] - ueq1;

@@ -88,8 +88,8 @@ clean: CMakeFiles/constants.dir/clean
 # Target rules for target CMakeFiles/eigen_test.dir
 
 # All Build rule for target.
-CMakeFiles/eigen_test.dir/all: CMakeFiles/constants.dir/all
 CMakeFiles/eigen_test.dir/all: CMakeFiles/samlibs.dir/all
+CMakeFiles/eigen_test.dir/all: CMakeFiles/constants.dir/all
 	$(MAKE) -f CMakeFiles/eigen_test.dir/build.make CMakeFiles/eigen_test.dir/depend
 	$(MAKE) -f CMakeFiles/eigen_test.dir/build.make CMakeFiles/eigen_test.dir/build
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles  2
@@ -121,14 +121,50 @@ clean: CMakeFiles/eigen_test.dir/clean
 .PHONY : clean
 
 #=============================================================================
+# Target rules for target CMakeFiles/ncurses_example.dir
+
+# All Build rule for target.
+CMakeFiles/ncurses_example.dir/all: CMakeFiles/samlibs.dir/all
+CMakeFiles/ncurses_example.dir/all: CMakeFiles/constants.dir/all
+	$(MAKE) -f CMakeFiles/ncurses_example.dir/build.make CMakeFiles/ncurses_example.dir/depend
+	$(MAKE) -f CMakeFiles/ncurses_example.dir/build.make CMakeFiles/ncurses_example.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles  3
+	@echo "Built target ncurses_example"
+.PHONY : CMakeFiles/ncurses_example.dir/all
+
+# Include target in all.
+all: CMakeFiles/ncurses_example.dir/all
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/ncurses_example.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles 3
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/ncurses_example.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles 0
+.PHONY : CMakeFiles/ncurses_example.dir/rule
+
+# Convenience name for target.
+ncurses_example: CMakeFiles/ncurses_example.dir/rule
+.PHONY : ncurses_example
+
+# clean rule for target.
+CMakeFiles/ncurses_example.dir/clean:
+	$(MAKE) -f CMakeFiles/ncurses_example.dir/build.make CMakeFiles/ncurses_example.dir/clean
+.PHONY : CMakeFiles/ncurses_example.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/ncurses_example.dir/clean
+.PHONY : clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/nilu_optimal_sliding_mode.dir
 
 # All Build rule for target.
-CMakeFiles/nilu_optimal_sliding_mode.dir/all: CMakeFiles/constants.dir/all
 CMakeFiles/nilu_optimal_sliding_mode.dir/all: CMakeFiles/samlibs.dir/all
+CMakeFiles/nilu_optimal_sliding_mode.dir/all: CMakeFiles/constants.dir/all
 	$(MAKE) -f CMakeFiles/nilu_optimal_sliding_mode.dir/build.make CMakeFiles/nilu_optimal_sliding_mode.dir/depend
 	$(MAKE) -f CMakeFiles/nilu_optimal_sliding_mode.dir/build.make CMakeFiles/nilu_optimal_sliding_mode.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles  3
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles  4
 	@echo "Built target nilu_optimal_sliding_mode"
 .PHONY : CMakeFiles/nilu_optimal_sliding_mode.dir/all
 
@@ -160,11 +196,11 @@ clean: CMakeFiles/nilu_optimal_sliding_mode.dir/clean
 # Target rules for target CMakeFiles/nilu_slidingmode.dir
 
 # All Build rule for target.
-CMakeFiles/nilu_slidingmode.dir/all: CMakeFiles/constants.dir/all
 CMakeFiles/nilu_slidingmode.dir/all: CMakeFiles/samlibs.dir/all
+CMakeFiles/nilu_slidingmode.dir/all: CMakeFiles/constants.dir/all
 	$(MAKE) -f CMakeFiles/nilu_slidingmode.dir/build.make CMakeFiles/nilu_slidingmode.dir/depend
 	$(MAKE) -f CMakeFiles/nilu_slidingmode.dir/build.make CMakeFiles/nilu_slidingmode.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles  4
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles  5
 	@echo "Built target nilu_slidingmode"
 .PHONY : CMakeFiles/nilu_slidingmode.dir/all
 
@@ -199,7 +235,7 @@ clean: CMakeFiles/nilu_slidingmode.dir/clean
 CMakeFiles/samlibs.dir/all:
 	$(MAKE) -f CMakeFiles/samlibs.dir/build.make CMakeFiles/samlibs.dir/depend
 	$(MAKE) -f CMakeFiles/samlibs.dir/build.make CMakeFiles/samlibs.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles  5
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles  6
 	@echo "Built target samlibs"
 .PHONY : CMakeFiles/samlibs.dir/all
 
@@ -225,6 +261,78 @@ CMakeFiles/samlibs.dir/clean:
 
 # clean rule for target.
 clean: CMakeFiles/samlibs.dir/clean
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/test_differentiator.dir
+
+# All Build rule for target.
+CMakeFiles/test_differentiator.dir/all: CMakeFiles/samlibs.dir/all
+CMakeFiles/test_differentiator.dir/all: CMakeFiles/constants.dir/all
+	$(MAKE) -f CMakeFiles/test_differentiator.dir/build.make CMakeFiles/test_differentiator.dir/depend
+	$(MAKE) -f CMakeFiles/test_differentiator.dir/build.make CMakeFiles/test_differentiator.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles  7
+	@echo "Built target test_differentiator"
+.PHONY : CMakeFiles/test_differentiator.dir/all
+
+# Include target in all.
+all: CMakeFiles/test_differentiator.dir/all
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/test_differentiator.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles 3
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/test_differentiator.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles 0
+.PHONY : CMakeFiles/test_differentiator.dir/rule
+
+# Convenience name for target.
+test_differentiator: CMakeFiles/test_differentiator.dir/rule
+.PHONY : test_differentiator
+
+# clean rule for target.
+CMakeFiles/test_differentiator.dir/clean:
+	$(MAKE) -f CMakeFiles/test_differentiator.dir/build.make CMakeFiles/test_differentiator.dir/clean
+.PHONY : CMakeFiles/test_differentiator.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/test_differentiator.dir/clean
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/test_optimal_sliding.dir
+
+# All Build rule for target.
+CMakeFiles/test_optimal_sliding.dir/all: CMakeFiles/samlibs.dir/all
+CMakeFiles/test_optimal_sliding.dir/all: CMakeFiles/constants.dir/all
+	$(MAKE) -f CMakeFiles/test_optimal_sliding.dir/build.make CMakeFiles/test_optimal_sliding.dir/depend
+	$(MAKE) -f CMakeFiles/test_optimal_sliding.dir/build.make CMakeFiles/test_optimal_sliding.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles  8
+	@echo "Built target test_optimal_sliding"
+.PHONY : CMakeFiles/test_optimal_sliding.dir/all
+
+# Include target in all.
+all: CMakeFiles/test_optimal_sliding.dir/all
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/test_optimal_sliding.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles 3
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/test_optimal_sliding.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles 0
+.PHONY : CMakeFiles/test_optimal_sliding.dir/rule
+
+# Convenience name for target.
+test_optimal_sliding: CMakeFiles/test_optimal_sliding.dir/rule
+.PHONY : test_optimal_sliding
+
+# clean rule for target.
+CMakeFiles/test_optimal_sliding.dir/clean:
+	$(MAKE) -f CMakeFiles/test_optimal_sliding.dir/build.make CMakeFiles/test_optimal_sliding.dir/clean
+.PHONY : CMakeFiles/test_optimal_sliding.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/test_optimal_sliding.dir/clean
 .PHONY : clean
 
 #=============================================================================

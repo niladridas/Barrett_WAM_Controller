@@ -8,9 +8,12 @@ CMakeFiles/nilu_slidingmode.dir/src/nilu_slidingmode.cpp.o
  ../include/GMM.hpp
  ../include/M_4D.hpp
  ../include/Sliding_mode_4dof.hpp
+ ../include/differentiator.hpp
  ../include/dummy_system.hpp
  ../include/reference_signal.hpp
  ../include/samlibs.h
+ ../include/second_differentiator.hpp
+ ../include/torque_observer.hpp
  /home/nilxwam/workspace/gwam-simulator/src/nilu_slidingmode.cpp
  /usr/include/eigen2/Eigen/Array
  /usr/include/eigen2/Eigen/Core

@@ -122,6 +122,19 @@ eigen_test/fast:
 .PHONY : eigen_test/fast
 
 #=============================================================================
+# Target rules for targets named ncurses_example
+
+# Build rule for target.
+ncurses_example: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ncurses_example
+.PHONY : ncurses_example
+
+# fast build rule for target.
+ncurses_example/fast:
+	$(MAKE) -f CMakeFiles/ncurses_example.dir/build.make CMakeFiles/ncurses_example.dir/build
+.PHONY : ncurses_example/fast
+
+#=============================================================================
 # Target rules for targets named nilu_optimal_sliding_mode
 
 # Build rule for target.
@@ -159,6 +172,32 @@ samlibs: cmake_check_build_system
 samlibs/fast:
 	$(MAKE) -f CMakeFiles/samlibs.dir/build.make CMakeFiles/samlibs.dir/build
 .PHONY : samlibs/fast
+
+#=============================================================================
+# Target rules for targets named test_differentiator
+
+# Build rule for target.
+test_differentiator: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_differentiator
+.PHONY : test_differentiator
+
+# fast build rule for target.
+test_differentiator/fast:
+	$(MAKE) -f CMakeFiles/test_differentiator.dir/build.make CMakeFiles/test_differentiator.dir/build
+.PHONY : test_differentiator/fast
+
+#=============================================================================
+# Target rules for targets named test_optimal_sliding
+
+# Build rule for target.
+test_optimal_sliding: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_optimal_sliding
+.PHONY : test_optimal_sliding
+
+# fast build rule for target.
+test_optimal_sliding/fast:
+	$(MAKE) -f CMakeFiles/test_optimal_sliding.dir/build.make CMakeFiles/test_optimal_sliding.dir/build
+.PHONY : test_optimal_sliding/fast
 
 samLibs/constants.o: samLibs/constants.cpp.o
 .PHONY : samLibs/constants.o
@@ -232,6 +271,30 @@ src/eigen_test.cpp.s:
 	$(MAKE) -f CMakeFiles/eigen_test.dir/build.make CMakeFiles/eigen_test.dir/src/eigen_test.cpp.s
 .PHONY : src/eigen_test.cpp.s
 
+src/ncurses_example.o: src/ncurses_example.cpp.o
+.PHONY : src/ncurses_example.o
+
+# target to build an object file
+src/ncurses_example.cpp.o:
+	$(MAKE) -f CMakeFiles/ncurses_example.dir/build.make CMakeFiles/ncurses_example.dir/src/ncurses_example.cpp.o
+.PHONY : src/ncurses_example.cpp.o
+
+src/ncurses_example.i: src/ncurses_example.cpp.i
+.PHONY : src/ncurses_example.i
+
+# target to preprocess a source file
+src/ncurses_example.cpp.i:
+	$(MAKE) -f CMakeFiles/ncurses_example.dir/build.make CMakeFiles/ncurses_example.dir/src/ncurses_example.cpp.i
+.PHONY : src/ncurses_example.cpp.i
+
+src/ncurses_example.s: src/ncurses_example.cpp.s
+.PHONY : src/ncurses_example.s
+
+# target to generate assembly for a file
+src/ncurses_example.cpp.s:
+	$(MAKE) -f CMakeFiles/ncurses_example.dir/build.make CMakeFiles/ncurses_example.dir/src/ncurses_example.cpp.s
+.PHONY : src/ncurses_example.cpp.s
+
 src/nilu_optimal_sliding_mode.o: src/nilu_optimal_sliding_mode.cpp.o
 .PHONY : src/nilu_optimal_sliding_mode.o
 
@@ -280,6 +343,54 @@ src/nilu_slidingmode.cpp.s:
 	$(MAKE) -f CMakeFiles/nilu_slidingmode.dir/build.make CMakeFiles/nilu_slidingmode.dir/src/nilu_slidingmode.cpp.s
 .PHONY : src/nilu_slidingmode.cpp.s
 
+src/test_differentiator.o: src/test_differentiator.cpp.o
+.PHONY : src/test_differentiator.o
+
+# target to build an object file
+src/test_differentiator.cpp.o:
+	$(MAKE) -f CMakeFiles/test_differentiator.dir/build.make CMakeFiles/test_differentiator.dir/src/test_differentiator.cpp.o
+.PHONY : src/test_differentiator.cpp.o
+
+src/test_differentiator.i: src/test_differentiator.cpp.i
+.PHONY : src/test_differentiator.i
+
+# target to preprocess a source file
+src/test_differentiator.cpp.i:
+	$(MAKE) -f CMakeFiles/test_differentiator.dir/build.make CMakeFiles/test_differentiator.dir/src/test_differentiator.cpp.i
+.PHONY : src/test_differentiator.cpp.i
+
+src/test_differentiator.s: src/test_differentiator.cpp.s
+.PHONY : src/test_differentiator.s
+
+# target to generate assembly for a file
+src/test_differentiator.cpp.s:
+	$(MAKE) -f CMakeFiles/test_differentiator.dir/build.make CMakeFiles/test_differentiator.dir/src/test_differentiator.cpp.s
+.PHONY : src/test_differentiator.cpp.s
+
+src/test_optimal_sliding.o: src/test_optimal_sliding.cpp.o
+.PHONY : src/test_optimal_sliding.o
+
+# target to build an object file
+src/test_optimal_sliding.cpp.o:
+	$(MAKE) -f CMakeFiles/test_optimal_sliding.dir/build.make CMakeFiles/test_optimal_sliding.dir/src/test_optimal_sliding.cpp.o
+.PHONY : src/test_optimal_sliding.cpp.o
+
+src/test_optimal_sliding.i: src/test_optimal_sliding.cpp.i
+.PHONY : src/test_optimal_sliding.i
+
+# target to preprocess a source file
+src/test_optimal_sliding.cpp.i:
+	$(MAKE) -f CMakeFiles/test_optimal_sliding.dir/build.make CMakeFiles/test_optimal_sliding.dir/src/test_optimal_sliding.cpp.i
+.PHONY : src/test_optimal_sliding.cpp.i
+
+src/test_optimal_sliding.s: src/test_optimal_sliding.cpp.s
+.PHONY : src/test_optimal_sliding.s
+
+# target to generate assembly for a file
+src/test_optimal_sliding.cpp.s:
+	$(MAKE) -f CMakeFiles/test_optimal_sliding.dir/build.make CMakeFiles/test_optimal_sliding.dir/src/test_optimal_sliding.cpp.s
+.PHONY : src/test_optimal_sliding.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -289,10 +400,13 @@ help:
 	@echo "... constants"
 	@echo "... edit_cache"
 	@echo "... eigen_test"
+	@echo "... ncurses_example"
 	@echo "... nilu_optimal_sliding_mode"
 	@echo "... nilu_slidingmode"
 	@echo "... rebuild_cache"
 	@echo "... samlibs"
+	@echo "... test_differentiator"
+	@echo "... test_optimal_sliding"
 	@echo "... samLibs/constants.o"
 	@echo "... samLibs/constants.i"
 	@echo "... samLibs/constants.s"
@@ -302,12 +416,21 @@ help:
 	@echo "... src/eigen_test.o"
 	@echo "... src/eigen_test.i"
 	@echo "... src/eigen_test.s"
+	@echo "... src/ncurses_example.o"
+	@echo "... src/ncurses_example.i"
+	@echo "... src/ncurses_example.s"
 	@echo "... src/nilu_optimal_sliding_mode.o"
 	@echo "... src/nilu_optimal_sliding_mode.i"
 	@echo "... src/nilu_optimal_sliding_mode.s"
 	@echo "... src/nilu_slidingmode.o"
 	@echo "... src/nilu_slidingmode.i"
 	@echo "... src/nilu_slidingmode.s"
+	@echo "... src/test_differentiator.o"
+	@echo "... src/test_differentiator.i"
+	@echo "... src/test_differentiator.s"
+	@echo "... src/test_optimal_sliding.o"
+	@echo "... src/test_optimal_sliding.i"
+	@echo "... src/test_optimal_sliding.s"
 .PHONY : help
 
 

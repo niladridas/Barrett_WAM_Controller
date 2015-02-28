@@ -25,13 +25,16 @@ using detail::waitForEnter;
 #include <reference_signal.hpp>
 #include <dummy_system.hpp>
 #include <GMM.hpp>
+#include <differentiator.hpp>
+#include <second_differentiator.hpp>
+#include <torque_observer.hpp>
+#include <dummy_system.hpp>
 
 template<size_t DOF>
 int wam_main(int argc, char** argv, ProductManager& pm,
 		systems::Wam<DOF>& wam) {
 	BARRETT_UNITS_TEMPLATE_TYPEDEFS(DOF);
 
-//	typedef Eigen::Matrix<double, 7, 1> Vector7d;
 	printf("Error 1 \n");
 	size_t num_inp, num_op, num_priors;
 	Eigen::VectorXd priors;/*!< an Eigen Vector value */
@@ -119,7 +122,6 @@ int wam_main(int argc, char** argv, ProductManager& pm,
 				* input_mean_matrix.col(k);
 	}
 	printf("Error 20 \n");
-//	Vector7d det_tmp_tmp;
 	Eigen::VectorXd det_tmp_tmp;
 	det_tmp_tmp.resize(num_priors, 1);
 
@@ -137,9 +139,10 @@ int wam_main(int argc, char** argv, ProductManager& pm,
 				num_inp * k, 0, num_inp, num_inp).inverse();
 	}
 	printf("Error 22 \n");
-	typedef boost::tuple<double, jp_type, jv_type, jp_type, jv_type, jt_type> tuple_type;
+	typedef boost::tuple<double, jp_type, jv_type, jp_type, jv_type, jt_type,
+			ja_type, jt_type> tuple_type;
 	typedef systems::TupleGrouper<double, jp_type, jv_type, jp_type, jv_type,
-			jt_type> tg_type;
+			jt_type, ja_type, jt_type> tg_type;
 	tg_type tg;
 	char tmpFile[] = "btXXXXXX";
 	if (mkstemp(tmpFile) == -1) {
@@ -156,40 +159,45 @@ int wam_main(int argc, char** argv, ProductManager& pm,
 	std::cout << "Enter Coeff: " << std::endl;
 	std::cin >> COEFF;
 	const double coeff = COEFF;
-//	const double coeff = 0.5;
 	double DELTA;
 	std::cout << "Enter delta: " << std::endl;
 	std::cin >> DELTA;
 	const double delta = DELTA;
-//	const double delta = 0.01;
 	jp_type startpos(0.0);
 
-//	const double JP_AMPLITUDE = 0.4; // radians
-//	const double FREQUENCY = 1.0; // rad/s
 	std::cout << "Enter amplitude of ref sinusoid: " << std::endl;
 	std::cin >> amplitude1;
 	std::cout << "Enter omega of ref sinusoid: " << std::endl;
 	std::cin >> omega1;
 	startpos[3] = +3.14;
-//	amplitude1 = 1;
-//	omega1 = 2;
-//	amplitude1 = 0.4;
-//	omega1 = 1.0;
+
+	int mode1;
+//	mode = 3;
+	std::cout << "Enter mode for first diff: " << std::endl;
+	std::cin >> mode1;
+
+	int mode2;
+	//	mode = 3;
+	std::cout << "Enter mode for second diff: " << std::endl;
+	std::cin >> mode2;
 
 	const double JP_AMPLITUDE = amplitude1;
 	const double OMEGA = omega1;
 	bool status = true;
 
-//	startpos[1] = -M_PI_2;
-//	startpos[3] = M_PI_2; //+ JP_AMPLITUDE;
+	Eigen::Matrix4d lambda;
+	lambda << 200,0,0,0,
+			0,200,0,0,
+			0,0,200,0,
+			0,0,0,200;
 
 	J_ref<DOF> joint_ref(JP_AMPLITUDE, OMEGA, startpos);
 	Slidingmode_Controller<DOF> slide(status, lamda, coeff, delta);
 	Dynamics<DOF> nilu_dynamics;
-	//Dummy<DOF> nilu_dummy;
-	//GMM<DOF> gmm_error(priors, mean, sigma, num_inp, num_op, num_priors,
-	//		sigma_input, input_mean_matrix, A_matrix, B_matrix, det_tmp_tmp,
-	//		tmp_inv);
+	differentiator<DOF, jv_type, ja_type> nilu_diff(mode1);
+//	second_differentiator <DOF> nilu_diff2(mode2);
+	torque_observer<DOF> nilu_TO(lambda);
+//	Dummy<DOF> nilu_dummy;
 
 	wam.gravityCompensate();
 	printf("Press [Enter] to turn on torque control to go to zero position");
@@ -216,25 +224,36 @@ int wam_main(int argc, char** argv, ProductManager& pm,
 	systems::connect(joint_ref.referencejpTrack, slide.referencejpInput);
 	systems::connect(joint_ref.referencejvTrack, slide.referencejvInput);
 	systems::connect(joint_ref.referencejaTrack, slide.referencejaInput);
-	//systems::connect(slide.controlOutput, nilu_dummy.ControllerInput);
-	//systems::connect(wam.jpOutput, gmm_error.jpInputActual);
-	//systems::connect(wam.jvOutput, gmm_error.jvInputActual);
-	//systems::connect(gmm_error.error_output, nilu_dummy.CompensatorInput);
+	systems::connect(time.output, nilu_diff.time);
+//	systems::connect(time.output, nilu_diff2.time);
+	systems::connect(wam.jvOutput, nilu_diff.inputSignal);
+//	systems::connect(wam.jpOutput,nilu_diff2.inputSignal);
+
+	systems::connect(time.output,nilu_TO.time);
+	systems::connect(nilu_diff.outputSignal,nilu_TO.inputacc);
+	systems::connect(nilu_dynamics.MassMAtrixOutput,nilu_TO.M);
+	systems::connect(nilu_dynamics.CVectorOutput,nilu_TO.C);
+	systems::connect(slide.controlOutput,nilu_TO.SMC);
+//	systems::connect(nilu_TO.outputTorque,nilu_dummy.CompensatorInput);
+//	systems::connect(slide.controlOutput,nilu_dummy.ControllerInput);
+
+
+
+//	wam.trackReferenceSignal(nilu_dummy.Total_torque);
 
 	wam.trackReferenceSignal(slide.controlOutput);
+
 
 	systems::connect(time.output, tg.template getInput<0>());
 	systems::connect(joint_ref.referencejpTrack, tg.template getInput<1>());
 	systems::connect(joint_ref.referencejvTrack, tg.template getInput<2>());
 	systems::connect(wam.jpOutput, tg.template getInput<3>());
 	systems::connect(wam.jvOutput, tg.template getInput<4>());
-	//systems::connect(nilu_dummy.Total_torque, tg.template getInput<5>());
 	systems::connect(slide.controlOutput, tg.template getInput<5>());
+	systems::connect(nilu_diff.outputSignal, tg.template getInput<6>());
+	systems::connect(nilu_TO.outputTorque, tg.template getInput<7>());
+//	systems::connect(nilu_diff2.outputSignal, tg.template getInput<7>());
 
-//	systems::connect(wam.supervisoryController.output,
-//			tg.template getInput<5>());
-
-//	wam.supervisoryController.connectInputTo(wam.supervisoryController.output);
 	time.smoothStart(TRANSITION_DURATION);
 	printf("Press [Enter] to stop.");
 	waitForEnter();
@@ -242,7 +261,6 @@ int wam_main(int argc, char** argv, ProductManager& pm,
 	time.smoothStop(TRANSITION_DURATION);
 	wam.idle();
 	pm.getSafetyModule()->waitForMode(SafetyModule::IDLE);
-//	printf("It all ended");
 	log::Reader<boost::tuple<tuple_type> > lr(tmpFile);
 	lr.exportCSV(argv[1]);
 	printf("Output written to %s.\n", argv[1]);
@@ -252,7 +270,9 @@ int wam_main(int argc, char** argv, ProductManager& pm,
 			<< "0" << "," << "0" << "," << "0" << "," << "0" << "," << "0"
 			<< "," << "0" << "," << "0" << "," << "0" << "," << "0" << ","
 			<< "0" << "," << "0" << "," << "0" << "," << "0" << "," << "0"
-			<< "," << "0" << "," << "0" << "," << "0";
+			<< "," << "0" << "," << "0" << "," << "0" << "," << "0" << ","
+			<< "0" << "," << "0" << "," << "0""," << "0" << ","
+			<< "0" << "," << "0" << "," << "0";
 	log.close();
 	return 0;
 }

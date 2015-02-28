@@ -34,6 +34,9 @@ add_programs(
 nilu_slidingmode
 nilu_optimal_sliding_mode
 eigen_test
+ncurses_example
+test_optimal_sliding
+test_differentiator
 )
 
-#target_link_libraries(test_ex04 ${CURSES_LIBRARIES})
+target_link_libraries(ncurses_example ${CURSES_LIBRARIES})
