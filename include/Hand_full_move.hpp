@@ -47,7 +47,6 @@ protected:
 	hjp_t finger_angles;
 	hjp_t finger_angles_current;
 	Eigen::Matrix<double, 4, 1> Finger_Angles_tmp;
-//	Eigen::Matrix<double, 4, 1> Finger_Angles_Current_tmp;
 
 	Hand* hand;
 

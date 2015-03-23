@@ -26,29 +26,29 @@
 using namespace barrett;
 using namespace systems;
 
+template<size_t DOF>
 class Hand_forcetorque_sense: public System {
 	/* Torque*/
+	BARRETT_UNITS_TEMPLATE_TYPEDEFS(DOF);
+
 public:
 	typedef Hand::jp_type hjp_t;
 
 public:
-	Output<Eigen::Matrix<double, 8, 3>> Finger_Tactile_1; // Object Geometry
-	Output<Eigen::Matrix<double, 8, 3>> Finger_Tactile_2; // Object Geometry
-	Output<Eigen::Matrix<double, 8, 3>> Finger_Tactile_3; // Object Geometry
-	Output<Eigen::Matrix<double, 8, 3>> Finger_Tactile_4; // Object Geometry
+	Output<Eigen::Matrix<double, 3, 1>> Force_hand; // Object Geometry
+	Output<Eigen::Matrix<double, 3, 1>> Torque_hand; // Object Geometry
+	Output<Eigen::Matrix<double, 3, 1>> Acceleration_hand; // Object Geometry
 
 protected:
-	typename Output<Eigen::Matrix<double, 8, 3>>::Value* Finger_Tactile_1_OutputValue;
-	typename Output<Eigen::Matrix<double, 8, 3>>::Value* Finger_Tactile_2_OutputValue;
-	typename Output<Eigen::Matrix<double, 8, 3>>::Value* Finger_Tactile_3_OutputValue;
-	typename Output<Eigen::Matrix<double, 8, 3>>::Value* Finger_Tactile_4_OutputValue;
+	typename Output<Eigen::Matrix<double, 3, 1>>::Value* Force_hand_OutputValue;
+	typename Output<Eigen::Matrix<double, 3, 1>>::Value* Torque_hand_OutputValue;
+	typename Output<Eigen::Matrix<double, 3, 1>>::Value* Acceleration_hand_OutputValue;
 
 public:
-	Hand_forcetorque_sense(Hand* hand, std::vector<TactilePuck*> tps) :
-			Finger_Tactile_1(this, &Finger_Tactile_1_OutputValue), Finger_Tactile_2(
-					this, &Finger_Tactile_2_OutputValue), Finger_Tactile_3(this,
-					&Finger_Tactile_3_OutputValue), Finger_Tactile_4(this,
-					&Finger_Tactile_4_OutputValue), hand(hand), tps(tps) {
+	Hand_forcetorque_sense(Hand* hand, ForceTorqueSensor* fts) :
+			Force_hand(this, &Force_hand_OutputValue), Torque_hand(this,
+					&Torque_hand_OutputValue), Acceleration_hand(this,
+					&Acceleration_hand_OutputValue), hand(hand), fts(fts) {
 	}
 
 	virtual ~Hand_forcetorque_sense() {
@@ -56,57 +56,37 @@ public:
 	}
 
 protected:
-	hjp_t finger_angles_current;
-	Eigen::Matrix<double, 4, 1> Finger_Angles_Current_tmp;
-	TactilePuck::v_type F1t; // Vector of size 24
-	TactilePuck::v_type F2t;
-	TactilePuck::v_type F3t;
-	TactilePuck::v_type F4t;
-	Eigen::Matrix<double, 8, 3> F1_tact;
-	Eigen::Matrix<double, 8, 3> F2_tact;
-	Eigen::Matrix<double, 8, 3> F3_tact;
-	Eigen::Matrix<double, 8, 3> F4_tact;
-	int i, j;
+
+	int i;
+	cf_type cf;
+	ct_type ct;
+	ca_type ca;
+	Eigen::Matrix<double, 3, 1> Force_hand_tmp;
+	Eigen::Matrix<double, 3, 1> Torque_hand_tmp;
+	Eigen::Matrix<double, 3, 1> Acceleration_hand_tmp;
 
 	Hand* hand;
-	std::vector<TactilePuck*> tps;
+	ForceTorqueSensor* fts;
 	virtual void operate() {
 
 		hand->update();
+		cf = math::saturate(fts->getForce(), 99.99);
+		ct = math::saturate(fts->getTorque(), 9.999);
+		ca = math::saturate(fts->getAccel(), 99.99);
 
-		finger_angles_current = hand->getInnerLinkPosition();
-		Finger_Angles_Current_tmp[0] = finger_angles_current[0];
-		Finger_Angles_Current_tmp[1] = finger_angles_current[1];
-		Finger_Angles_Current_tmp[2] = finger_angles_current[2];
-		Finger_Angles_Current_tmp[3] = finger_angles_current[3];
-
-		F1t = tps[0]->getFullData();
-		F2t = tps[1]->getFullData();
-		F3t = tps[2]->getFullData();
-		F4t = tps[3]->getFullData();
-
-		for (i = 0; i < 8; i++) {
-			for (j = 0; j < 3; j++) {
-				F1_tact(i, j) = F1t[3 * i + j];
-				F2_tact(i, j) = F2t[3 * i + j];
-				F3_tact(i, j) = F3t[3 * i + j];
-				F4_tact(i, j) = F4t[3 * i + j];
-			}
+		for(i=0;i<3;i++)
+		{
+			Force_hand_tmp(i,1) = cf[i];
+			Torque_hand_tmp(i,1) = ct[i];
+			Acceleration_hand_tmp(i,1) = ca[i];
 		}
 
-		this->Finger_Tactile_1_OutputValue->setData(
-				&F1_tact);
-		this->Finger_Tactile_2_OutputValue->setData(
-						&F2_tact);
-		this->Finger_Tactile_3_OutputValue->setData(
-						&F3_tact);
-		this->Finger_Tactile_4_OutputValue->setData(
-						&F4_tact);
+		this->Force_hand_OutputValue->setData(&Force_hand_tmp);
+		this->Torque_hand_OutputValue->setData(&Torque_hand_tmp);
+		this->Acceleration_hand_OutputValue->setData(&Acceleration_hand_tmp);
 
 	}
 
 };
-
-
 
 #endif /* HAND_FORCETORQUE_SENSE_HPP_ */
