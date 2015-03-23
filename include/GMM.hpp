@@ -178,22 +178,22 @@ protected:
 		}
 
 //		f_hat.resize(num_op, 1);
-////
+//
 //		f_hat[0] = 0.5;
 //		f_hat[1] = 0.5;
 //		f_hat[2] = 0.5;
 //		f_hat[3] = 0.5;
-////
+//
 //		//-------------------------------SECTION FIVE---------------------------------------------------//
 //
-//		tmp_jt[0] = f_hat[0];
-//		tmp_jt[1] = f_hat[1];
-//		tmp_jt[2] = f_hat[2];
-//		tmp_jt[3] = f_hat[3];
-		tmp_jt[0] = 0;
-		tmp_jt[1] = 0;
-		tmp_jt[2] = 0;
-		tmp_jt[3] = 0;
+		tmp_jt[0] = f_hat[0];
+		tmp_jt[1] = f_hat[1];
+		tmp_jt[2] = f_hat[2];
+		tmp_jt[3] = f_hat[3];
+//		tmp_jt[0] = 0;
+//		tmp_jt[1] = 0;
+//		tmp_jt[2] = 0;
+//		tmp_jt[3] = 0;
 		this->error_outputValue->setData(&tmp_jt);
 
 	}

@@ -96,6 +96,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named another_controller
+
+# Build rule for target.
+another_controller: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 another_controller
+.PHONY : another_controller
+
+# fast build rule for target.
+another_controller/fast:
+	$(MAKE) -f CMakeFiles/another_controller.dir/build.make CMakeFiles/another_controller.dir/build
+.PHONY : another_controller/fast
+
+#=============================================================================
 # Target rules for targets named constants
 
 # Build rule for target.
@@ -148,6 +161,19 @@ nilu_optimal_sliding_mode/fast:
 .PHONY : nilu_optimal_sliding_mode/fast
 
 #=============================================================================
+# Target rules for targets named nilu_sliding_compensator_on
+
+# Build rule for target.
+nilu_sliding_compensator_on: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 nilu_sliding_compensator_on
+.PHONY : nilu_sliding_compensator_on
+
+# fast build rule for target.
+nilu_sliding_compensator_on/fast:
+	$(MAKE) -f CMakeFiles/nilu_sliding_compensator_on.dir/build.make CMakeFiles/nilu_sliding_compensator_on.dir/build
+.PHONY : nilu_sliding_compensator_on/fast
+
+#=============================================================================
 # Target rules for targets named nilu_slidingmode
 
 # Build rule for target.
@@ -159,6 +185,19 @@ nilu_slidingmode: cmake_check_build_system
 nilu_slidingmode/fast:
 	$(MAKE) -f CMakeFiles/nilu_slidingmode.dir/build.make CMakeFiles/nilu_slidingmode.dir/build
 .PHONY : nilu_slidingmode/fast
+
+#=============================================================================
+# Target rules for targets named playTenisLog_nilu
+
+# Build rule for target.
+playTenisLog_nilu: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 playTenisLog_nilu
+.PHONY : playTenisLog_nilu
+
+# fast build rule for target.
+playTenisLog_nilu/fast:
+	$(MAKE) -f CMakeFiles/playTenisLog_nilu.dir/build.make CMakeFiles/playTenisLog_nilu.dir/build
+.PHONY : playTenisLog_nilu/fast
 
 #=============================================================================
 # Target rules for targets named samlibs
@@ -247,6 +286,30 @@ samLibs/samlibs.cpp.s:
 	$(MAKE) -f CMakeFiles/samlibs.dir/build.make CMakeFiles/samlibs.dir/samLibs/samlibs.cpp.s
 .PHONY : samLibs/samlibs.cpp.s
 
+src/another_controller.o: src/another_controller.cpp.o
+.PHONY : src/another_controller.o
+
+# target to build an object file
+src/another_controller.cpp.o:
+	$(MAKE) -f CMakeFiles/another_controller.dir/build.make CMakeFiles/another_controller.dir/src/another_controller.cpp.o
+.PHONY : src/another_controller.cpp.o
+
+src/another_controller.i: src/another_controller.cpp.i
+.PHONY : src/another_controller.i
+
+# target to preprocess a source file
+src/another_controller.cpp.i:
+	$(MAKE) -f CMakeFiles/another_controller.dir/build.make CMakeFiles/another_controller.dir/src/another_controller.cpp.i
+.PHONY : src/another_controller.cpp.i
+
+src/another_controller.s: src/another_controller.cpp.s
+.PHONY : src/another_controller.s
+
+# target to generate assembly for a file
+src/another_controller.cpp.s:
+	$(MAKE) -f CMakeFiles/another_controller.dir/build.make CMakeFiles/another_controller.dir/src/another_controller.cpp.s
+.PHONY : src/another_controller.cpp.s
+
 src/eigen_test.o: src/eigen_test.cpp.o
 .PHONY : src/eigen_test.o
 
@@ -319,6 +382,30 @@ src/nilu_optimal_sliding_mode.cpp.s:
 	$(MAKE) -f CMakeFiles/nilu_optimal_sliding_mode.dir/build.make CMakeFiles/nilu_optimal_sliding_mode.dir/src/nilu_optimal_sliding_mode.cpp.s
 .PHONY : src/nilu_optimal_sliding_mode.cpp.s
 
+src/nilu_sliding_compensator_on.o: src/nilu_sliding_compensator_on.cpp.o
+.PHONY : src/nilu_sliding_compensator_on.o
+
+# target to build an object file
+src/nilu_sliding_compensator_on.cpp.o:
+	$(MAKE) -f CMakeFiles/nilu_sliding_compensator_on.dir/build.make CMakeFiles/nilu_sliding_compensator_on.dir/src/nilu_sliding_compensator_on.cpp.o
+.PHONY : src/nilu_sliding_compensator_on.cpp.o
+
+src/nilu_sliding_compensator_on.i: src/nilu_sliding_compensator_on.cpp.i
+.PHONY : src/nilu_sliding_compensator_on.i
+
+# target to preprocess a source file
+src/nilu_sliding_compensator_on.cpp.i:
+	$(MAKE) -f CMakeFiles/nilu_sliding_compensator_on.dir/build.make CMakeFiles/nilu_sliding_compensator_on.dir/src/nilu_sliding_compensator_on.cpp.i
+.PHONY : src/nilu_sliding_compensator_on.cpp.i
+
+src/nilu_sliding_compensator_on.s: src/nilu_sliding_compensator_on.cpp.s
+.PHONY : src/nilu_sliding_compensator_on.s
+
+# target to generate assembly for a file
+src/nilu_sliding_compensator_on.cpp.s:
+	$(MAKE) -f CMakeFiles/nilu_sliding_compensator_on.dir/build.make CMakeFiles/nilu_sliding_compensator_on.dir/src/nilu_sliding_compensator_on.cpp.s
+.PHONY : src/nilu_sliding_compensator_on.cpp.s
+
 src/nilu_slidingmode.o: src/nilu_slidingmode.cpp.o
 .PHONY : src/nilu_slidingmode.o
 
@@ -342,6 +429,30 @@ src/nilu_slidingmode.s: src/nilu_slidingmode.cpp.s
 src/nilu_slidingmode.cpp.s:
 	$(MAKE) -f CMakeFiles/nilu_slidingmode.dir/build.make CMakeFiles/nilu_slidingmode.dir/src/nilu_slidingmode.cpp.s
 .PHONY : src/nilu_slidingmode.cpp.s
+
+src/playTenisLog_nilu.o: src/playTenisLog_nilu.cpp.o
+.PHONY : src/playTenisLog_nilu.o
+
+# target to build an object file
+src/playTenisLog_nilu.cpp.o:
+	$(MAKE) -f CMakeFiles/playTenisLog_nilu.dir/build.make CMakeFiles/playTenisLog_nilu.dir/src/playTenisLog_nilu.cpp.o
+.PHONY : src/playTenisLog_nilu.cpp.o
+
+src/playTenisLog_nilu.i: src/playTenisLog_nilu.cpp.i
+.PHONY : src/playTenisLog_nilu.i
+
+# target to preprocess a source file
+src/playTenisLog_nilu.cpp.i:
+	$(MAKE) -f CMakeFiles/playTenisLog_nilu.dir/build.make CMakeFiles/playTenisLog_nilu.dir/src/playTenisLog_nilu.cpp.i
+.PHONY : src/playTenisLog_nilu.cpp.i
+
+src/playTenisLog_nilu.s: src/playTenisLog_nilu.cpp.s
+.PHONY : src/playTenisLog_nilu.s
+
+# target to generate assembly for a file
+src/playTenisLog_nilu.cpp.s:
+	$(MAKE) -f CMakeFiles/playTenisLog_nilu.dir/build.make CMakeFiles/playTenisLog_nilu.dir/src/playTenisLog_nilu.cpp.s
+.PHONY : src/playTenisLog_nilu.cpp.s
 
 src/test_differentiator.o: src/test_differentiator.cpp.o
 .PHONY : src/test_differentiator.o
@@ -397,12 +508,15 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
+	@echo "... another_controller"
 	@echo "... constants"
 	@echo "... edit_cache"
 	@echo "... eigen_test"
 	@echo "... ncurses_example"
 	@echo "... nilu_optimal_sliding_mode"
+	@echo "... nilu_sliding_compensator_on"
 	@echo "... nilu_slidingmode"
+	@echo "... playTenisLog_nilu"
 	@echo "... rebuild_cache"
 	@echo "... samlibs"
 	@echo "... test_differentiator"
@@ -413,6 +527,9 @@ help:
 	@echo "... samLibs/samlibs.o"
 	@echo "... samLibs/samlibs.i"
 	@echo "... samLibs/samlibs.s"
+	@echo "... src/another_controller.o"
+	@echo "... src/another_controller.i"
+	@echo "... src/another_controller.s"
 	@echo "... src/eigen_test.o"
 	@echo "... src/eigen_test.i"
 	@echo "... src/eigen_test.s"
@@ -422,9 +539,15 @@ help:
 	@echo "... src/nilu_optimal_sliding_mode.o"
 	@echo "... src/nilu_optimal_sliding_mode.i"
 	@echo "... src/nilu_optimal_sliding_mode.s"
+	@echo "... src/nilu_sliding_compensator_on.o"
+	@echo "... src/nilu_sliding_compensator_on.i"
+	@echo "... src/nilu_sliding_compensator_on.s"
 	@echo "... src/nilu_slidingmode.o"
 	@echo "... src/nilu_slidingmode.i"
 	@echo "... src/nilu_slidingmode.s"
+	@echo "... src/playTenisLog_nilu.o"
+	@echo "... src/playTenisLog_nilu.i"
+	@echo "... src/playTenisLog_nilu.s"
 	@echo "... src/test_differentiator.o"
 	@echo "... src/test_differentiator.i"
 	@echo "... src/test_differentiator.s"
