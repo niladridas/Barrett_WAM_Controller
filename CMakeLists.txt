@@ -40,6 +40,7 @@ test_optimal_sliding
 test_differentiator
 another_controller
 playTenisLog_nilu
+test_tact_finger
 )
 
 target_link_libraries(ncurses_example ${CURSES_LIBRARIES})

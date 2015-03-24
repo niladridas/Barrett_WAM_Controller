@@ -14,7 +14,7 @@
 #include <barrett/detail/ca_macro.h>
 #include <barrett/systems/abstract/system.h>
 
-#include <eigen3/Eigen/Core>
+#include <Eigen/Core>
 #include <libconfig.h++>
 
 #include <barrett/detail/ca_macro.h>
@@ -32,19 +32,19 @@ public:
 	typedef Hand::jp_type hjp_t;
 
 public:
-	Output<Eigen::Matrix<double, 8, 3>> Finger_Tactile_1; // Object Geometry
-	Output<Eigen::Matrix<double, 8, 3>> Finger_Tactile_2; // Object Geometry
-	Output<Eigen::Matrix<double, 8, 3>> Finger_Tactile_3; // Object Geometry
-	Output<Eigen::Matrix<double, 8, 3>> Finger_Tactile_4; // Object Geometry
+	Output< Eigen::Matrix<double, 8, 3> > Finger_Tactile_1; // Object Geometry
+	Output< Eigen::Matrix<double, 8, 3> > Finger_Tactile_2; // Object Geometry
+	Output< Eigen::Matrix<double, 8, 3> > Finger_Tactile_3; // Object Geometry
+	Output< Eigen::Matrix<double, 8, 3> > Finger_Tactile_4; // Object Geometry
 
 protected:
-	typename Output<Eigen::Matrix<double, 8, 3>>::Value* Finger_Tactile_1_OutputValue;
-	typename Output<Eigen::Matrix<double, 8, 3>>::Value* Finger_Tactile_2_OutputValue;
-	typename Output<Eigen::Matrix<double, 8, 3>>::Value* Finger_Tactile_3_OutputValue;
-	typename Output<Eigen::Matrix<double, 8, 3>>::Value* Finger_Tactile_4_OutputValue;
+	typename Output< Eigen::Matrix<double, 8, 3> >::Value* Finger_Tactile_1_OutputValue;
+	typename Output< Eigen::Matrix<double, 8, 3> >::Value* Finger_Tactile_2_OutputValue;
+	typename Output< Eigen::Matrix<double, 8, 3> >::Value* Finger_Tactile_3_OutputValue;
+	typename Output< Eigen::Matrix<double, 8, 3> >::Value* Finger_Tactile_4_OutputValue;
 
 public:
-	Hand_tactile_sense(Hand* hand, std::vector<TactilePuck*> tps) :
+	Hand_tactile_sense(Hand*& hand, std::vector<TactilePuck*>& tps) :
 			Finger_Tactile_1(this, &Finger_Tactile_1_OutputValue), Finger_Tactile_2(
 					this, &Finger_Tactile_2_OutputValue), Finger_Tactile_3(this,
 					&Finger_Tactile_3_OutputValue), Finger_Tactile_4(this,
@@ -68,8 +68,8 @@ protected:
 	Eigen::Matrix<double, 8, 3> F4_tact;
 	int i, j;
 
-	Hand* hand;
-	std::vector<TactilePuck*> tps;
+	Hand*& hand;
+	std::vector<TactilePuck*>& tps;
 	virtual void operate() {
 
 		hand->update();

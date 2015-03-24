@@ -14,7 +14,7 @@
 #include <barrett/detail/ca_macro.h>
 #include <barrett/systems/abstract/system.h>
 
-#include <eigen3/Eigen/Core>
+#include <Eigen/Core>
 #include <libconfig.h++>
 
 #include <barrett/detail/ca_macro.h>
@@ -32,11 +32,11 @@ class Hand_full_move: public System {
 	/* Torque*/
 public:
 	typedef Hand::jp_type hjp_t;
-	Input<Eigen::Matrix<double, 4, 1>> Finger_Angles;
+	Input< hjp_t > Finger_Angles;
 
 public:
-	Hand_full_move(Hand* hand) :
-			Finger_Angles(this){
+	Hand_full_move(Hand*& hand) :
+			Finger_Angles(this),hand(hand){
 	}
 
 	virtual ~Hand_full_move() {
@@ -48,22 +48,22 @@ protected:
 	hjp_t finger_angles_current;
 	Eigen::Matrix<double, 4, 1> Finger_Angles_tmp;
 
-	Hand* hand;
+	Hand*& hand;
 
 	virtual void operate() {
-		Finger_Angles_tmp = this->Finger_Angles.getValue();
+		finger_angles = this->Finger_Angles.getValue();
 
-		finger_angles[0] = Finger_Angles_tmp[0];
-		finger_angles[1] = Finger_Angles_tmp[1];
-		finger_angles[2] = Finger_Angles_tmp[2];
-		finger_angles[3] = Finger_Angles_tmp[3];
+//		finger_angles[0] = Finger_Angles_tmp[0];
+//		finger_angles[1] = Finger_Angles_tmp[1];
+//		finger_angles[2] = Finger_Angles_tmp[2];
+//		finger_angles[3] = Finger_Angles_tmp[3];
 
 
 		/*
 		 * Checking to see if the final configuration is possible or not
 		 * If yes then the steps through which this is possible
 		 */
-		finger_angles_current = hand->getInnerLinkPosition();
+//		finger_angles_current = hand->getInnerLinkPosition();
 
 		// TODO
 		/*
@@ -74,7 +74,7 @@ protected:
 		 *
 		 */
 
-		hand->trapezoidalMove(finger_angles, Hand::WHOLE_HAND);
+		//hand->trapezoidalMove(finger_angles, Hand::GRASP);
 //		Finger_Angles_Current_tmp[0] = finger_angles_current[0];
 //		Finger_Angles_Current_tmp[1] = finger_angles_current[1];
 //		Finger_Angles_Current_tmp[2] = finger_angles_current[2];

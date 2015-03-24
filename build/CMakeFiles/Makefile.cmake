@@ -55,4 +55,5 @@ SET(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/samlibs.dir/DependInfo.cmake"
   "CMakeFiles/test_differentiator.dir/DependInfo.cmake"
   "CMakeFiles/test_optimal_sliding.dir/DependInfo.cmake"
+  "CMakeFiles/test_tact_finger.dir/DependInfo.cmake"
   )

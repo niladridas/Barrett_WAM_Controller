@@ -238,6 +238,19 @@ test_optimal_sliding/fast:
 	$(MAKE) -f CMakeFiles/test_optimal_sliding.dir/build.make CMakeFiles/test_optimal_sliding.dir/build
 .PHONY : test_optimal_sliding/fast
 
+#=============================================================================
+# Target rules for targets named test_tact_finger
+
+# Build rule for target.
+test_tact_finger: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_tact_finger
+.PHONY : test_tact_finger
+
+# fast build rule for target.
+test_tact_finger/fast:
+	$(MAKE) -f CMakeFiles/test_tact_finger.dir/build.make CMakeFiles/test_tact_finger.dir/build
+.PHONY : test_tact_finger/fast
+
 samLibs/constants.o: samLibs/constants.cpp.o
 .PHONY : samLibs/constants.o
 
@@ -502,6 +515,30 @@ src/test_optimal_sliding.cpp.s:
 	$(MAKE) -f CMakeFiles/test_optimal_sliding.dir/build.make CMakeFiles/test_optimal_sliding.dir/src/test_optimal_sliding.cpp.s
 .PHONY : src/test_optimal_sliding.cpp.s
 
+src/test_tact_finger.o: src/test_tact_finger.cpp.o
+.PHONY : src/test_tact_finger.o
+
+# target to build an object file
+src/test_tact_finger.cpp.o:
+	$(MAKE) -f CMakeFiles/test_tact_finger.dir/build.make CMakeFiles/test_tact_finger.dir/src/test_tact_finger.cpp.o
+.PHONY : src/test_tact_finger.cpp.o
+
+src/test_tact_finger.i: src/test_tact_finger.cpp.i
+.PHONY : src/test_tact_finger.i
+
+# target to preprocess a source file
+src/test_tact_finger.cpp.i:
+	$(MAKE) -f CMakeFiles/test_tact_finger.dir/build.make CMakeFiles/test_tact_finger.dir/src/test_tact_finger.cpp.i
+.PHONY : src/test_tact_finger.cpp.i
+
+src/test_tact_finger.s: src/test_tact_finger.cpp.s
+.PHONY : src/test_tact_finger.s
+
+# target to generate assembly for a file
+src/test_tact_finger.cpp.s:
+	$(MAKE) -f CMakeFiles/test_tact_finger.dir/build.make CMakeFiles/test_tact_finger.dir/src/test_tact_finger.cpp.s
+.PHONY : src/test_tact_finger.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -521,6 +558,7 @@ help:
 	@echo "... samlibs"
 	@echo "... test_differentiator"
 	@echo "... test_optimal_sliding"
+	@echo "... test_tact_finger"
 	@echo "... samLibs/constants.o"
 	@echo "... samLibs/constants.i"
 	@echo "... samLibs/constants.s"
@@ -554,6 +592,9 @@ help:
 	@echo "... src/test_optimal_sliding.o"
 	@echo "... src/test_optimal_sliding.i"
 	@echo "... src/test_optimal_sliding.s"
+	@echo "... src/test_tact_finger.o"
+	@echo "... src/test_tact_finger.i"
+	@echo "... src/test_tact_finger.s"
 .PHONY : help
 
 
