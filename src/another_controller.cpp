@@ -45,6 +45,16 @@ int wam_main(int argc, char** argv, ProductManager& pm,
 		return 1;
 	}
 
+
+	Eigen::VectorXd Amp;
+	Eigen::VectorXd Freq;
+	Eigen::VectorXd StartPos;
+
+
+	Sam::initEigenVec<double>(Amp, Sam::readFile<double>("amp.txt"));
+	Sam::initEigenVec<double>(Freq, Sam::readFile<double>("freq.txt"));
+	Sam::initEigenVec<double>(StartPos, Sam::readFile<double>("start.txt"));
+
 	Eigen::Matrix4d K1;
 	Eigen::Matrix4d K2;
 	ifstream myReadFile;
@@ -74,15 +84,18 @@ int wam_main(int argc, char** argv, ProductManager& pm,
 	const Eigen::Matrix4d lamda = tmp_lamda;
 
 	jp_type startpos(0.0);
+	startpos[0] = StartPos[0];
+	startpos[1] = StartPos[1];
+	startpos[2] = StartPos[2];
+	startpos[3] = StartPos[3];
+//	std::cout << "Enter amplitude of ref sinusoid: " << std::endl;
+//	std::cin >> amplitude1;
+//	std::cout << "Enter omega of ref sinusoid: " << std::endl;
+//	std::cin >> omega1;
+//	startpos[3] = +3.14;
 
-	std::cout << "Enter amplitude of ref sinusoid: " << std::endl;
-	std::cin >> amplitude1;
-	std::cout << "Enter omega of ref sinusoid: " << std::endl;
-	std::cin >> omega1;
-	startpos[3] = +3.14;
-
-	const double JP_AMPLITUDE = amplitude1;
-	const double OMEGA = omega1;
+	const 	Eigen::VectorXd JP_AMPLITUDE = Amp;
+	const	Eigen::VectorXd OMEGA = Freq;
 	bool status = true;
 
 	Eigen::Matrix4d lambda;

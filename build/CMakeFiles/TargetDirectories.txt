@@ -1,3 +1,4 @@
+/home/nilxwam/workspace/gwam-simulator/build/CMakeFiles/DMP_sliding_mode.dir
 /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles/another_controller.dir
 /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles/constants.dir
 /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles/eigen_test.dir

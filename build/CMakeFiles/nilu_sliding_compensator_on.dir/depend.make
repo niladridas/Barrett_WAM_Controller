@@ -9,7 +9,7 @@ CMakeFiles/nilu_sliding_compensator_on.dir/src/nilu_sliding_compensator_on.cpp.o
 CMakeFiles/nilu_sliding_compensator_on.dir/src/nilu_sliding_compensator_on.cpp.o: ../include/Sliding_mode_4dof_comp.hpp
 CMakeFiles/nilu_sliding_compensator_on.dir/src/nilu_sliding_compensator_on.cpp.o: ../include/differentiator.hpp
 CMakeFiles/nilu_sliding_compensator_on.dir/src/nilu_sliding_compensator_on.cpp.o: ../include/dummy_system.hpp
-CMakeFiles/nilu_sliding_compensator_on.dir/src/nilu_sliding_compensator_on.cpp.o: ../include/reference_signal.hpp
+CMakeFiles/nilu_sliding_compensator_on.dir/src/nilu_sliding_compensator_on.cpp.o: ../include/reference_signal2.hpp
 CMakeFiles/nilu_sliding_compensator_on.dir/src/nilu_sliding_compensator_on.cpp.o: ../include/samlibs.h
 CMakeFiles/nilu_sliding_compensator_on.dir/src/nilu_sliding_compensator_on.cpp.o: ../include/second_differentiator.hpp
 CMakeFiles/nilu_sliding_compensator_on.dir/src/nilu_sliding_compensator_on.cpp.o: ../include/torque_observer.hpp

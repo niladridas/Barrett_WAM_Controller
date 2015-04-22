@@ -10,7 +10,7 @@ CMakeFiles/nilu_sliding_compensator_on.dir/src/nilu_sliding_compensator_on.cpp.o
  ../include/Sliding_mode_4dof_comp.hpp
  ../include/differentiator.hpp
  ../include/dummy_system.hpp
- ../include/reference_signal.hpp
+ ../include/reference_signal2.hpp
  ../include/samlibs.h
  ../include/second_differentiator.hpp
  ../include/torque_observer.hpp

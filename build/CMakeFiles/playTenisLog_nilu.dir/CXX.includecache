@@ -6,6 +6,24 @@
 
 #IncludeRegexTransform: 
 
+../include/tool_details.hpp
+iostream
+-
+string
+-
+barrett/units.h
+-
+barrett/systems.h
+-
+barrett/products/product_manager.h
+-
+barrett/detail/stl_utils.h
+-
+barrett/log.h
+-
+barrett/standard_main_function.h
+-
+
 /home/nilxwam/workspace/gwam-simulator/src/playTenisLog_nilu.cpp
 iostream
 -
@@ -34,6 +52,8 @@ barrett/log.h
 barrett/products/product_manager.h
 -
 barrett/standard_main_function.h
+-
+tool_details.hpp
 -
 
 /usr/include/eigen2/Eigen/Array

@@ -56,7 +56,7 @@ public:
 	}
 
 protected:
-	hjp_t finger_angles_current;
+//	hjp_t finger_angles_current;
 	Eigen::Matrix<double, 4, 1> Finger_Angles_Current_tmp;
 	TactilePuck::v_type F1t; // Vector of size 24
 	TactilePuck::v_type F2t;
@@ -73,12 +73,11 @@ protected:
 	virtual void operate() {
 
 		hand->update();
-
-		finger_angles_current = hand->getInnerLinkPosition();
-		Finger_Angles_Current_tmp[0] = finger_angles_current[0];
-		Finger_Angles_Current_tmp[1] = finger_angles_current[1];
-		Finger_Angles_Current_tmp[2] = finger_angles_current[2];
-		Finger_Angles_Current_tmp[3] = finger_angles_current[3];
+//		finger_angles_current = hand->getInnerLinkPosition();
+//		Finger_Angles_Current_tmp[0] = finger_angles_current[0];
+//		Finger_Angles_Current_tmp[1] = finger_angles_current[1];
+//		Finger_Angles_Current_tmp[2] = finger_angles_current[2];
+//		Finger_Angles_Current_tmp[3] = finger_angles_current[3];
 
 		F1t = tps[0]->getFullData();
 		F2t = tps[1]->getFullData();

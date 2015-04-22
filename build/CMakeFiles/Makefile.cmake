@@ -44,6 +44,7 @@ SET(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 SET(CMAKE_DEPEND_INFO_FILES
+  "CMakeFiles/DMP_sliding_mode.dir/DependInfo.cmake"
   "CMakeFiles/another_controller.dir/DependInfo.cmake"
   "CMakeFiles/constants.dir/DependInfo.cmake"
   "CMakeFiles/eigen_test.dir/DependInfo.cmake"

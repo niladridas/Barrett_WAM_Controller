@@ -128,38 +128,47 @@ protected:
 		tmp_control[2] = S[2] / (fabs(S[2]) + Delta);
 		tmp_control[3] = S[3] / (fabs(S[3]) + Delta);
 
-		C_inside_comp_tmp[0] = C_inside_comp[0];
+		C_inside_comp_tmp = Eigen::Vector4d::Zero();
+		//	C_inside_comp_tmp[0] = C_inside_comp[0];
+		if (abs(C_inside_comp[1]) <= 4) {
+			C_inside_comp_tmp[1] = C_inside_comp[1];
+		}
+		if (isnan(C_inside_comp[1]) == true) {
+					C_inside_comp_tmp[1] = 0;
+				}
+		//	C_inside_comp_tmp[2] = C_inside_comp[2];
 
-		C_inside_comp_tmp[1] = C_inside_comp[1];
-
-		C_inside_comp_tmp[2] = C_inside_comp[2];
-
-		C_inside_comp_tmp[3] = C_inside_comp[3];
+		//	C_inside_comp_tmp[3] = C_inside_comp[3];
+		jt_out_tmp = Eigen::Vector4d::Zero();
 
 		if (STATUS == true) {
 
 			jt_out_tmp = C_inside + C_inside_comp_tmp
 					+ M_inside
 							* (tmp_aref - Lamda * (tmp_v - tmp_vref)
-									- Coeff * Lamda * tmp_control);
-			if (jt_out_tmp[0] >= 10.5) {
-				jt_out_tmp[0] = 10.5;
-			}
-
-			if (jt_out_tmp[1] >= 10.5) {
-				jt_out_tmp[1] = 10.5;
-			}
-
-			if (jt_out_tmp[2] >= 10.5) {
-				jt_out_tmp[2] = 10.5;
-			}
-
-			if (jt_out_tmp[3] >= 10.5) {
-				jt_out_tmp[3] = 10.5;
-			}
-
-		} else
-			jt_out_tmp = Eigen::Vector4d::Zero();
+									- Coeff * tmp_control);
+//			if (jt_out_tmp[0] >= 10.5) {
+//				jt_out_tmp[0] = 10.5;
+//			}
+//
+//			if (jt_out_tmp[1] >= 10.5) {
+//				jt_out_tmp[1] = 10.5;
+//			}
+//
+//			if (jt_out_tmp[2] >= 10.5) {
+//				jt_out_tmp[2] = 10.5;
+//			}
+//
+//			if (jt_out_tmp[3] >= 10.5) {
+//				jt_out_tmp[3] = 10.5;
+//			}
+//
+		} else {
+			jt_out_tmp = C_inside
+					+ M_inside
+							* (tmp_aref - Lamda * (tmp_v - tmp_vref)
+									- Coeff  * tmp_control);
+		}
 
 		jt_out[0] = jt_out_tmp[0];
 		jt_out[1] = jt_out_tmp[1];

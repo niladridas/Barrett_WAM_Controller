@@ -35,12 +35,10 @@ public:
 	typedef Hand::jp_type hjp_t;
 	Input<double> Current_time;
 	Input<Eigen::Vector3d > Force_hand; //
-//	Input<Eigen::Matrix<double, 3, 1> > Torque_hand; //
-//	Input<Eigen::Matrix<double, 3, 1> > Acceleration_hand; //
-//	Input<Eigen::Matrix<double, 8, 3> > Finger_Tactile_1; // Object Geometry
-//	Input<Eigen::Matrix<double, 8, 3> > Finger_Tactile_2; // Object Geometry
-//	Input<Eigen::Matrix<double, 8, 3> > Finger_Tactile_3; // Object Geometry
-//	Input<Eigen::Matrix<double, 8, 3> > Finger_Tactile_4; // Object Geometry
+	Input<Eigen::Matrix<double, 8, 3> > Finger_Tactile_1; // Object Geometry
+	Input<Eigen::Matrix<double, 8, 3> > Finger_Tactile_2; // Object Geometry
+	Input<Eigen::Matrix<double, 8, 3> > Finger_Tactile_3; // Object Geometry
+	Input<Eigen::Matrix<double, 8, 3> > Finger_Tactile_4; // Object Geometry
 
 public:
 	Output<hjp_t> Desired_Finger_Angles; // To move the hand
@@ -49,27 +47,26 @@ protected:
 	typename Output<hjp_t>::Value* Desired_Finger_Angles_OutputValue;
 
 public:
-	main_processor(Hand*& hand, double delta_step, double spread_angle,
-			double threshold_impulse, bool Release_Mode) :
-			Current_time(this), Force_hand(this), Desired_Finger_Angles(this,
-					&Desired_Finger_Angles_OutputValue), hand(hand), delta_step(
-					delta_step), spread_angle(spread_angle), threshold_impulse(
-					threshold_impulse), Release_Mode(Release_Mode) {
-		Force_hand_tmp_previous << 0, 0, 0;
-		Previous_time = 0;
-	}
-
-//	main_processor(Hand* hand, double delta_step, double spread_angle,
+//	main_processor(Hand*& hand, double delta_step, double spread_angle,
 //			double threshold_impulse, bool Release_Mode) :
-//			Current_time(this), Force_hand(this), Torque_hand(this), Acceleration_hand(
-//					this), Finger_Tactile_1(this), Finger_Tactile_2(this), Finger_Tactile_3(
-//					this), Finger_Tactile_4(this), Desired_Finger_Angles(this,
+//			Current_time(this), Force_hand(this), Desired_Finger_Angles(this,
 //					&Desired_Finger_Angles_OutputValue), hand(hand), delta_step(
 //					delta_step), spread_angle(spread_angle), threshold_impulse(
 //					threshold_impulse), Release_Mode(Release_Mode) {
 //		Force_hand_tmp_previous << 0, 0, 0;
 //		Previous_time = 0;
 //	}
+
+	main_processor(Hand* hand, double delta_step, double spread_angle,
+			double threshold_impulse, bool Release_Mode) :
+			Current_time(this), Force_hand(this), Finger_Tactile_1(this), Finger_Tactile_2(this), Finger_Tactile_3(
+					this), Finger_Tactile_4(this), Desired_Finger_Angles(this,
+					&Desired_Finger_Angles_OutputValue), hand(hand), delta_step(
+					delta_step), spread_angle(spread_angle), threshold_impulse(
+					threshold_impulse), Release_Mode(Release_Mode) {
+		Force_hand_tmp_previous << 0, 0, 0;
+		Previous_time = 0;
+	}
 
 	virtual ~main_processor() {
 		this->mandatoryCleanUp();
@@ -81,8 +78,6 @@ protected:
 	int value1, value2, value3, value4;
 	double spread_angle;
 	Eigen::Vector3d Force_hand_tmp;
-	Eigen::Vector3d Torque_hand_tmp;
-	Eigen::Vector3d Acceleration_hand_tmp;
 	double Previous_time;
 	double Current_time_tmp;
 	hjp_t finger_angles_current;
@@ -107,17 +102,17 @@ protected:
 		finger_angle_updated[3] = 0;
 
 		Current_time_tmp = this->Current_time.getValue();
-////		hand->update();
-//		finger_angles_current = hand->getInnerLinkPosition();
-//		Finger_Angles_Current[0] = finger_angles_current[0];
-//		Finger_Angles_Current[1] = finger_angles_current[1];
-//		Finger_Angles_Current[2] = finger_angles_current[2];
-//		Finger_Angles_Current[3] = finger_angles_current[3];
-//
-//		Finger_Tactile_1_tmp = this->Finger_Tactile_1.getValue();
-//		Finger_Tactile_2_tmp = this->Finger_Tactile_2.getValue();
-//		Finger_Tactile_3_tmp = this->Finger_Tactile_3.getValue();
-//		Finger_Tactile_4_tmp = this->Finger_Tactile_4.getValue();
+		hand->update();
+		finger_angles_current = hand->getInnerLinkPosition();
+		Finger_Angles_Current[0] = finger_angles_current[0];
+		Finger_Angles_Current[1] = finger_angles_current[1];
+		Finger_Angles_Current[2] = finger_angles_current[2];
+		Finger_Angles_Current[3] = finger_angles_current[3];
+
+		Finger_Tactile_1_tmp = this->Finger_Tactile_1.getValue();
+		Finger_Tactile_2_tmp = this->Finger_Tactile_2.getValue();
+		Finger_Tactile_3_tmp = this->Finger_Tactile_3.getValue();
+		Finger_Tactile_4_tmp = this->Finger_Tactile_4.getValue();
 //
 		Force_hand_tmp = this->Force_hand.getValue();
 //		Torque_hand_tmp = this->Torque_hand.getValue();
@@ -213,7 +208,7 @@ protected:
 //			Finger_Angles_Updated[3] = spread_angle;
 //
 //		}
-//
+
 //		finger_angle_updated[0] = Finger_Angles_Updated[0];
 //		finger_angle_updated[1] = Finger_Angles_Updated[1];
 //		finger_angle_updated[2] = Finger_Angles_Updated[2];
@@ -221,7 +216,7 @@ protected:
 
 		this->Desired_Finger_Angles_OutputValue->setData(&finger_angle_updated);
 
-//		Force_hand_tmp_previous = Force_hand_tmp;
+		Force_hand_tmp_previous = Force_hand_tmp;
 
 		Previous_time = Current_time_tmp;
 	}

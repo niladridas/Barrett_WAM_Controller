@@ -96,6 +96,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named DMP_sliding_mode
+
+# Build rule for target.
+DMP_sliding_mode: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 DMP_sliding_mode
+.PHONY : DMP_sliding_mode
+
+# fast build rule for target.
+DMP_sliding_mode/fast:
+	$(MAKE) -f CMakeFiles/DMP_sliding_mode.dir/build.make CMakeFiles/DMP_sliding_mode.dir/build
+.PHONY : DMP_sliding_mode/fast
+
+#=============================================================================
 # Target rules for targets named another_controller
 
 # Build rule for target.
@@ -298,6 +311,30 @@ samLibs/samlibs.s: samLibs/samlibs.cpp.s
 samLibs/samlibs.cpp.s:
 	$(MAKE) -f CMakeFiles/samlibs.dir/build.make CMakeFiles/samlibs.dir/samLibs/samlibs.cpp.s
 .PHONY : samLibs/samlibs.cpp.s
+
+src/DMP_sliding_mode.o: src/DMP_sliding_mode.cpp.o
+.PHONY : src/DMP_sliding_mode.o
+
+# target to build an object file
+src/DMP_sliding_mode.cpp.o:
+	$(MAKE) -f CMakeFiles/DMP_sliding_mode.dir/build.make CMakeFiles/DMP_sliding_mode.dir/src/DMP_sliding_mode.cpp.o
+.PHONY : src/DMP_sliding_mode.cpp.o
+
+src/DMP_sliding_mode.i: src/DMP_sliding_mode.cpp.i
+.PHONY : src/DMP_sliding_mode.i
+
+# target to preprocess a source file
+src/DMP_sliding_mode.cpp.i:
+	$(MAKE) -f CMakeFiles/DMP_sliding_mode.dir/build.make CMakeFiles/DMP_sliding_mode.dir/src/DMP_sliding_mode.cpp.i
+.PHONY : src/DMP_sliding_mode.cpp.i
+
+src/DMP_sliding_mode.s: src/DMP_sliding_mode.cpp.s
+.PHONY : src/DMP_sliding_mode.s
+
+# target to generate assembly for a file
+src/DMP_sliding_mode.cpp.s:
+	$(MAKE) -f CMakeFiles/DMP_sliding_mode.dir/build.make CMakeFiles/DMP_sliding_mode.dir/src/DMP_sliding_mode.cpp.s
+.PHONY : src/DMP_sliding_mode.cpp.s
 
 src/another_controller.o: src/another_controller.cpp.o
 .PHONY : src/another_controller.o
@@ -545,6 +582,7 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
+	@echo "... DMP_sliding_mode"
 	@echo "... another_controller"
 	@echo "... constants"
 	@echo "... edit_cache"
@@ -565,6 +603,9 @@ help:
 	@echo "... samLibs/samlibs.o"
 	@echo "... samLibs/samlibs.i"
 	@echo "... samLibs/samlibs.s"
+	@echo "... src/DMP_sliding_mode.o"
+	@echo "... src/DMP_sliding_mode.i"
+	@echo "... src/DMP_sliding_mode.s"
 	@echo "... src/another_controller.o"
 	@echo "... src/another_controller.i"
 	@echo "... src/another_controller.s"

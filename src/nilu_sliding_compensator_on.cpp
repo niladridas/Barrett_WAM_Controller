@@ -18,12 +18,12 @@
 
 using namespace barrett;
 using detail::waitForEnter;
-#include <samlibs.h>
 
+#include <samlibs.h>
+#include <reference_signal2.hpp>
 #include <Dynamics.hpp>
 #include <Sliding_mode_4dof_comp.hpp>
-#include <reference_signal.hpp>
-#include <dummy_system.hpp>
+//#include <dummy	_system.hpp>
 #include <GMM.hpp>
 #include <differentiator.hpp>
 #include <second_differentiator.hpp>
@@ -180,30 +180,33 @@ int wam_main(int argc, char** argv, ProductManager& pm,
 	std::cout << "Enter mode for second diff: " << std::endl;
 	std::cin >> mode2;
 
+	bool status = true;	//	mode = 3;
+//	std::cout << "Enter the status of the compensator " << std::endl;
+//	std::cin >> status;
+
 	const double JP_AMPLITUDE = amplitude1;
 	const double OMEGA = omega1;
-	bool status = true;
+
 
 	Eigen::Matrix4d lambda;
 	lambda << 200, 0, 0, 0, 0, 200, 0, 0, 0, 0, 200, 0, 0, 0, 0, 200;
 
-	// std cout
-	std::cout << "Value of priors\n" << priors << std::endl;
-	std::cout << "Value of sigma\n" << sigma << std::endl;
-	std::cout << "Value of mean\n" << mean << std::endl;
-	std::cout << "Value of num_inp\n" << num_inp << std::endl;
-	std::cout << "Value of num_op\n" << num_op << std::endl;
-	std::cout << "Value of num_priors\n" << num_priors << std::endl;
-	std::cout << "Value of sigma_input\n" << sigma_input << std::endl;
-	std::cout << "Value of input_mean_matrix\n" << input_mean_matrix << std::endl;
-	std::cout << "Value of A_matrix\n" << A_matrix << std::endl;
-	std::cout << "Value of B_matrix\n" << B_matrix << std::endl;
-	std::cout << "Value of det_tmp_tmp\n" << det_tmp_tmp << std::endl;
-	std::cout << "Value of tmp_inv\n" << tmp_inv << std::endl;
+//	// std cout
+//	std::cout << "Value of priors\n" << priors << std::endl;
+//	std::cout << "Value of sigma\n" << sigma << std::endl;
+//	std::cout << "Value of mean\n" << mean << std::endl;
+//	std::cout << "Value of num_inp\n" << num_inp << std::endl;
+//	std::cout << "Value of num_op\n" << num_op << std::endl;
+//	std::cout << "Value of num_priors\n" << num_priors << std::endl;
+//	std::cout << "Value of sigma_input\n" << sigma_input << std::endl;
+//	std::cout << "Value of input_mean_matrix\n" << input_mean_matrix
+//			<< std::endl;
+//	std::cout << "Value of A_matrix\n" << A_matrix << std::endl;
+//	std::cout << "Value of B_matrix\n" << B_matrix << std::endl;
+//	std::cout << "Value of det_tmp_tmp\n" << det_tmp_tmp << std::endl;
+//	std::cout << "Value of tmp_inv\n" << tmp_inv << std::endl;
 
 	//
-
-
 
 	J_ref<DOF> joint_ref(JP_AMPLITUDE, OMEGA, startpos);
 	Slidingmode_Controller<DOF> slide(status, lamda, coeff, delta);
@@ -225,6 +228,7 @@ int wam_main(int argc, char** argv, ProductManager& pm,
 			new log::RealTimeWriter<tuple_type>(tmpFile,
 					PERIOD_MULTIPLIER * pm.getExecutionManager()->getPeriod()),
 			PERIOD_MULTIPLIER);
+	printf("Error a \n");
 
 	systems::connect(tg.output, logger.input);
 	systems::connect(time.output, joint_ref.timef);
@@ -251,26 +255,41 @@ int wam_main(int argc, char** argv, ProductManager& pm,
 	systems::connect(slide.controlOutput, tg.template getInput<5>());
 	systems::connect(nilu_GMM.error_output, tg.template getInput<6>());
 
+	printf("Error b \n");
+
+
 	time.smoothStart(TRANSITION_DURATION);
 	printf("Press [Enter] to stop.");
 	waitForEnter();
 	logger.closeLog();
+
+	printf("Error e \n");
+
+
 	time.smoothStop(TRANSITION_DURATION);
 	wam.idle();
+
+	printf("Error c \n");
+
+
 	pm.getSafetyModule()->waitForMode(SafetyModule::IDLE);
 	log::Reader<boost::tuple<tuple_type> > lr(tmpFile);
 	lr.exportCSV(argv[1]);
+
+	printf("Error d \n");
+
+
 	printf("Output written to %s.\n", argv[1]);
 	std::remove(tmpFile);
-	std::ofstream log(argv[1], std::ios_base::app | std::ios_base::out);
-	log << COEFF << "," << DELTA << "," << amplitude1 << "," << omega1 << ","
-			<< "0" << "," << "0" << "," << "0" << "," << "0" << "," << "0"
-			<< "," << "0" << "," << "0" << "," << "0" << "," << "0" << ","
-			<< "0" << "," << "0" << "," << "0" << "," << "0" << "," << "0"
-			<< "," << "0" << "," << "0" << "," << "0" << "," << "0" << ","
-			<< "0" << "," << "0" << "," << "0" "," << "0" << "," << "0" << ","
-			<< "0" << "," << "0";
-	log.close();
+//	std::ofstream log(argv[1], std::ios_base::app | std::ios_base::out);
+//	log << COEFF << "," << DELTA << "," << amplitude1 << "," << omega1 << ","
+//			<< "0" << "," << "0" << "," << "0" << "," << "0" << "," << "0"
+//			<< "," << "0" << "," << "0" << "," << "0" << "," << "0" << ","
+//			<< "0" << "," << "0" << "," << "0" << "," << "0" << "," << "0"
+//			<< "," << "0" << "," << "0" << "," << "0" << "," << "0" << ","
+//			<< "0" << "," << "0" << "," << "0" "," << "0" << "," << "0" << ","
+//			<< "0" << "," << "0";
+//	log.close();
 	return 0;
 }
 

@@ -69,15 +69,15 @@ protected:
 	typename Output<jt_type>::Value* controlOutputValue;
 
 public:
-	Slidingmode_Controller(/*systems::ExecutionManager* em*/bool status,const Eigen::Matrix4d lamda, const double coeff,
-			const double delta, const std::string& sysName =
-					"Slidingmode_Controller") :
+	Slidingmode_Controller(/*systems::ExecutionManager* em*/bool status,
+			const Eigen::Matrix4d lamda, const Eigen::Matrix4d coeff, const Eigen::Vector4d delta,
+			const std::string& sysName = "Slidingmode_Controller") :
 			System(sysName), referencejpInput(this), referencejvInput(this), referencejaInput(
 					this), feedbackjpInput(this), feedbackjvInput(this), M(
 					this), C(this),
 
-			controlOutput(this, &controlOutputValue), STATUS(status),Lamda(lamda), Coeff(
-					coeff), Delta(delta) {
+			controlOutput(this, &controlOutputValue), STATUS(status), Lamda(
+					lamda), Coeff(coeff), Delta(delta) {
 //		if (em != NULL){
 //		      em->startManaging(*this);
 //		    }
@@ -89,8 +89,12 @@ public:
 protected:
 	bool STATUS;
 	Eigen::Matrix4d Lamda;
-	double Coeff;
-	double Delta;
+
+	Eigen::Matrix4d Coeff;
+	Eigen::Vector4d Delta;
+
+//	double Coeff;
+//	double Delta;
 	Eigen::Matrix4d M_inside;
 	Eigen::Vector4d C_inside;
 	jt_type jt_out;
@@ -126,19 +130,17 @@ protected:
 
 		S = tmp_ev + Lamda * tmp_ep;
 
-		tmp_control[0] = S[0] / (fabs(S[0]) + Delta);
-		tmp_control[1] = S[1] / (fabs(S[1]) + Delta);
-		tmp_control[2] = S[2] / (fabs(S[2]) + Delta);
-		tmp_control[3] = S[3] / (fabs(S[3]) + Delta);
+		tmp_control[0] = S[0] / (fabs(S[0]) + Delta[0]);
+		tmp_control[1] = S[1] / (fabs(S[1]) + Delta[1]);
+		tmp_control[2] = S[2] / (fabs(S[2]) + Delta[2]);
+		tmp_control[3] = S[3] / (fabs(S[3]) + Delta[3]);
 
-		if(STATUS == true)
-		{
-		jt_out_tmp = C_inside
-				+ M_inside
-						* (tmp_aref - Lamda * (tmp_v - tmp_vref)
-								- Coeff * Lamda * tmp_control);
-		}
-		else
+		if (STATUS == true) {
+			jt_out_tmp = C_inside
+					+ M_inside
+							* (tmp_aref - Lamda * (tmp_v - tmp_vref)
+									- Coeff * tmp_control);
+		} else
 			jt_out_tmp = Eigen::Vector4d::Zero();
 
 		jt_out[0] = jt_out_tmp[0];

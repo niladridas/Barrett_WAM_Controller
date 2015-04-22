@@ -187,6 +187,10 @@ barrett/standard_main_function.h
 -
 fstream
 -
+unistd.h
+-
+curses.h
+-
 samlibs.h
 -
 Dynamics_mod.hpp

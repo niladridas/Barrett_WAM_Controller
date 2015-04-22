@@ -40,8 +40,10 @@ int wam_main(int argc, char** argv, ProductManager& pm,
 		systems::Wam<DOF>& wam) {
 	BARRETT_UNITS_TEMPLATE_TYPEDEFS(DOF);
 
-	typedef boost::tuple<double, cf_type> tuple_type;
-	typedef systems::TupleGrouper<double, cf_type> tg_type;
+	typedef Hand::jp_type hjp_t;
+
+	typedef boost::tuple<double, hjp_t> tuple_type;
+	typedef systems::TupleGrouper<double, hjp_t> tg_type;
 	tg_type tg;
 	char tmpFile[] = "btXXXXXX";
 	if (mkstemp(tmpFile) == -1) {
@@ -122,15 +124,15 @@ int wam_main(int argc, char** argv, ProductManager& pm,
 	systems::connect(hand_ft.Force_hand, brain.Force_hand);
 //	systems::connect(hand_ft.Torque_hand, brain.Torque_hand);
 //	systems::connect(hand_ft.Acceleration_hand, brain.Acceleration_hand);
-//	systems::connect(hand_tact.Finger_Tactile_1, brain.Finger_Tactile_1);
-//	systems::connect(hand_tact.Finger_Tactile_2, brain.Finger_Tactile_2);
-//	systems::connect(hand_tact.Finger_Tactile_3, brain.Finger_Tactile_3);
-//	systems::connect(hand_tact.Finger_Tactile_4, brain.Finger_Tactile_4);
-//	systems::connect(brain.Desired_Finger_Angles, hand_move.Finger_Angles);
+	systems::connect(hand_tact.Finger_Tactile_1, brain.Finger_Tactile_1);
+	systems::connect(hand_tact.Finger_Tactile_2, brain.Finger_Tactile_2);
+	systems::connect(hand_tact.Finger_Tactile_3, brain.Finger_Tactile_3);
+	systems::connect(hand_tact.Finger_Tactile_4, brain.Finger_Tactile_4);
+	systems::connect(brain.Desired_Finger_Angles, hand_move.Finger_Angles);
 
 	systems::connect(time.output, tg.template getInput<0>());
-//	systems::connect(brain.Desired_Finger_Angles, tg.template getInput<1>());
-	systems::connect(hand_ft.Force_hand_cf, tg.template getInput<1>());
+	systems::connect(brain.Desired_Finger_Angles, tg.template getInput<1>());
+//	systems::connect(hand_ft.Force_hand_cf, tg.template getInput<1>());
 
 
 	printf("Error 4 \n");

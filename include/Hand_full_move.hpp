@@ -74,7 +74,7 @@ protected:
 		 *
 		 */
 
-		//hand->trapezoidalMove(finger_angles, Hand::GRASP);
+//		hand->trapezoidalMove(finger_angles, Hand::GRASP);
 //		Finger_Angles_Current_tmp[0] = finger_angles_current[0];
 //		Finger_Angles_Current_tmp[1] = finger_angles_current[1];
 //		Finger_Angles_Current_tmp[2] = finger_angles_current[2];

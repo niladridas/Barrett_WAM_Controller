@@ -56,8 +56,9 @@ protected:
 	typename System::Output<ja_type>::Value* referencejaOpValue;
 
 public:
-	J_ref(/*systems::ExecutionManager* em,*/const double amplitude, const double omega,
-			const jp_type startpos, const std::string& sysName = "J_ref") :
+	J_ref(/*systems::ExecutionManager* em,*/const Eigen::Vector4d amplitude,
+			const Eigen::Vector4d omega, const jp_type startpos,
+			const std::string& sysName = "J_ref") :
 			System(sysName), timef(this), referencejpTrack(this,
 					&referencejpOpValue), referencejvTrack(this,
 					&referencejvOpValue), referencejaTrack(this,
@@ -72,9 +73,9 @@ public:
 	}
 
 protected:
-	double amplitude;
-	double omega;
-	double theta;
+	Eigen::Vector4d amplitude;
+	Eigen::Vector4d omega;
+	Eigen::Vector4d theta;
 	jp_type startpos;
 	jp_type jp;
 	jv_type jv;
@@ -85,7 +86,11 @@ protected:
 		jv(0.0);
 		ja(0.0);
 
-		theta = omega * this->timef.getValue();
+		theta[0] = omega[0] * this->timef.getValue();
+		theta[1] = omega[1] * this->timef.getValue();
+		theta[2] = omega[2] * this->timef.getValue();
+		theta[3] = omega[3] * this->timef.getValue();
+
 
 //		jp[0] = startpos[0];
 //		jp[1] = startpos[1];
@@ -98,10 +103,40 @@ protected:
 //		ja[2] = - amplitude * omega *omega * std::sin(theta);
 //		ja[3] = - amplitude * omega *omega * std::cos(theta);
 
-		jp[1] = amplitude * std::sin(theta);
-		jp[3] = +3.14;
-		jv[1] = amplitude * omega * std::cos(theta);
-		ja[1] = -amplitude * omega * omega * std::sin(theta);
+//		jp[0] = amplitude * std::sin(theta);
+//		jv[0] = amplitude * omega * std::cos(theta);
+//		ja[0] = -amplitude * omega * omega * std::sin(theta);
+//
+//		jp[1] = -1.047 + (0.5236) * std::sin(theta);
+//		jv[1] = (0.5236) * omega * std::cos(theta);
+//		ja[1] = -(0.5236) * omega * omega * std::sin(theta);
+//
+//		jp[2] = (amplitude / 2) * std::sin(theta);
+//		jv[2] = (amplitude / 2) * omega * std::cos(theta);
+//		ja[2] = -(amplitude / 2) * omega * omega * std::sin(theta);
+//
+//		jp[3] = (M_PI / 2) + amplitude * std::sin(theta); //+3.14;
+//		jv[3] = amplitude * omega * std::cos(theta);
+//		ja[3] = -amplitude * omega * omega * std::sin(theta);
+
+
+
+		jp[0] = startpos[0] + amplitude[0] * std::sin(theta[0]);
+		jv[0] =  amplitude[0] * omega[0] * std::cos(theta[0]);
+		ja[0] = -amplitude[0] * omega[0] * omega[0] * std::sin(theta[0]);
+
+		jp[1] = startpos[1] + amplitude[1]  * std::sin(theta[1]);
+		jv[1] = amplitude[1]  * omega[1] * std::cos(theta[1]);
+		ja[1] = -amplitude[1]  * omega[1] * omega[1] * std::sin(theta[1]);
+
+		jp[2] = startpos[2] + amplitude[2] * std::sin(theta[2]);
+		jv[2] = amplitude[2] * omega[2] * std::cos(theta[2]);
+		ja[2] = -amplitude[2] * omega[2] * omega[2] * std::sin(theta[2]);
+
+		jp[3] = startpos[3] + amplitude[3] * std::sin(theta[3]); //+3.14;
+		jv[3] = amplitude[3] * omega[3] * std::cos(theta[3]);
+		ja[3] = -amplitude[3] * omega[3] * omega[3] * std::sin(theta[3]);
+
 
 		this->referencejpOpValue->setData(&jp);
 		this->referencejvOpValue->setData(&jv);

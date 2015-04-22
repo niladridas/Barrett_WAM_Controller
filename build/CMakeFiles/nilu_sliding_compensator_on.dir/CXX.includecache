@@ -158,7 +158,7 @@ barrett/log.h
 barrett/standard_main_function.h
 -
 
-../include/reference_signal.hpp
+../include/reference_signal2.hpp
 iostream
 -
 string
@@ -299,13 +299,11 @@ barrett/standard_main_function.h
 -
 samlibs.h
 -
+reference_signal2.hpp
+-
 Dynamics.hpp
 -
 Sliding_mode_4dof_comp.hpp
--
-reference_signal.hpp
--
-dummy_system.hpp
 -
 GMM.hpp
 -
