@@ -226,6 +226,19 @@ samlibs/fast:
 .PHONY : samlibs/fast
 
 #=============================================================================
+# Target rules for targets named sliding_mode_disturbance_observer
+
+# Build rule for target.
+sliding_mode_disturbance_observer: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 sliding_mode_disturbance_observer
+.PHONY : sliding_mode_disturbance_observer
+
+# fast build rule for target.
+sliding_mode_disturbance_observer/fast:
+	$(MAKE) -f CMakeFiles/sliding_mode_disturbance_observer.dir/build.make CMakeFiles/sliding_mode_disturbance_observer.dir/build
+.PHONY : sliding_mode_disturbance_observer/fast
+
+#=============================================================================
 # Target rules for targets named test_differentiator
 
 # Build rule for target.
@@ -504,6 +517,30 @@ src/playTenisLog_nilu.cpp.s:
 	$(MAKE) -f CMakeFiles/playTenisLog_nilu.dir/build.make CMakeFiles/playTenisLog_nilu.dir/src/playTenisLog_nilu.cpp.s
 .PHONY : src/playTenisLog_nilu.cpp.s
 
+src/sliding_mode_disturbance_observer.o: src/sliding_mode_disturbance_observer.cpp.o
+.PHONY : src/sliding_mode_disturbance_observer.o
+
+# target to build an object file
+src/sliding_mode_disturbance_observer.cpp.o:
+	$(MAKE) -f CMakeFiles/sliding_mode_disturbance_observer.dir/build.make CMakeFiles/sliding_mode_disturbance_observer.dir/src/sliding_mode_disturbance_observer.cpp.o
+.PHONY : src/sliding_mode_disturbance_observer.cpp.o
+
+src/sliding_mode_disturbance_observer.i: src/sliding_mode_disturbance_observer.cpp.i
+.PHONY : src/sliding_mode_disturbance_observer.i
+
+# target to preprocess a source file
+src/sliding_mode_disturbance_observer.cpp.i:
+	$(MAKE) -f CMakeFiles/sliding_mode_disturbance_observer.dir/build.make CMakeFiles/sliding_mode_disturbance_observer.dir/src/sliding_mode_disturbance_observer.cpp.i
+.PHONY : src/sliding_mode_disturbance_observer.cpp.i
+
+src/sliding_mode_disturbance_observer.s: src/sliding_mode_disturbance_observer.cpp.s
+.PHONY : src/sliding_mode_disturbance_observer.s
+
+# target to generate assembly for a file
+src/sliding_mode_disturbance_observer.cpp.s:
+	$(MAKE) -f CMakeFiles/sliding_mode_disturbance_observer.dir/build.make CMakeFiles/sliding_mode_disturbance_observer.dir/src/sliding_mode_disturbance_observer.cpp.s
+.PHONY : src/sliding_mode_disturbance_observer.cpp.s
+
 src/test_differentiator.o: src/test_differentiator.cpp.o
 .PHONY : src/test_differentiator.o
 
@@ -594,6 +631,7 @@ help:
 	@echo "... playTenisLog_nilu"
 	@echo "... rebuild_cache"
 	@echo "... samlibs"
+	@echo "... sliding_mode_disturbance_observer"
 	@echo "... test_differentiator"
 	@echo "... test_optimal_sliding"
 	@echo "... test_tact_finger"
@@ -627,6 +665,9 @@ help:
 	@echo "... src/playTenisLog_nilu.o"
 	@echo "... src/playTenisLog_nilu.i"
 	@echo "... src/playTenisLog_nilu.s"
+	@echo "... src/sliding_mode_disturbance_observer.o"
+	@echo "... src/sliding_mode_disturbance_observer.i"
+	@echo "... src/sliding_mode_disturbance_observer.s"
 	@echo "... src/test_differentiator.o"
 	@echo "... src/test_differentiator.i"
 	@echo "... src/test_differentiator.s"

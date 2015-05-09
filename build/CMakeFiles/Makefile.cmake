@@ -54,6 +54,7 @@ SET(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/nilu_slidingmode.dir/DependInfo.cmake"
   "CMakeFiles/playTenisLog_nilu.dir/DependInfo.cmake"
   "CMakeFiles/samlibs.dir/DependInfo.cmake"
+  "CMakeFiles/sliding_mode_disturbance_observer.dir/DependInfo.cmake"
   "CMakeFiles/test_differentiator.dir/DependInfo.cmake"
   "CMakeFiles/test_optimal_sliding.dir/DependInfo.cmake"
   "CMakeFiles/test_tact_finger.dir/DependInfo.cmake"
