@@ -148,6 +148,19 @@ eigen_test/fast:
 .PHONY : eigen_test/fast
 
 #=============================================================================
+# Target rules for targets named higher_order_SMC
+
+# Build rule for target.
+higher_order_SMC: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 higher_order_SMC
+.PHONY : higher_order_SMC
+
+# fast build rule for target.
+higher_order_SMC/fast:
+	$(MAKE) -f CMakeFiles/higher_order_SMC.dir/build.make CMakeFiles/higher_order_SMC.dir/build
+.PHONY : higher_order_SMC/fast
+
+#=============================================================================
 # Target rules for targets named ncurses_example
 
 # Build rule for target.
@@ -237,6 +250,19 @@ sliding_mode_disturbance_observer: cmake_check_build_system
 sliding_mode_disturbance_observer/fast:
 	$(MAKE) -f CMakeFiles/sliding_mode_disturbance_observer.dir/build.make CMakeFiles/sliding_mode_disturbance_observer.dir/build
 .PHONY : sliding_mode_disturbance_observer/fast
+
+#=============================================================================
+# Target rules for targets named tactile_feedback_move
+
+# Build rule for target.
+tactile_feedback_move: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tactile_feedback_move
+.PHONY : tactile_feedback_move
+
+# fast build rule for target.
+tactile_feedback_move/fast:
+	$(MAKE) -f CMakeFiles/tactile_feedback_move.dir/build.make CMakeFiles/tactile_feedback_move.dir/build
+.PHONY : tactile_feedback_move/fast
 
 #=============================================================================
 # Target rules for targets named test_differentiator
@@ -397,6 +423,30 @@ src/eigen_test.cpp.s:
 	$(MAKE) -f CMakeFiles/eigen_test.dir/build.make CMakeFiles/eigen_test.dir/src/eigen_test.cpp.s
 .PHONY : src/eigen_test.cpp.s
 
+src/higher_order_SMC.o: src/higher_order_SMC.cpp.o
+.PHONY : src/higher_order_SMC.o
+
+# target to build an object file
+src/higher_order_SMC.cpp.o:
+	$(MAKE) -f CMakeFiles/higher_order_SMC.dir/build.make CMakeFiles/higher_order_SMC.dir/src/higher_order_SMC.cpp.o
+.PHONY : src/higher_order_SMC.cpp.o
+
+src/higher_order_SMC.i: src/higher_order_SMC.cpp.i
+.PHONY : src/higher_order_SMC.i
+
+# target to preprocess a source file
+src/higher_order_SMC.cpp.i:
+	$(MAKE) -f CMakeFiles/higher_order_SMC.dir/build.make CMakeFiles/higher_order_SMC.dir/src/higher_order_SMC.cpp.i
+.PHONY : src/higher_order_SMC.cpp.i
+
+src/higher_order_SMC.s: src/higher_order_SMC.cpp.s
+.PHONY : src/higher_order_SMC.s
+
+# target to generate assembly for a file
+src/higher_order_SMC.cpp.s:
+	$(MAKE) -f CMakeFiles/higher_order_SMC.dir/build.make CMakeFiles/higher_order_SMC.dir/src/higher_order_SMC.cpp.s
+.PHONY : src/higher_order_SMC.cpp.s
+
 src/ncurses_example.o: src/ncurses_example.cpp.o
 .PHONY : src/ncurses_example.o
 
@@ -541,6 +591,30 @@ src/sliding_mode_disturbance_observer.cpp.s:
 	$(MAKE) -f CMakeFiles/sliding_mode_disturbance_observer.dir/build.make CMakeFiles/sliding_mode_disturbance_observer.dir/src/sliding_mode_disturbance_observer.cpp.s
 .PHONY : src/sliding_mode_disturbance_observer.cpp.s
 
+src/tactile_feedback_move.o: src/tactile_feedback_move.cpp.o
+.PHONY : src/tactile_feedback_move.o
+
+# target to build an object file
+src/tactile_feedback_move.cpp.o:
+	$(MAKE) -f CMakeFiles/tactile_feedback_move.dir/build.make CMakeFiles/tactile_feedback_move.dir/src/tactile_feedback_move.cpp.o
+.PHONY : src/tactile_feedback_move.cpp.o
+
+src/tactile_feedback_move.i: src/tactile_feedback_move.cpp.i
+.PHONY : src/tactile_feedback_move.i
+
+# target to preprocess a source file
+src/tactile_feedback_move.cpp.i:
+	$(MAKE) -f CMakeFiles/tactile_feedback_move.dir/build.make CMakeFiles/tactile_feedback_move.dir/src/tactile_feedback_move.cpp.i
+.PHONY : src/tactile_feedback_move.cpp.i
+
+src/tactile_feedback_move.s: src/tactile_feedback_move.cpp.s
+.PHONY : src/tactile_feedback_move.s
+
+# target to generate assembly for a file
+src/tactile_feedback_move.cpp.s:
+	$(MAKE) -f CMakeFiles/tactile_feedback_move.dir/build.make CMakeFiles/tactile_feedback_move.dir/src/tactile_feedback_move.cpp.s
+.PHONY : src/tactile_feedback_move.cpp.s
+
 src/test_differentiator.o: src/test_differentiator.cpp.o
 .PHONY : src/test_differentiator.o
 
@@ -624,6 +698,7 @@ help:
 	@echo "... constants"
 	@echo "... edit_cache"
 	@echo "... eigen_test"
+	@echo "... higher_order_SMC"
 	@echo "... ncurses_example"
 	@echo "... nilu_optimal_sliding_mode"
 	@echo "... nilu_sliding_compensator_on"
@@ -632,6 +707,7 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... samlibs"
 	@echo "... sliding_mode_disturbance_observer"
+	@echo "... tactile_feedback_move"
 	@echo "... test_differentiator"
 	@echo "... test_optimal_sliding"
 	@echo "... test_tact_finger"
@@ -650,6 +726,9 @@ help:
 	@echo "... src/eigen_test.o"
 	@echo "... src/eigen_test.i"
 	@echo "... src/eigen_test.s"
+	@echo "... src/higher_order_SMC.o"
+	@echo "... src/higher_order_SMC.i"
+	@echo "... src/higher_order_SMC.s"
 	@echo "... src/ncurses_example.o"
 	@echo "... src/ncurses_example.i"
 	@echo "... src/ncurses_example.s"
@@ -668,6 +747,9 @@ help:
 	@echo "... src/sliding_mode_disturbance_observer.o"
 	@echo "... src/sliding_mode_disturbance_observer.i"
 	@echo "... src/sliding_mode_disturbance_observer.s"
+	@echo "... src/tactile_feedback_move.o"
+	@echo "... src/tactile_feedback_move.i"
+	@echo "... src/tactile_feedback_move.s"
 	@echo "... src/test_differentiator.o"
 	@echo "... src/test_differentiator.i"
 	@echo "... src/test_differentiator.s"

@@ -8,15 +8,10 @@ CMakeFiles/test_tact_finger.dir/src/test_tact_finger.cpp.o
  ../include/main_processor.hpp
  /home/nilxwam/workspace/gwam-simulator/src/test_tact_finger.cpp
  /usr/include/eigen2/Eigen/Array
- /usr/include/eigen2/Eigen/Cholesky
  /usr/include/eigen2/Eigen/Core
- /usr/include/eigen2/Eigen/Dense
  /usr/include/eigen2/Eigen/Geometry
  /usr/include/eigen2/Eigen/LU
- /usr/include/eigen2/Eigen/LeastSquares
  /usr/include/eigen2/Eigen/NewStdVector
- /usr/include/eigen2/Eigen/QR
- /usr/include/eigen2/Eigen/SVD
  /usr/include/eigen2/Eigen/StdVector
  /usr/include/eigen2/Eigen/src/Array/BooleanRedux.h
  /usr/include/eigen2/Eigen/src/Array/CwiseOperators.h
@@ -25,8 +20,6 @@ CMakeFiles/test_tact_finger.dir/src/test_tact_finger.cpp.o
  /usr/include/eigen2/Eigen/src/Array/PartialRedux.h
  /usr/include/eigen2/Eigen/src/Array/Random.h
  /usr/include/eigen2/Eigen/src/Array/Select.h
- /usr/include/eigen2/Eigen/src/Cholesky/LDLT.h
- /usr/include/eigen2/Eigen/src/Cholesky/LLT.h
  /usr/include/eigen2/Eigen/src/Core/Assign.h
  /usr/include/eigen2/Eigen/src/Core/Block.h
  /usr/include/eigen2/Eigen/src/Core/CacheFriendlyProduct.h
@@ -88,13 +81,6 @@ CMakeFiles/test_tact_finger.dir/src/test_tact_finger.cpp.o
  /usr/include/eigen2/Eigen/src/LU/Determinant.h
  /usr/include/eigen2/Eigen/src/LU/Inverse.h
  /usr/include/eigen2/Eigen/src/LU/LU.h
- /usr/include/eigen2/Eigen/src/LeastSquares/LeastSquares.h
- /usr/include/eigen2/Eigen/src/QR/EigenSolver.h
- /usr/include/eigen2/Eigen/src/QR/HessenbergDecomposition.h
- /usr/include/eigen2/Eigen/src/QR/QR.h
- /usr/include/eigen2/Eigen/src/QR/SelfAdjointEigenSolver.h
- /usr/include/eigen2/Eigen/src/QR/Tridiagonalization.h
- /usr/include/eigen2/Eigen/src/SVD/SVD.h
  /usr/include/xenomai/asm-generic/xenomai/arith.h
  /usr/include/xenomai/asm-generic/xenomai/features.h
  /usr/include/xenomai/asm-generic/xenomai/hal.h

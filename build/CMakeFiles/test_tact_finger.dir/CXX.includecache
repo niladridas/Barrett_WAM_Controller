@@ -17,7 +17,7 @@ barrett/detail/ca_macro.h
 -
 barrett/systems/abstract/system.h
 -
-Eigen/Core
+eigen3/Eigen/Core
 -
 libconfig.h++
 -
@@ -43,7 +43,7 @@ barrett/detail/ca_macro.h
 -
 barrett/systems/abstract/system.h
 -
-Eigen/Core
+eigen3/Eigen/Core
 -
 libconfig.h++
 -
@@ -69,7 +69,7 @@ barrett/detail/ca_macro.h
 -
 barrett/systems/abstract/system.h
 -
-Eigen/Core
+eigen3/Eigen/Core
 -
 libconfig.h++
 -
@@ -95,9 +95,7 @@ barrett/detail/ca_macro.h
 -
 barrett/systems/abstract/system.h
 -
-Eigen/Dense
--
-Eigen/Core
+eigen3/Eigen/Core
 -
 libconfig.h++
 -
@@ -167,22 +165,6 @@ src/Array/Random.h
 /usr/include/eigen2/Eigen/src/Array/Random.h
 src/Array/Norms.h
 /usr/include/eigen2/Eigen/src/Array/Norms.h
-src/Core/util/EnableMSVCWarnings.h
-/usr/include/eigen2/Eigen/src/Core/util/EnableMSVCWarnings.h
-
-/usr/include/eigen2/Eigen/Cholesky
-Core
-/usr/include/eigen2/Eigen/Core
-src/Core/util/DisableMSVCWarnings.h
-/usr/include/eigen2/Eigen/src/Core/util/DisableMSVCWarnings.h
-src/Array/CwiseOperators.h
-/usr/include/eigen2/Eigen/src/Array/CwiseOperators.h
-src/Array/Functors.h
-/usr/include/eigen2/Eigen/src/Array/Functors.h
-src/Cholesky/LLT.h
-/usr/include/eigen2/Eigen/src/Cholesky/LLT.h
-src/Cholesky/LDLT.h
-/usr/include/eigen2/Eigen/src/Cholesky/LDLT.h
 src/Core/util/EnableMSVCWarnings.h
 /usr/include/eigen2/Eigen/src/Core/util/EnableMSVCWarnings.h
 
@@ -314,24 +296,6 @@ src/Core/CacheFriendlyProduct.h
 src/Core/util/EnableMSVCWarnings.h
 /usr/include/eigen2/Eigen/src/Core/util/EnableMSVCWarnings.h
 
-/usr/include/eigen2/Eigen/Dense
-Core
-/usr/include/eigen2/Eigen/Core
-Array
-/usr/include/eigen2/Eigen/Array
-LU
-/usr/include/eigen2/Eigen/LU
-Cholesky
-/usr/include/eigen2/Eigen/Cholesky
-QR
-/usr/include/eigen2/Eigen/QR
-SVD
-/usr/include/eigen2/Eigen/SVD
-Geometry
-/usr/include/eigen2/Eigen/Geometry
-LeastSquares
-/usr/include/eigen2/Eigen/LeastSquares
-
 /usr/include/eigen2/Eigen/Geometry
 Core
 /usr/include/eigen2/Eigen/Core
@@ -382,55 +346,11 @@ src/LU/Inverse.h
 src/Core/util/EnableMSVCWarnings.h
 /usr/include/eigen2/Eigen/src/Core/util/EnableMSVCWarnings.h
 
-/usr/include/eigen2/Eigen/LeastSquares
-Core
-/usr/include/eigen2/Eigen/Core
-src/Core/util/DisableMSVCWarnings.h
-/usr/include/eigen2/Eigen/src/Core/util/DisableMSVCWarnings.h
-QR
-/usr/include/eigen2/Eigen/QR
-Geometry
-/usr/include/eigen2/Eigen/Geometry
-src/LeastSquares/LeastSquares.h
-/usr/include/eigen2/Eigen/src/LeastSquares/LeastSquares.h
-src/Core/util/EnableMSVCWarnings.h
-/usr/include/eigen2/Eigen/src/Core/util/EnableMSVCWarnings.h
-
 /usr/include/eigen2/Eigen/NewStdVector
 Core
 /usr/include/eigen2/Eigen/Core
 vector
 -
-
-/usr/include/eigen2/Eigen/QR
-Core
-/usr/include/eigen2/Eigen/Core
-src/Core/util/DisableMSVCWarnings.h
-/usr/include/eigen2/Eigen/src/Core/util/DisableMSVCWarnings.h
-Cholesky
-/usr/include/eigen2/Eigen/Cholesky
-src/QR/QR.h
-/usr/include/eigen2/Eigen/src/QR/QR.h
-src/QR/Tridiagonalization.h
-/usr/include/eigen2/Eigen/src/QR/Tridiagonalization.h
-src/QR/EigenSolver.h
-/usr/include/eigen2/Eigen/src/QR/EigenSolver.h
-src/QR/SelfAdjointEigenSolver.h
-/usr/include/eigen2/Eigen/src/QR/SelfAdjointEigenSolver.h
-src/QR/HessenbergDecomposition.h
-/usr/include/eigen2/Eigen/src/QR/HessenbergDecomposition.h
-src/Core/util/EnableMSVCWarnings.h
-/usr/include/eigen2/Eigen/src/Core/util/EnableMSVCWarnings.h
-
-/usr/include/eigen2/Eigen/SVD
-Core
-/usr/include/eigen2/Eigen/Core
-src/Core/util/DisableMSVCWarnings.h
-/usr/include/eigen2/Eigen/src/Core/util/DisableMSVCWarnings.h
-src/SVD/SVD.h
-/usr/include/eigen2/Eigen/src/SVD/SVD.h
-src/Core/util/EnableMSVCWarnings.h
-/usr/include/eigen2/Eigen/src/Core/util/EnableMSVCWarnings.h
 
 /usr/include/eigen2/Eigen/StdVector
 NewStdVector
@@ -451,10 +371,6 @@ vector
 /usr/include/eigen2/Eigen/src/Array/Random.h
 
 /usr/include/eigen2/Eigen/src/Array/Select.h
-
-/usr/include/eigen2/Eigen/src/Cholesky/LDLT.h
-
-/usr/include/eigen2/Eigen/src/Cholesky/LLT.h
 
 /usr/include/eigen2/Eigen/src/Core/Assign.h
 
@@ -577,20 +493,6 @@ vector
 /usr/include/eigen2/Eigen/src/LU/Inverse.h
 
 /usr/include/eigen2/Eigen/src/LU/LU.h
-
-/usr/include/eigen2/Eigen/src/LeastSquares/LeastSquares.h
-
-/usr/include/eigen2/Eigen/src/QR/EigenSolver.h
-
-/usr/include/eigen2/Eigen/src/QR/HessenbergDecomposition.h
-
-/usr/include/eigen2/Eigen/src/QR/QR.h
-
-/usr/include/eigen2/Eigen/src/QR/SelfAdjointEigenSolver.h
-
-/usr/include/eigen2/Eigen/src/QR/Tridiagonalization.h
-
-/usr/include/eigen2/Eigen/src/SVD/SVD.h
 
 /usr/include/xenomai/asm-generic/xenomai/arith.h
 asm/byteorder.h

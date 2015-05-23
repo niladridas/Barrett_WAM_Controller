@@ -17,7 +17,7 @@ using namespace barrett;
 //using detail::waitForEnter;
 
 #include <barrett/standard_main_function.h>
-#include <Hand_forcetorque_sense.hpp>
+//#include <Hand_forcetorque_sense.hpp>
 #include <Hand_tactile_sense.hpp>
 #include <main_processor.hpp>
 #include <Hand_full_move.hpp>
@@ -113,7 +113,7 @@ int wam_main(int argc, char** argv, ProductManager& pm,
 			PERIOD_MULTIPLIER);
 	printf("Error 3 \n");
 
-	Hand_forcetorque_sense<DOF> hand_ft(hand, fts);
+//	Hand_forcetorque_sense<DOF> hand_ft(hand, fts);
 	Hand_tactile_sense hand_tact(hand, tps);
 	main_processor<DOF> brain(hand, delta_step, spread_angle, threshold_impulse,
 			Release_Mode);
@@ -121,7 +121,7 @@ int wam_main(int argc, char** argv, ProductManager& pm,
 
 	systems::connect(tg.output, logger.input);
 	systems::connect(time.output, brain.Current_time);
-	systems::connect(hand_ft.Force_hand, brain.Force_hand);
+//	systems::connect(hand_ft.Force_hand, brain.Force_hand);
 //	systems::connect(hand_ft.Torque_hand, brain.Torque_hand);
 //	systems::connect(hand_ft.Acceleration_hand, brain.Acceleration_hand);
 	systems::connect(hand_tact.Finger_Tactile_1, brain.Finger_Tactile_1);

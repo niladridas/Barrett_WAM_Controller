@@ -13,8 +13,8 @@
 #include <barrett/units.h>
 #include <barrett/detail/ca_macro.h>
 #include <barrett/systems/abstract/system.h>
-#include <Eigen/Dense>
-#include <Eigen/Core>
+//#include <eigen3/Eigen/Dense>
+#include <eigen3/Eigen/Core>
 #include <libconfig.h++>
 
 #include <barrett/detail/ca_macro.h>
@@ -34,7 +34,7 @@ class main_processor: public System {
 public:
 	typedef Hand::jp_type hjp_t;
 	Input<double> Current_time;
-	Input<Eigen::Vector3d > Force_hand; //
+//	Input<Eigen::Vector3d > Force_hand; //
 	Input<Eigen::Matrix<double, 8, 3> > Finger_Tactile_1; // Object Geometry
 	Input<Eigen::Matrix<double, 8, 3> > Finger_Tactile_2; // Object Geometry
 	Input<Eigen::Matrix<double, 8, 3> > Finger_Tactile_3; // Object Geometry
@@ -59,12 +59,12 @@ public:
 
 	main_processor(Hand* hand, double delta_step, double spread_angle,
 			double threshold_impulse, bool Release_Mode) :
-			Current_time(this), Force_hand(this), Finger_Tactile_1(this), Finger_Tactile_2(this), Finger_Tactile_3(
+			Current_time(this), Finger_Tactile_1(this), Finger_Tactile_2(this), Finger_Tactile_3(
 					this), Finger_Tactile_4(this), Desired_Finger_Angles(this,
 					&Desired_Finger_Angles_OutputValue), hand(hand), delta_step(
 					delta_step), spread_angle(spread_angle), threshold_impulse(
 					threshold_impulse), Release_Mode(Release_Mode) {
-		Force_hand_tmp_previous << 0, 0, 0;
+//		Force_hand_tmp_previous << 0, 0, 0;
 		Previous_time = 0;
 	}
 
@@ -77,7 +77,7 @@ protected:
 	int i, j;
 	int value1, value2, value3, value4;
 	double spread_angle;
-	Eigen::Vector3d Force_hand_tmp;
+//	Eigen::Vector3d Force_hand_tmp;
 	double Previous_time;
 	double Current_time_tmp;
 	hjp_t finger_angles_current;
@@ -89,7 +89,7 @@ protected:
 	Eigen::Matrix<double, 8, 3> Finger_Tactile_3_tmp; // Object Geometry
 	Eigen::Matrix<double, 8, 3> Finger_Tactile_4_tmp; // Object Geometry
 
-	Eigen::Vector3d Force_hand_tmp_previous;
+//	Eigen::Vector3d Force_hand_tmp_previous;
 	double threshold_impulse;
 	bool Release_Mode;
 	hjp_t finger_angle_updated;
@@ -114,7 +114,7 @@ protected:
 		Finger_Tactile_3_tmp = this->Finger_Tactile_3.getValue();
 		Finger_Tactile_4_tmp = this->Finger_Tactile_4.getValue();
 //
-		Force_hand_tmp = this->Force_hand.getValue();
+//		Force_hand_tmp = this->Force_hand.getValue();
 //		Torque_hand_tmp = this->Torque_hand.getValue();
 //		Acceleration_hand_tmp = this->Acceleration_hand.getValue();
 //
@@ -216,7 +216,7 @@ protected:
 
 		this->Desired_Finger_Angles_OutputValue->setData(&finger_angle_updated);
 
-		Force_hand_tmp_previous = Force_hand_tmp;
+//		Force_hand_tmp_previous = Force_hand_tmp;
 
 		Previous_time = Current_time_tmp;
 	}

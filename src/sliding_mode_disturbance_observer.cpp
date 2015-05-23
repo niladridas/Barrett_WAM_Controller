@@ -4,7 +4,7 @@
  *  Created on: 07-May-2015
  *      Author: nilxwam
  */
-
+//#include <eigen3/Eigen/Dense>
 #include <unistd.h>
 #include <iostream>
 #include <string>
@@ -46,6 +46,7 @@ int wam_main(int argc, char** argv, ProductManager& pm,
 	Eigen::VectorXd StartPos;
 	Eigen::VectorXd dist_K_tmp;
 	Eigen::VectorXd state_intg;
+	Eigen::VectorXd A_tmp;
 
 
 	Sam::initEigenMat<double>(Lamda, Sam::readFile<double>("lamda.txt"));
@@ -56,6 +57,7 @@ int wam_main(int argc, char** argv, ProductManager& pm,
 	Sam::initEigenVec<double>(StartPos, Sam::readFile<double>("start.txt"));
 	Sam::initEigenVec<double>(dist_K_tmp, Sam::readFile<double>("dist_K.txt"));
 	Sam::initEigenVec<double>(state_intg, Sam::readFile<double>("integrator_state.txt"));
+	Sam::initEigenVec<double>(A_tmp, Sam::readFile<double>("A.txt"));
 
 
 
@@ -86,14 +88,22 @@ int wam_main(int argc, char** argv, ProductManager& pm,
 
 	const Eigen::Vector4d JP_AMPLITUDE = Amp;
 	const Eigen::Vector4d OMEGA = Freq;
+	Eigen::Vector4d tmp_velocity;
+	tmp_velocity[0] = Amp[0]*Freq[0];
+	tmp_velocity[1] = Amp[1]*Freq[1];
+	tmp_velocity[2] = Amp[2]*Freq[2];
+	tmp_velocity[3] = Amp[3]*Freq[3];
 	bool status = true;
 	const double dist_K =  dist_K_tmp[0];
 	const int state = state_intg[0];
+	const Eigen::Vector4d initial_velocity = tmp_velocity;
+
+	const float A = A_tmp[0];
 
 	J_ref<DOF> joint_ref(JP_AMPLITUDE, OMEGA, startpos);
 	Slidingmode_Controller<DOF> slide(status, lamda, coeff, delta);
 	Dynamics<DOF> nilu_dynamics;
-	disturbance_observer<DOF> nilu_disturbance(dist_K,state);
+	disturbance_observer<DOF> nilu_disturbance(dist_K,state, initial_velocity,A);
 	Dummy<DOF> nilu_dummy;
 
 	wam.gravityCompensate();

@@ -54,15 +54,17 @@ protected:
 	typename Output<jp_type>::Value*InverseTestValue;
 
 public:
-	disturbance_observer(const double dist_K, const int state) :
-			dist_K(dist_K), state(state), time(this), inputactual_pos(this), inputactual_vel(
-					this), M(this), C(this), SMC(this), disturbance_torque_etimate(
-					this, &disturbance_torque_etimateValue), Z_copy(this,
+	disturbance_observer(const double dist_K, const int state,
+			const Eigen::Vector4d initial_velocity, const float A) :
+			dist_K(dist_K), state(state), initial_velocity(initial_velocity), A(A),time(
+					this), inputactual_pos(this), inputactual_vel(this), M(
+					this), C(this), SMC(this), disturbance_torque_etimate(this,
+					&disturbance_torque_etimateValue), Z_copy(this,
 					&Z_copyValue), Test(this, &TestValue), InverseTest(this,
 					&InverseTestValue) {
 //		Z = Eigen::Vector4d::Zero();
 		Z_begin = Eigen::Vector4d::Zero();
-
+		P = Eigen::Vector4d::Zero();
 		torque_estimate = Eigen::Vector4d::Zero();
 		test = 0;
 	}
@@ -94,6 +96,9 @@ protected:
 	Eigen::Matrix4d inverse_test;
 	jp_type inverse_test_vector;
 	int state;
+	Eigen::Vector4d initial_velocity;
+	float A;
+//	Eigen::Vector4d initial_velocity_vec;
 
 	virtual void operate() {
 
@@ -122,8 +127,12 @@ protected:
 		inverse_test_vector[1] = inverse_test(1, 1);
 		inverse_test_vector[2] = inverse_test(2, 2);
 		inverse_test_vector[3] = inverse_test(3, 3);
-
-		P = Y * actual_velocity;
+//		initial_velocity_vec[0] = initial_velocity[0];
+//		initial_velocity_vec[1] = initial_velocity[1];
+//		initial_velocity_vec[2] = initial_velocity[2];
+//		initial_velocity_vec[3] = initial_velocity[3];
+		P = Y * (actual_velocity - A * initial_velocity);
+//		P = 0*actual_velocity;
 
 		if (state == 1) {
 			old_delta_Z = (-L * Z_begin
@@ -146,29 +155,29 @@ protected:
 
 		}
 		test = test + del_time;
-//		if (std::abs(torque_estimate[0]) > 50)
-//		{
-////			torque_estimate[0] = 0;
-////		}
+		if (std::abs(torque_estimate[0]) > 0.1)
+		{
+			torque_estimate[0] = 0;
+		}
 		if (std::abs(torque_estimate[1]) > 3) {
 			torque_estimate[1] = 0;
 		}
-////		if (std::abs(torque_estimate[2]) > 50)
-////		{
-////			torque_estimate[2] = 0;
-////		}
-////		if (std::abs(torque_estimate[3]) > 50)
-////		{
-////			torque_estimate[3] = 0;
-////		}
-//		jt_torque_estimate[0] = -torque_estimate[0];
+		if (std::abs(torque_estimate[2]) > 0.1)
+		{
+			torque_estimate[2] = 0;
+		}
+		if (std::abs(torque_estimate[3]) > 0.1)
+		{
+			torque_estimate[3] = 0;
+		}
+		jt_torque_estimate[0] = -torque_estimate[0];
 		jt_torque_estimate[1] = -torque_estimate[1];
-//		jt_torque_estimate[2] = -torque_estimate[2];
-//		jt_torque_estimate[3] = -torque_estimate[3];
-		jt_torque_estimate[0] = 0;
+		jt_torque_estimate[2] = -torque_estimate[2];
+		jt_torque_estimate[3] = -torque_estimate[3];
+//		jt_torque_estimate[0] = 0;
 ////		jt_torque_estimate[1] = 0;
-		jt_torque_estimate[2] = 0;
-		jt_torque_estimate[3] = 0;
+//		jt_torque_estimate[2] = 0;
+//		jt_torque_estimate[3] = 0;
 		this->disturbance_torque_etimateValue->setData(&jt_torque_estimate);
 		this->Z_copyValue->setData(&Z_tmp);
 		this->TestValue->setData(&test);

@@ -14,7 +14,7 @@
 #include <barrett/detail/ca_macro.h>
 #include <barrett/systems/abstract/system.h>
 
-#include <Eigen/Core>
+#include <eigen3/Eigen/Core>
 #include <libconfig.h++>
 
 #include <barrett/detail/ca_macro.h>

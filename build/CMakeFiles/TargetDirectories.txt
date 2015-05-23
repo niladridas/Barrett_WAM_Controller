@@ -2,6 +2,7 @@
 /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles/another_controller.dir
 /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles/constants.dir
 /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles/eigen_test.dir
+/home/nilxwam/workspace/gwam-simulator/build/CMakeFiles/higher_order_SMC.dir
 /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles/ncurses_example.dir
 /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles/nilu_optimal_sliding_mode.dir
 /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles/nilu_sliding_compensator_on.dir
@@ -9,6 +10,7 @@
 /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles/playTenisLog_nilu.dir
 /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles/samlibs.dir
 /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles/sliding_mode_disturbance_observer.dir
+/home/nilxwam/workspace/gwam-simulator/build/CMakeFiles/tactile_feedback_move.dir
 /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles/test_differentiator.dir
 /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles/test_optimal_sliding.dir
 /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles/test_tact_finger.dir

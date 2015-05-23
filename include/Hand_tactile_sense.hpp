@@ -14,7 +14,7 @@
 #include <barrett/detail/ca_macro.h>
 #include <barrett/systems/abstract/system.h>
 
-#include <Eigen/Core>
+#include <eigen3/Eigen/Core>
 #include <libconfig.h++>
 
 #include <barrett/detail/ca_macro.h>
@@ -38,10 +38,10 @@ public:
 	Output< Eigen::Matrix<double, 8, 3> > Finger_Tactile_4; // Object Geometry
 
 protected:
-	typename Output< Eigen::Matrix<double, 8, 3> >::Value* Finger_Tactile_1_OutputValue;
-	typename Output< Eigen::Matrix<double, 8, 3> >::Value* Finger_Tactile_2_OutputValue;
-	typename Output< Eigen::Matrix<double, 8, 3> >::Value* Finger_Tactile_3_OutputValue;
-	typename Output< Eigen::Matrix<double, 8, 3> >::Value* Finger_Tactile_4_OutputValue;
+	Output< Eigen::Matrix<double, 8, 3> >::Value* Finger_Tactile_1_OutputValue;
+	Output< Eigen::Matrix<double, 8, 3> >::Value* Finger_Tactile_2_OutputValue;
+	Output< Eigen::Matrix<double, 8, 3> >::Value* Finger_Tactile_3_OutputValue;
+	Output< Eigen::Matrix<double, 8, 3> >::Value* Finger_Tactile_4_OutputValue;
 
 public:
 	Hand_tactile_sense(Hand*& hand, std::vector<TactilePuck*>& tps) :
