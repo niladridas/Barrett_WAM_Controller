@@ -12,7 +12,6 @@
 #include <fstream>
 #include <iostream>
 
-
 #include <barrett/math/traits.h>
 #include <list>
 #include <barrett/units.h>
@@ -88,9 +87,10 @@ public:
 
 	DMP_first(const unsigned int dmps, const unsigned int bfs, float* a,
 			float* b, float runtime, float tolerance, float* y0, float* goal);
-	virtual ~DMP_first(){
+	virtual ~DMP_first() {
 		this->mandatoryCleanUp();
-	};
+	}
+	;
 
 public:
 	Output<jp_type> ref_jp; // To move the hand
@@ -106,9 +106,18 @@ protected:
 
 		StepDMP(0.002);
 
-		ref_jp_tmp[1] = Y[0];
-		ref_jv_tmp[1] = Dy[0];
-		ref_ja_tmp[1] = DDy[0];
+		ref_jp_tmp[0] = Y[0];
+		ref_jv_tmp[0] = Dy[0];
+		ref_ja_tmp[0] = DDy[0];
+		ref_jp_tmp[1] = Y[1];
+		ref_jv_tmp[1] = Dy[1];
+		ref_ja_tmp[1] = DDy[1];
+		ref_jp_tmp[2] = Y[2];
+		ref_jv_tmp[2] = Dy[2];
+		ref_ja_tmp[2] = DDy[2];
+		ref_jp_tmp[3] = Y[3];
+		ref_jv_tmp[3] = Dy[3];
+		ref_ja_tmp[3] = DDy[3];
 
 		this->ref_jp_OutputValue->setData(&ref_jp_tmp);
 		this->ref_jv_OutputValue->setData(&ref_jv_tmp);

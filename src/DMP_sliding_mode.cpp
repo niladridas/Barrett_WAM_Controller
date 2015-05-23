@@ -76,11 +76,11 @@ int wam_main(int argc, char** argv, ProductManager& pm,
 	bool status = true;
 
 
-	float a[1] = { 25.0 }; // PD values
-	float b[1] = { 25.0 / 4.0 }; // PD values
-	float y0[1] = { -1.41145 }; // Initial state [x0,y0,z0]
-	float goal[1] = { 0.960598 };
-	DMP_first<DOF> DMP_first(1, 500, a, b, 3.532, 0.05, y0, goal);
+	float a[4] = { 25.0, 25.0, 25.0, 25.0 }; // PD values
+	float b[4] = { 25.0 / 4.0, 25.0 / 4.0, 25.0 / 4.0, 25.0 / 4.0 }; // PD values
+	float y0[4] = { 0.339813, -1.00531, -2.05592, 1.21244 }; // Initial state [x0,y0,z0]
+	float goal[1] = { 0, 0.00260865, 0.000410464, 0.000326016 };
+	DMP_first<DOF> DMP_first(4, 1000, a, b, 9.134, 0.05, y0, goal);
 	Slidingmode_Controller<DOF> slide(status, lamda, coeff, delta);
 	Dynamics<DOF> nilu_dynamics;
 

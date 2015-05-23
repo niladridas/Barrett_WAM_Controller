@@ -195,7 +195,10 @@ DMP_first<DOF>::DMP_first(const unsigned int dmps, const unsigned int bfs,
 	CheckDMPGaolOffset();
 	LoadWeights();
 	ref_jp_tmp(0.0);
-	ref_jp_tmp[3] = M_PI;
+	ref_jp_tmp[0] = y0[0];
+	ref_jp_tmp[1] = y0[1];
+	ref_jp_tmp[2] = y0[2];
+	ref_jp_tmp[3] = y0[3];
 	ref_jv_tmp(0.0);
 	ref_ja_tmp(0.0);
 }
