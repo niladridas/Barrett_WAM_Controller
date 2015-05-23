@@ -34,7 +34,6 @@ add_programs(
 nilu_slidingmode
 nilu_sliding_compensator_on
 nilu_optimal_sliding_mode
-eigen_test
 ncurses_example
 test_optimal_sliding
 test_differentiator

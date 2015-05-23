@@ -135,19 +135,6 @@ constants/fast:
 .PHONY : constants/fast
 
 #=============================================================================
-# Target rules for targets named eigen_test
-
-# Build rule for target.
-eigen_test: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 eigen_test
-.PHONY : eigen_test
-
-# fast build rule for target.
-eigen_test/fast:
-	$(MAKE) -f CMakeFiles/eigen_test.dir/build.make CMakeFiles/eigen_test.dir/build
-.PHONY : eigen_test/fast
-
-#=============================================================================
 # Target rules for targets named higher_order_SMC
 
 # Build rule for target.
@@ -398,30 +385,6 @@ src/another_controller.s: src/another_controller.cpp.s
 src/another_controller.cpp.s:
 	$(MAKE) -f CMakeFiles/another_controller.dir/build.make CMakeFiles/another_controller.dir/src/another_controller.cpp.s
 .PHONY : src/another_controller.cpp.s
-
-src/eigen_test.o: src/eigen_test.cpp.o
-.PHONY : src/eigen_test.o
-
-# target to build an object file
-src/eigen_test.cpp.o:
-	$(MAKE) -f CMakeFiles/eigen_test.dir/build.make CMakeFiles/eigen_test.dir/src/eigen_test.cpp.o
-.PHONY : src/eigen_test.cpp.o
-
-src/eigen_test.i: src/eigen_test.cpp.i
-.PHONY : src/eigen_test.i
-
-# target to preprocess a source file
-src/eigen_test.cpp.i:
-	$(MAKE) -f CMakeFiles/eigen_test.dir/build.make CMakeFiles/eigen_test.dir/src/eigen_test.cpp.i
-.PHONY : src/eigen_test.cpp.i
-
-src/eigen_test.s: src/eigen_test.cpp.s
-.PHONY : src/eigen_test.s
-
-# target to generate assembly for a file
-src/eigen_test.cpp.s:
-	$(MAKE) -f CMakeFiles/eigen_test.dir/build.make CMakeFiles/eigen_test.dir/src/eigen_test.cpp.s
-.PHONY : src/eigen_test.cpp.s
 
 src/higher_order_SMC.o: src/higher_order_SMC.cpp.o
 .PHONY : src/higher_order_SMC.o
@@ -697,7 +660,6 @@ help:
 	@echo "... another_controller"
 	@echo "... constants"
 	@echo "... edit_cache"
-	@echo "... eigen_test"
 	@echo "... higher_order_SMC"
 	@echo "... ncurses_example"
 	@echo "... nilu_optimal_sliding_mode"
@@ -723,9 +685,6 @@ help:
 	@echo "... src/another_controller.o"
 	@echo "... src/another_controller.i"
 	@echo "... src/another_controller.s"
-	@echo "... src/eigen_test.o"
-	@echo "... src/eigen_test.i"
-	@echo "... src/eigen_test.s"
 	@echo "... src/higher_order_SMC.o"
 	@echo "... src/higher_order_SMC.i"
 	@echo "... src/higher_order_SMC.s"

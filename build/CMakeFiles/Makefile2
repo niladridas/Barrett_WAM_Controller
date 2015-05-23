@@ -157,42 +157,6 @@ clean: CMakeFiles/constants.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/eigen_test.dir
-
-# All Build rule for target.
-CMakeFiles/eigen_test.dir/all: CMakeFiles/constants.dir/all
-CMakeFiles/eigen_test.dir/all: CMakeFiles/samlibs.dir/all
-	$(MAKE) -f CMakeFiles/eigen_test.dir/build.make CMakeFiles/eigen_test.dir/depend
-	$(MAKE) -f CMakeFiles/eigen_test.dir/build.make CMakeFiles/eigen_test.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles  4
-	@echo "Built target eigen_test"
-.PHONY : CMakeFiles/eigen_test.dir/all
-
-# Include target in all.
-all: CMakeFiles/eigen_test.dir/all
-.PHONY : all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/eigen_test.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles 3
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/eigen_test.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles 0
-.PHONY : CMakeFiles/eigen_test.dir/rule
-
-# Convenience name for target.
-eigen_test: CMakeFiles/eigen_test.dir/rule
-.PHONY : eigen_test
-
-# clean rule for target.
-CMakeFiles/eigen_test.dir/clean:
-	$(MAKE) -f CMakeFiles/eigen_test.dir/build.make CMakeFiles/eigen_test.dir/clean
-.PHONY : CMakeFiles/eigen_test.dir/clean
-
-# clean rule for target.
-clean: CMakeFiles/eigen_test.dir/clean
-.PHONY : clean
-
-#=============================================================================
 # Target rules for target CMakeFiles/higher_order_SMC.dir
 
 # All Build rule for target.
@@ -200,7 +164,7 @@ CMakeFiles/higher_order_SMC.dir/all: CMakeFiles/constants.dir/all
 CMakeFiles/higher_order_SMC.dir/all: CMakeFiles/samlibs.dir/all
 	$(MAKE) -f CMakeFiles/higher_order_SMC.dir/build.make CMakeFiles/higher_order_SMC.dir/depend
 	$(MAKE) -f CMakeFiles/higher_order_SMC.dir/build.make CMakeFiles/higher_order_SMC.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles  5
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles  4
 	@echo "Built target higher_order_SMC"
 .PHONY : CMakeFiles/higher_order_SMC.dir/all
 
@@ -236,7 +200,7 @@ CMakeFiles/ncurses_example.dir/all: CMakeFiles/constants.dir/all
 CMakeFiles/ncurses_example.dir/all: CMakeFiles/samlibs.dir/all
 	$(MAKE) -f CMakeFiles/ncurses_example.dir/build.make CMakeFiles/ncurses_example.dir/depend
 	$(MAKE) -f CMakeFiles/ncurses_example.dir/build.make CMakeFiles/ncurses_example.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles  6
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles  5
 	@echo "Built target ncurses_example"
 .PHONY : CMakeFiles/ncurses_example.dir/all
 
@@ -272,7 +236,7 @@ CMakeFiles/nilu_optimal_sliding_mode.dir/all: CMakeFiles/constants.dir/all
 CMakeFiles/nilu_optimal_sliding_mode.dir/all: CMakeFiles/samlibs.dir/all
 	$(MAKE) -f CMakeFiles/nilu_optimal_sliding_mode.dir/build.make CMakeFiles/nilu_optimal_sliding_mode.dir/depend
 	$(MAKE) -f CMakeFiles/nilu_optimal_sliding_mode.dir/build.make CMakeFiles/nilu_optimal_sliding_mode.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles  7
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles  6
 	@echo "Built target nilu_optimal_sliding_mode"
 .PHONY : CMakeFiles/nilu_optimal_sliding_mode.dir/all
 
@@ -308,7 +272,7 @@ CMakeFiles/nilu_sliding_compensator_on.dir/all: CMakeFiles/constants.dir/all
 CMakeFiles/nilu_sliding_compensator_on.dir/all: CMakeFiles/samlibs.dir/all
 	$(MAKE) -f CMakeFiles/nilu_sliding_compensator_on.dir/build.make CMakeFiles/nilu_sliding_compensator_on.dir/depend
 	$(MAKE) -f CMakeFiles/nilu_sliding_compensator_on.dir/build.make CMakeFiles/nilu_sliding_compensator_on.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles  8
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles  7
 	@echo "Built target nilu_sliding_compensator_on"
 .PHONY : CMakeFiles/nilu_sliding_compensator_on.dir/all
 
@@ -344,7 +308,7 @@ CMakeFiles/nilu_slidingmode.dir/all: CMakeFiles/constants.dir/all
 CMakeFiles/nilu_slidingmode.dir/all: CMakeFiles/samlibs.dir/all
 	$(MAKE) -f CMakeFiles/nilu_slidingmode.dir/build.make CMakeFiles/nilu_slidingmode.dir/depend
 	$(MAKE) -f CMakeFiles/nilu_slidingmode.dir/build.make CMakeFiles/nilu_slidingmode.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles  9
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles  8
 	@echo "Built target nilu_slidingmode"
 .PHONY : CMakeFiles/nilu_slidingmode.dir/all
 
@@ -380,7 +344,7 @@ CMakeFiles/playTenisLog_nilu.dir/all: CMakeFiles/constants.dir/all
 CMakeFiles/playTenisLog_nilu.dir/all: CMakeFiles/samlibs.dir/all
 	$(MAKE) -f CMakeFiles/playTenisLog_nilu.dir/build.make CMakeFiles/playTenisLog_nilu.dir/depend
 	$(MAKE) -f CMakeFiles/playTenisLog_nilu.dir/build.make CMakeFiles/playTenisLog_nilu.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles  10
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles  9
 	@echo "Built target playTenisLog_nilu"
 .PHONY : CMakeFiles/playTenisLog_nilu.dir/all
 
@@ -415,7 +379,7 @@ clean: CMakeFiles/playTenisLog_nilu.dir/clean
 CMakeFiles/samlibs.dir/all:
 	$(MAKE) -f CMakeFiles/samlibs.dir/build.make CMakeFiles/samlibs.dir/depend
 	$(MAKE) -f CMakeFiles/samlibs.dir/build.make CMakeFiles/samlibs.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles  11
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles  10
 	@echo "Built target samlibs"
 .PHONY : CMakeFiles/samlibs.dir/all
 
@@ -451,7 +415,7 @@ CMakeFiles/sliding_mode_disturbance_observer.dir/all: CMakeFiles/constants.dir/a
 CMakeFiles/sliding_mode_disturbance_observer.dir/all: CMakeFiles/samlibs.dir/all
 	$(MAKE) -f CMakeFiles/sliding_mode_disturbance_observer.dir/build.make CMakeFiles/sliding_mode_disturbance_observer.dir/depend
 	$(MAKE) -f CMakeFiles/sliding_mode_disturbance_observer.dir/build.make CMakeFiles/sliding_mode_disturbance_observer.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles  12
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles  11
 	@echo "Built target sliding_mode_disturbance_observer"
 .PHONY : CMakeFiles/sliding_mode_disturbance_observer.dir/all
 
@@ -487,7 +451,7 @@ CMakeFiles/tactile_feedback_move.dir/all: CMakeFiles/constants.dir/all
 CMakeFiles/tactile_feedback_move.dir/all: CMakeFiles/samlibs.dir/all
 	$(MAKE) -f CMakeFiles/tactile_feedback_move.dir/build.make CMakeFiles/tactile_feedback_move.dir/depend
 	$(MAKE) -f CMakeFiles/tactile_feedback_move.dir/build.make CMakeFiles/tactile_feedback_move.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles  13
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles  12
 	@echo "Built target tactile_feedback_move"
 .PHONY : CMakeFiles/tactile_feedback_move.dir/all
 
@@ -523,7 +487,7 @@ CMakeFiles/test_differentiator.dir/all: CMakeFiles/constants.dir/all
 CMakeFiles/test_differentiator.dir/all: CMakeFiles/samlibs.dir/all
 	$(MAKE) -f CMakeFiles/test_differentiator.dir/build.make CMakeFiles/test_differentiator.dir/depend
 	$(MAKE) -f CMakeFiles/test_differentiator.dir/build.make CMakeFiles/test_differentiator.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles  14
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles  13
 	@echo "Built target test_differentiator"
 .PHONY : CMakeFiles/test_differentiator.dir/all
 
@@ -559,7 +523,7 @@ CMakeFiles/test_optimal_sliding.dir/all: CMakeFiles/constants.dir/all
 CMakeFiles/test_optimal_sliding.dir/all: CMakeFiles/samlibs.dir/all
 	$(MAKE) -f CMakeFiles/test_optimal_sliding.dir/build.make CMakeFiles/test_optimal_sliding.dir/depend
 	$(MAKE) -f CMakeFiles/test_optimal_sliding.dir/build.make CMakeFiles/test_optimal_sliding.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles  15
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles  14
 	@echo "Built target test_optimal_sliding"
 .PHONY : CMakeFiles/test_optimal_sliding.dir/all
 
@@ -595,7 +559,7 @@ CMakeFiles/test_tact_finger.dir/all: CMakeFiles/constants.dir/all
 CMakeFiles/test_tact_finger.dir/all: CMakeFiles/samlibs.dir/all
 	$(MAKE) -f CMakeFiles/test_tact_finger.dir/build.make CMakeFiles/test_tact_finger.dir/depend
 	$(MAKE) -f CMakeFiles/test_tact_finger.dir/build.make CMakeFiles/test_tact_finger.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles  16
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nilxwam/workspace/gwam-simulator/build/CMakeFiles  15
 	@echo "Built target test_tact_finger"
 .PHONY : CMakeFiles/test_tact_finger.dir/all
 

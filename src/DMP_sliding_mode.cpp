@@ -22,14 +22,14 @@ using detail::waitForEnter;
 
 #include <Dynamics.hpp>
 #include <Sliding_mode_4dof.hpp>
-#include <DMP_first.h>
+
 #include <dummy_system.hpp>
 #include <GMM.hpp>
 #include <differentiator.hpp>
 #include <second_differentiator.hpp>
 #include <torque_observer.hpp>
 #include <dummy_system.hpp>
-
+#include <DMP_first.h>
 template<size_t DOF>
 int wam_main(int argc, char** argv, ProductManager& pm,
 		systems::Wam<DOF>& wam) {
@@ -37,8 +37,25 @@ int wam_main(int argc, char** argv, ProductManager& pm,
 
 	printf("Error 1 \n");
 
-	typedef boost::tuple<double, jp_type, jv_type,ja_type, jp_type, jv_type, jt_type> tuple_type;
-	typedef systems::TupleGrouper<double, jp_type, jv_type,ja_type, jp_type, jv_type, jt_type> tg_type;
+	Eigen::MatrixXd Lamda;
+
+	Eigen::MatrixXd Coeff;
+	Eigen::VectorXd Delta;
+	Eigen::VectorXd Amp;
+	Eigen::VectorXd Freq;
+	Eigen::VectorXd StartPos;
+
+	Sam::initEigenMat<double>(Lamda, Sam::readFile<double>("lamda.txt"));
+	Sam::initEigenMat<double>(Coeff, Sam::readFile<double>("coeff.txt"));
+	Sam::initEigenVec<double>(Delta, Sam::readFile<double>("delta.txt"));
+	Sam::initEigenVec<double>(Amp, Sam::readFile<double>("amp.txt"));
+	Sam::initEigenVec<double>(Freq, Sam::readFile<double>("freq.txt"));
+	Sam::initEigenVec<double>(StartPos, Sam::readFile<double>("start.txt"));
+
+	typedef boost::tuple<double, jp_type, jv_type, ja_type, jp_type, jv_type,
+			jt_type> tuple_type;
+	typedef systems::TupleGrouper<double, jp_type, jv_type, ja_type, jp_type,
+			jv_type, jt_type> tg_type;
 	tg_type tg;
 	char tmpFile[] = "btXXXXXX";
 	if (mkstemp(tmpFile) == -1) {
@@ -47,32 +64,23 @@ int wam_main(int argc, char** argv, ProductManager& pm,
 	}
 	const double TRANSITION_DURATION = 0.5;
 	double amplitude1, omega1;
-	Eigen::Matrix4d tmp_lamda;
-	tmp_lamda << 20, 0, 0, 0, 0, 20, 0, 0, 0, 0, 20, 0, 0, 0, 0, 20;
-	const Eigen::Matrix4d lamda = tmp_lamda;
-
-	double COEFF;
-	std::cout << "Enter Coeff: " << std::endl;
-	std::cin >> COEFF;
-	const double coeff = COEFF;
-	double DELTA;
-	std::cout << "Enter delta: " << std::endl;
-	std::cin >> DELTA;
-	const double delta = DELTA;
+	const Eigen::Matrix4d lamda = Lamda;
+	const Eigen::Matrix4d coeff = Coeff;
+	const Eigen::Vector4d delta = Delta;
 	jp_type startpos(0.0);
-	startpos[1] = -1.41145;
-	startpos[3] = M_PI;
+	startpos[0] = StartPos[0];
+	startpos[1] = StartPos[1];
+	startpos[2] = StartPos[2];
+	startpos[3] = StartPos[3];
 
 	bool status = true;
 
-	Eigen::Matrix4d lambda;
-	lambda << 200, 0, 0, 0, 0, 200, 0, 0, 0, 0, 200, 0, 0, 0, 0, 200;
 
-	float a[1] = { 30.0 }; // PD values
-	float b[1] = { 30.0 / 4.0 }; // PD values
-	float y0[1] = {-1.41145}; // Initial state [x0,y0,z0]
-	float goal[1] = {0.960598};
-	DMP_first<DOF> DMP_first(1, 500, a, b, 4.16, 0.05, y0,goal);
+	float a[1] = { 25.0 }; // PD values
+	float b[1] = { 25.0 / 4.0 }; // PD values
+	float y0[1] = { -1.41145 }; // Initial state [x0,y0,z0]
+	float goal[1] = { 0.960598 };
+	DMP_first<DOF> DMP_first(1, 500, a, b, 3.532, 0.05, y0, goal);
 	Slidingmode_Controller<DOF> slide(status, lamda, coeff, delta);
 	Dynamics<DOF> nilu_dynamics;
 
@@ -101,8 +109,7 @@ int wam_main(int argc, char** argv, ProductManager& pm,
 	systems::connect(DMP_first.ref_jv, slide.referencejvInput);
 	systems::connect(DMP_first.ref_ja, slide.referencejaInput);
 
-
-//	wam.trackReferenceSignal(slide.controlOutput);
+	wam.trackReferenceSignal(slide.controlOutput);
 
 	systems::connect(time.output, tg.template getInput<0>());
 	systems::connect(DMP_first.ref_jp, tg.template getInput<1>());
