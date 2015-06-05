@@ -79,8 +79,8 @@ int wam_main(int argc, char** argv, ProductManager& pm,
 	float a[4] = { 25.0, 25.0, 25.0, 25.0 }; // PD values
 	float b[4] = { 25.0 / 4.0, 25.0 / 4.0, 25.0 / 4.0, 25.0 / 4.0 }; // PD values
 	float y0[4] = { 0.339813, -1.00531, -2.05592, 1.21244 }; // Initial state [x0,y0,z0]
-	float goal[1] = { 0, 0.00260865, 0.000410464, 0.000326016 };
-	DMP_first<DOF> DMP_first(4, 1000, a, b, 9.134, 0.05, y0, goal);
+	float goal[4] = { 0, 0.00260865, 0.000410464, 0.000326016 };
+	DMP_first<DOF> DMP_first(4, 500, a, b, 9.134, 0.05, y0, goal);
 	Slidingmode_Controller<DOF> slide(status, lamda, coeff, delta);
 	Dynamics<DOF> nilu_dynamics;
 
@@ -130,6 +130,7 @@ int wam_main(int argc, char** argv, ProductManager& pm,
 	lr.exportCSV(argv[1]);
 	printf("Output written to %s.\n", argv[1]);
 	std::remove(tmpFile);
+	lr.close();
 	return 0;
 }
 

@@ -96,6 +96,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named DMP_PID
+
+# Build rule for target.
+DMP_PID: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 DMP_PID
+.PHONY : DMP_PID
+
+# fast build rule for target.
+DMP_PID/fast:
+	$(MAKE) -f CMakeFiles/DMP_PID.dir/build.make CMakeFiles/DMP_PID.dir/build
+.PHONY : DMP_PID/fast
+
+#=============================================================================
 # Target rules for targets named DMP_sliding_mode
 
 # Build rule for target.
@@ -337,6 +350,30 @@ samLibs/samlibs.s: samLibs/samlibs.cpp.s
 samLibs/samlibs.cpp.s:
 	$(MAKE) -f CMakeFiles/samlibs.dir/build.make CMakeFiles/samlibs.dir/samLibs/samlibs.cpp.s
 .PHONY : samLibs/samlibs.cpp.s
+
+src/DMP_PID.o: src/DMP_PID.cpp.o
+.PHONY : src/DMP_PID.o
+
+# target to build an object file
+src/DMP_PID.cpp.o:
+	$(MAKE) -f CMakeFiles/DMP_PID.dir/build.make CMakeFiles/DMP_PID.dir/src/DMP_PID.cpp.o
+.PHONY : src/DMP_PID.cpp.o
+
+src/DMP_PID.i: src/DMP_PID.cpp.i
+.PHONY : src/DMP_PID.i
+
+# target to preprocess a source file
+src/DMP_PID.cpp.i:
+	$(MAKE) -f CMakeFiles/DMP_PID.dir/build.make CMakeFiles/DMP_PID.dir/src/DMP_PID.cpp.i
+.PHONY : src/DMP_PID.cpp.i
+
+src/DMP_PID.s: src/DMP_PID.cpp.s
+.PHONY : src/DMP_PID.s
+
+# target to generate assembly for a file
+src/DMP_PID.cpp.s:
+	$(MAKE) -f CMakeFiles/DMP_PID.dir/build.make CMakeFiles/DMP_PID.dir/src/DMP_PID.cpp.s
+.PHONY : src/DMP_PID.cpp.s
 
 src/DMP_sliding_mode.o: src/DMP_sliding_mode.cpp.o
 .PHONY : src/DMP_sliding_mode.o
@@ -656,6 +693,7 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
+	@echo "... DMP_PID"
 	@echo "... DMP_sliding_mode"
 	@echo "... another_controller"
 	@echo "... constants"
@@ -679,6 +717,9 @@ help:
 	@echo "... samLibs/samlibs.o"
 	@echo "... samLibs/samlibs.i"
 	@echo "... samLibs/samlibs.s"
+	@echo "... src/DMP_PID.o"
+	@echo "... src/DMP_PID.i"
+	@echo "... src/DMP_PID.s"
 	@echo "... src/DMP_sliding_mode.o"
 	@echo "... src/DMP_sliding_mode.i"
 	@echo "... src/DMP_sliding_mode.s"

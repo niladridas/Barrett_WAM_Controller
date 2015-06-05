@@ -17,15 +17,10 @@ CMakeFiles/DMP_sliding_mode.dir/src/DMP_sliding_mode.cpp.o
  ../include/torque_observer.hpp
  /home/nilxwam/workspace/gwam-simulator/src/DMP_sliding_mode.cpp
  /usr/include/eigen2/Eigen/Array
- /usr/include/eigen2/Eigen/Cholesky
  /usr/include/eigen2/Eigen/Core
- /usr/include/eigen2/Eigen/Dense
  /usr/include/eigen2/Eigen/Geometry
  /usr/include/eigen2/Eigen/LU
- /usr/include/eigen2/Eigen/LeastSquares
  /usr/include/eigen2/Eigen/NewStdVector
- /usr/include/eigen2/Eigen/QR
- /usr/include/eigen2/Eigen/SVD
  /usr/include/eigen2/Eigen/StdVector
  /usr/include/eigen2/Eigen/src/Array/BooleanRedux.h
  /usr/include/eigen2/Eigen/src/Array/CwiseOperators.h
@@ -34,8 +29,6 @@ CMakeFiles/DMP_sliding_mode.dir/src/DMP_sliding_mode.cpp.o
  /usr/include/eigen2/Eigen/src/Array/PartialRedux.h
  /usr/include/eigen2/Eigen/src/Array/Random.h
  /usr/include/eigen2/Eigen/src/Array/Select.h
- /usr/include/eigen2/Eigen/src/Cholesky/LDLT.h
- /usr/include/eigen2/Eigen/src/Cholesky/LLT.h
  /usr/include/eigen2/Eigen/src/Core/CacheFriendlyProduct.h
  /usr/include/eigen2/Eigen/src/Core/Coeffs.h
  /usr/include/eigen2/Eigen/src/Core/Cwise.h
@@ -59,13 +52,6 @@ CMakeFiles/DMP_sliding_mode.dir/src/DMP_sliding_mode.cpp.o
  /usr/include/eigen2/Eigen/src/Geometry/Transform.h
  /usr/include/eigen2/Eigen/src/Geometry/Translation.h
  /usr/include/eigen2/Eigen/src/LU/LU.h
- /usr/include/eigen2/Eigen/src/LeastSquares/LeastSquares.h
- /usr/include/eigen2/Eigen/src/QR/EigenSolver.h
- /usr/include/eigen2/Eigen/src/QR/HessenbergDecomposition.h
- /usr/include/eigen2/Eigen/src/QR/QR.h
- /usr/include/eigen2/Eigen/src/QR/SelfAdjointEigenSolver.h
- /usr/include/eigen2/Eigen/src/QR/Tridiagonalization.h
- /usr/include/eigen2/Eigen/src/SVD/SVD.h
  /usr/include/eigen3/Eigen/Core
  /usr/include/eigen3/Eigen/Eigen2Support
  /usr/include/eigen3/Eigen/LU

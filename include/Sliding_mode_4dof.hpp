@@ -140,11 +140,11 @@ protected:
 					+ M_inside
 							* (tmp_aref - Lamda * (tmp_v - tmp_vref)
 									- Coeff * tmp_control);
-			for(i=0;i<4;i++)
-			{
-			if(jt_out_tmp[i]>7)
-				jt_out_tmp[i]=7;
-			}
+//			for(i=0;i<4;i++)
+//			{
+//			if(jt_out_tmp[i]>7)
+//				jt_out_tmp[i]=7;
+//			}
 		} else
 			jt_out_tmp = Eigen::Vector4d::Zero();
 

@@ -188,7 +188,7 @@ class DMPCONTROL: public System {
 			} 
 		}
 	
-	DMPCONTROL(const std::string& sysName = " DMPCONTROL ") :
+	DMPCONTROL(const std::string& sysName = "DMPCONTROL") :
 	System(sysName), referencejpInput(this), referencejvInput(this), referencejaInput(this), feedbackjpInput(this), feedbackjvInput(this), M(this), C(this), NextState(this, & NextStateOutputValue)
 	{
 
@@ -214,7 +214,7 @@ class DMPCONTROL: public System {
 		Dy[1] = CurrentStateVel[1];
 		Dy[2] = CurrentStateVel[2]; 
 	
-		StepDMP(0.0025);
+		StepDMP(0.002);
 	
 		cp_out[0] = Y[0];
 		cp_out[1] = Y[1];

@@ -74,7 +74,7 @@ public:
 	void GenDMPGaussCenters(float runtime); // ONE  TIME
 
 	// Calculate Radial Basis Function value
-	void GenDMPActFunc();
+	float GenDMPActFunc();
 	// Run DMP system one time step
 	bool StepDMP(float dt);
 
@@ -105,7 +105,7 @@ protected:
 	virtual void operate() {
 
 		StepDMP(0.002);
-
+		CheckDMPGaol();
 		ref_jp_tmp[0] = Y[0];
 		ref_jv_tmp[0] = Dy[0];
 		ref_ja_tmp[0] = DDy[0];

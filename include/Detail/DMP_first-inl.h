@@ -67,9 +67,14 @@ void DMP_first<DOF>::GenDMPGaussCenters(float runtime) {
 
 // Calculate Radial Basis Function value
 template<size_t DOF>
-void DMP_first<DOF>::GenDMPActFunc() {
+float DMP_first<DOF>::GenDMPActFunc() {
+	float sum = 0.0;
 	for (unsigned int i = 0; i < Bfs; i++)
+	{
 		Psi[i] = exp(-Variance[i] * pow((CSx - Centers[i]), 2)); // Calculate Radial Basis Function value
+		sum = sum + Psi[i];
+	}
+	return sum;
 }
 
 template<size_t DOF>
@@ -119,14 +124,15 @@ void DMP_first<DOF>::InitDmpSys(const unsigned int dmps,const unsigned int bfs, 
 template<size_t DOF>
 bool DMP_first<DOF>::StepDMP(float dt) {
 	CSx = CSx - CSax * CSx * dt; // Run Canonical system one time step
-	GenDMPActFunc(); // Calculate Radial Basis Function value
-	float sum = 0.0;
+	float sum = GenDMPActFunc(); // Calculate Radial Basis Function value
+	//float sum = 0.0;
 	float w_phi = 0.0;
 	for (unsigned int i = 0; i < Dmps; i++) {
+		w_phi = 0.0;
 		// force = sumation(weight*RBF value)/sumation(RBF value)
 		for (unsigned int j = 0; j < Bfs; j++) {
 			w_phi = w_phi + Weights[i][j] * Psi[j];
-			sum = sum + Psi[j];
+			//sum = sum + Psi[j];
 		}
 
 		force = (w_phi * CSx * (Goal[i] - Y0[i])) / sum;
@@ -169,7 +175,8 @@ void DMP_first<DOF>::CheckDMPGaol() //
 		}
 
 	}
-	//printf(" = %d \n", IsGoal);
+	if(IsGoal)
+		printf(" = %d \n", IsGoal);
 }
 
 // Reset DMP

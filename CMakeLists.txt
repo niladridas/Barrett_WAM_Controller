@@ -44,6 +44,7 @@ DMP_sliding_mode
 sliding_mode_disturbance_observer
 tactile_feedback_move
 higher_order_SMC
+DMP_PID
 )
 
 target_link_libraries(ncurses_example ${CURSES_LIBRARIES})
